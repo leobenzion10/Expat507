@@ -1,0 +1,270 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { Send, ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
+import GoldDivider from "@/components/ui/GoldDivider";
+
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
+
+const SUGGESTED_QUESTIONS = [
+  "¿Cuál es la mejor visa para alguien que quiere jubilarse en Panamá?",
+  "¿Cómo funciona el sistema tributario para no residentes?",
+  "¿Qué documentos necesito para abrir una empresa en Panamá?",
+  "¿Cuáles son los mejores barrios para vivir en Ciudad de Panamá?",
+  "¿Qué ventajas tiene invertir en bienes raíces en Panamá?",
+  "¿Cómo abrir una cuenta bancaria siendo extranjero?",
+];
+
+export default function AsistentePage() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  async function sendMessage(text?: string) {
+    const content = text || input.trim();
+    if (!content || loading) return;
+
+    const userMsg: Message = { role: "user", content };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+
+    const assistantMsg: Message = { role: "assistant", content: "" };
+    setMessages([...newMessages, assistantMsg]);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+
+      if (!res.ok) throw new Error("Error");
+      if (!res.body) throw new Error("No stream");
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let full = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split("\n");
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const data = line.slice(6);
+            if (data === "[DONE]") break;
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.type === "text") {
+                full += parsed.text;
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = { role: "assistant", content: full };
+                  return updated;
+                });
+              }
+            } catch {
+              // skip
+            }
+          }
+        }
+      }
+    } catch {
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          role: "assistant",
+          content:
+            "Lo siento, hubo un error al procesar tu pregunta. Por favor intenta de nuevo.",
+        };
+        return updated;
+      });
+    } finally {
+      setLoading(false);
+      inputRef.current?.focus();
+    }
+  }
+
+  const lastIsAssistant =
+    messages.length > 0 && messages[messages.length - 1].role === "assistant";
+  const showCTA = lastIsAssistant && !loading && messages.length >= 2;
+
+  return (
+    <div className="pt-20 min-h-screen flex flex-col">
+      {/* Header */}
+      <div className="gradient-navy pt-10 pb-12 px-4 text-center">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="h-px w-10 bg-[#C9A84C]" />
+          <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+            Inteligencia Artificial
+          </span>
+          <div className="h-px w-10 bg-[#C9A84C]" />
+        </div>
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <div className="w-12 h-12 bg-[#C9A84C]/20 rounded-2xl flex items-center justify-center">
+            <Sparkles size={22} className="text-[#C9A84C]" />
+          </div>
+          <h1
+            className="text-3xl sm:text-4xl font-bold text-white"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Asistente Expat507
+          </h1>
+        </div>
+        <p className="text-white/60 max-w-lg mx-auto">
+          Pregúntame sobre migración, bienes raíces, banca, legal y vida en
+          Panamá. Respondo con información actualizada y contextualizada.
+        </p>
+        <p className="text-white/30 text-xs mt-2">
+          Información general · No es asesoría legal ni financiera
+        </p>
+      </div>
+
+      <GoldDivider />
+
+      {/* Chat area */}
+      <div className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8">
+        {messages.length === 0 ? (
+          /* Welcome state */
+          <div>
+            <div className="text-center mb-8">
+              <p className="text-[#6B7280] mb-6">
+                Hola 👋 Soy el asistente de Expat507. ¿Sobre qué tema quieres
+                aprender hoy?
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {SUGGESTED_QUESTIONS.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => sendMessage(q)}
+                  className="text-left bg-white border border-gray-100 hover:border-[#C9A84C] hover:shadow-md rounded-xl px-5 py-4 text-sm text-[#0A1628] transition-all duration-200 group"
+                >
+                  <span className="text-[#C9A84C] mr-2 group-hover:mr-3 transition-all">→</span>
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* Messages */
+          <div className="space-y-6">
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              >
+                {msg.role === "assistant" && (
+                  <div className="w-8 h-8 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] text-xs font-bold mr-3 flex-shrink-0 mt-1">
+                    IA
+                  </div>
+                )}
+                <div
+                  className={`max-w-[80%] rounded-2xl px-5 py-4 text-sm leading-relaxed ${
+                    msg.role === "user"
+                      ? "bg-[#0A1628] text-white rounded-br-sm"
+                      : "bg-white border border-gray-100 text-[#374151] rounded-bl-sm shadow-sm"
+                  }`}
+                >
+                  {msg.content ? (
+                    <div className="whitespace-pre-wrap">{msg.content}</div>
+                  ) : (
+                    <div className="flex items-center gap-1.5 py-1">
+                      <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {/* CTA after response */}
+            {showCTA && (
+              <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-2xl p-6 text-center">
+                <p className="text-[#0A1628] font-semibold mb-2">
+                  ¿Listo para dar el siguiente paso?
+                </p>
+                <p className="text-[#6B7280] text-sm mb-4">
+                  Para tu situación específica, una consulta personalizada es la
+                  mejor manera de obtener orientación concreta.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link
+                    href="/consulta"
+                    className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3 rounded-xl text-sm transition-colors"
+                  >
+                    Agenda Consulta Gratuita
+                    <ArrowRight size={16} />
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setMessages([]);
+                      setInput("");
+                    }}
+                    className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:bg-[#F4F6F9] text-[#0A1628] font-medium px-6 py-3 rounded-xl text-sm transition-colors"
+                  >
+                    Nueva pregunta
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div ref={bottomRef} />
+          </div>
+        )}
+      </div>
+
+      {/* Input bar */}
+      <div className="sticky bottom-0 bg-white/95 backdrop-blur-md border-t border-gray-100 py-4 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex gap-3 items-end">
+            <div className="flex-1 bg-[#F4F6F9] rounded-2xl border border-gray-200 focus-within:border-[#C9A84C] focus-within:ring-2 focus-within:ring-[#C9A84C]/20 transition-all">
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                  }
+                }}
+                placeholder="Escribe tu pregunta sobre Panamá..."
+                className="w-full bg-transparent px-5 py-4 text-sm text-[#0A1628] placeholder-gray-400 outline-none"
+                disabled={loading}
+              />
+            </div>
+            <button
+              onClick={() => sendMessage()}
+              disabled={!input.trim() || loading}
+              className="w-12 h-12 bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-40 disabled:cursor-not-allowed text-[#0A1628] rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
+            >
+              <Send size={18} />
+            </button>
+          </div>
+          <p className="text-center text-[11px] text-gray-400 mt-2">
+            Asistente IA informativo · No reemplaza asesoría profesional ·{" "}
+            <Link href="/consulta" className="text-[#C9A84C] hover:underline">
+              Consulta gratuita disponible
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

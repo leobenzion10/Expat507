@@ -1,0 +1,24 @@
+import { MetadataRoute } from "next";
+
+const BASE_URL = "https://expat507.com";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const staticPages = [
+    { url: BASE_URL, priority: 1.0, changeFrequency: "weekly" as const },
+    { url: `${BASE_URL}/guias`, priority: 0.9, changeFrequency: "weekly" as const },
+    { url: `${BASE_URL}/consulta`, priority: 0.9, changeFrequency: "monthly" as const },
+    { url: `${BASE_URL}/asistente`, priority: 0.8, changeFrequency: "monthly" as const },
+    { url: `${BASE_URL}/newsletter`, priority: 0.7, changeFrequency: "monthly" as const },
+    { url: `${BASE_URL}/sobre-nosotros`, priority: 0.6, changeFrequency: "monthly" as const },
+    { url: `${BASE_URL}/contacto`, priority: 0.6, changeFrequency: "monthly" as const },
+    { url: `${BASE_URL}/privacidad`, priority: 0.3, changeFrequency: "yearly" as const },
+    { url: `${BASE_URL}/terminos`, priority: 0.3, changeFrequency: "yearly" as const },
+  ];
+
+  return staticPages.map((page) => ({
+    url: page.url,
+    lastModified: new Date(),
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
+  }));
+}
