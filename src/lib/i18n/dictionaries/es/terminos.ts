@@ -3,7 +3,7 @@ const terminos = {
   metaDescription: "Términos y condiciones de uso de la plataforma Expat507.",
   title: "Términos de Uso",
   lastUpdated: "Última actualización: {date}",
-  lastUpdatedDate: "16 de junio de 2025",
+  lastUpdatedDate: "16 de junio de 2026",
   sections: [
     {
       heading: "1. Aceptación de los términos",

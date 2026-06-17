@@ -7,7 +7,7 @@ interface ArticleText {
 
 const ARTICLES_ES: Record<string, ArticleText> = {
   "visa-jubilados-pensionado-guia-completa": {
-    title: "Visa de Jubilados Pensionado: La guía completa 2024",
+    title: "Visa de Jubilados Pensionado: La guía completa",
     excerpt: "Todo lo que necesitas saber sobre la visa más atractiva de Panamá para extranjeros que reciben ingresos pasivos regulares.",
     author: "Equipo Expat507",
     tags: ["visa", "jubilados", "residencia"],
@@ -20,7 +20,7 @@ const ARTICLES_ES: Record<string, ArticleText> = {
   },
   "abrir-cuenta-bancaria-panama-extranjero": {
     title: "Cómo abrir una cuenta bancaria en Panamá siendo extranjero",
-    excerpt: "Proceso paso a paso, documentos requeridos y los mejores bancos para no residentes en 2024.",
+    excerpt: "Proceso paso a paso, documentos requeridos y los mejores bancos para no residentes.",
     author: "Equipo Expat507",
     tags: ["banca", "cuenta bancaria", "requisitos"],
   },
@@ -60,8 +60,8 @@ const ARTICLES_ES: Record<string, ArticleText> = {
     author: "Equipo Expat507",
     tags: ["patrimonio", "planificación"],
   },
-  "costo-de-vida-ciudad-de-panama-2024": {
-    title: "Costo de vida en Ciudad de Panamá: datos reales 2024",
+  "costo-de-vida-ciudad-de-panama": {
+    title: "Costo de vida en Ciudad de Panamá: datos reales",
     excerpt: "Alquiler, comida, transporte, educación y salud: los números reales de vivir bien en Panamá.",
     author: "Equipo Expat507",
     tags: ["expat life", "costo de vida"],

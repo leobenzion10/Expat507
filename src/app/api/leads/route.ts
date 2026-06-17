@@ -65,14 +65,13 @@ export async function POST(req: NextRequest) {
             </div>
             <div style="padding: 32px 24px;">
               <h2 style="color: #0A1628; margin: 0 0 16px;">Hola ${safe.name},</h2>
-              <p style="color: #374151; line-height: 1.6;">Recibimos tu consulta correctamente. En menos de 24 horas hábiles nos pondremos en contacto contigo para orientarte.</p>
+              <p style="color: #374151; line-height: 1.6;">Recibimos tu consulta correctamente. Nuestro equipo la revisará y te contactará directamente por WhatsApp en menos de 24 horas hábiles.</p>
               <div style="background: #F4F6F9; border-radius: 12px; padding: 20px; margin: 24px 0;">
                 <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0A1628;">Tu objetivo:</strong> ${safe.objective}</p>
                 <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0A1628;">Rango de inversión:</strong> ${safe.budget}</p>
                 <p style="color: #6B7280; font-size: 13px; margin: 0;"><strong style="color: #0A1628;">Urgencia:</strong> ${safe.urgency}</p>
               </div>
               <p style="color: #374151; line-height: 1.6;">Mientras tanto, puedes explorar nuestras guías o usar el asistente IA en <a href="https://expat507.com" style="color: #C9A84C;">expat507.com</a>.</p>
-              <a href="${process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/expat507"}" style="display: inline-block; background: #C9A84C; color: #0A1628; font-weight: bold; padding: 14px 28px; border-radius: 10px; text-decoration: none; margin-top: 8px;">Agenda tu llamada ahora</a>
             </div>
             <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
               <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · hola@expat507.com · Panamá</p>

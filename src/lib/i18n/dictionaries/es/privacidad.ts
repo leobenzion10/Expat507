@@ -3,7 +3,7 @@ const privacidad = {
   metaDescription: "Política de privacidad y tratamiento de datos de Expat507.",
   title: "Política de Privacidad",
   lastUpdated: "Última actualización: {date}",
-  lastUpdatedDate: "16 de junio de 2025",
+  lastUpdatedDate: "16 de junio de 2026",
   sections: [
     {
       heading: "1. Información que recopilamos",

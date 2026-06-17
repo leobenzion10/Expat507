@@ -72,25 +72,6 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* Social proof */}
-          <div className="flex items-center gap-6 mt-12">
-            <div className="flex -space-x-2">
-              {["🇺🇸", "🇨🇦", "🇩🇪", "🇬🇧", "🇪🇸"].map((flag, i) => (
-                <div
-                  key={i}
-                  className="w-9 h-9 rounded-full bg-[#122040] border-2 border-[#1a2d52] flex items-center justify-center text-base"
-                >
-                  {flag}
-                </div>
-              ))}
-            </div>
-            <div>
-              <p className="text-white text-sm font-semibold">
-                {t.socialProofText}
-              </p>
-              <p className="text-white/50 text-xs">{t.socialProofSub}</p>
-            </div>
-          </div>
         </div>
 
         {/* Stats */}

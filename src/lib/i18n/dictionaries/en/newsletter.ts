@@ -1,7 +1,7 @@
 const newsletter = {
   badge: "Free · No spam",
   title: "Expat507 Newsletter",
-  subtitle: "Insider information about Panama, straight to your inbox every week. Over 500 active readers.",
+  subtitle: "Insider information about Panama, straight to your inbox every week.",
   benefitsTitle: "What will you get every week?",
   benefits: [
     { title: "Weekly market analysis", desc: "Real estate trends, rate changes, and investment opportunities." },
@@ -9,8 +9,7 @@ const newsletter = {
     { title: "Exclusive guides", desc: "In-depth content we don't publish on the website." },
     { title: "Welcome lead magnet", desc: "Get our free guide \"The 7 mistakes expatriates make when arriving in Panama.\"" },
   ],
-  testimonialQuote: "The Expat507 newsletter is the first thing I read on Mondays. The information is concise, useful, and no fluff.",
-  testimonialName: "Robert K. · Investor, Miami",
+  highlightText: "We're just launching this newsletter: be one of the first to get direct, no-fluff analysis on Panama.",
   formTitle: "Subscribe for free",
   formSubtitle: "Cancel anytime. No spam, promised.",
   nameLabel: "Your name",

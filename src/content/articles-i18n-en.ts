@@ -7,7 +7,7 @@ interface ArticleText {
 
 const ARTICLES_EN: Record<string, ArticleText> = {
   "visa-jubilados-pensionado-guia-completa": {
-    title: "Pensionado Retiree Visa: The Complete 2024 Guide",
+    title: "Pensionado Retiree Visa: The Complete Guide",
     excerpt: "Everything you need to know about Panama's most attractive visa for foreigners receiving regular passive income.",
     author: "Expat507 Team",
     tags: ["visa", "retirees", "residency"],
@@ -20,7 +20,7 @@ const ARTICLES_EN: Record<string, ArticleText> = {
   },
   "abrir-cuenta-bancaria-panama-extranjero": {
     title: "How to open a bank account in Panama as a foreigner",
-    excerpt: "Step-by-step process, required documents, and the best banks for non-residents in 2024.",
+    excerpt: "Step-by-step process, required documents, and the best banks for non-residents.",
     author: "Expat507 Team",
     tags: ["banking", "bank account", "requirements"],
   },
@@ -60,8 +60,8 @@ const ARTICLES_EN: Record<string, ArticleText> = {
     author: "Expat507 Team",
     tags: ["wealth", "planning"],
   },
-  "costo-de-vida-ciudad-de-panama-2024": {
-    title: "Cost of living in Panama City: real 2024 numbers",
+  "costo-de-vida-ciudad-de-panama": {
+    title: "Cost of living in Panama City: real numbers",
     excerpt: "Rent, food, transportation, education, and healthcare: the real numbers behind living well in Panama.",
     author: "Expat507 Team",
     tags: ["expat life", "cost of living"],

@@ -114,18 +114,10 @@ export default function NewsletterPage() {
               ))}
             </div>
 
-            <div className="mt-10 bg-[#F4F6F9] rounded-2xl p-5">
-              <p className="text-sm text-[#6B7280] italic">
-                &ldquo;{t.testimonialQuote}&rdquo;
+            <div className="mt-10 bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-2xl p-5">
+              <p className="text-sm text-[#374151]">
+                {t.highlightText}
               </p>
-              <div className="flex items-center gap-2 mt-3">
-                <div className="w-7 h-7 bg-[#C9A84C]/20 rounded-full flex items-center justify-center text-sm">
-                  🇺🇸
-                </div>
-                <span className="text-xs text-[#6B7280]">
-                  {t.testimonialName}
-                </span>
-              </div>
             </div>
           </div>
 

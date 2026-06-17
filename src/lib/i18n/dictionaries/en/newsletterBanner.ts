@@ -7,7 +7,7 @@ const newsletterBanner = {
   submitIdle: "Subscribe",
   successTitle: "Perfect! You're in. 🎉",
   successSubtitle: "Check your email to confirm and receive the lead magnet.",
-  footnote: "No spam. Cancel anytime. +500 active readers.",
+  footnote: "No spam. Cancel anytime.",
   toastSuccess: "Subscribed successfully! Check your email.",
   toastError: "Something went wrong. Please try again.",
   toastConnError: "Connection error. Please try again.",

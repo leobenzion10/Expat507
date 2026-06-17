@@ -8,12 +8,6 @@ const trustSection = {
     { title: "Actualizado regularmente", description: "Mantenemos nuestras guías al día con los cambios legislativos y del mercado panameño." },
     { title: "Sin conflictos de interés", description: "Solo recomendamos profesionales con trayectoria comprobada, nunca por conveniencia." },
   ],
-  testimonialsTitle: "Lo que dicen nuestros usuarios",
-  testimonials: [
-    { quote: "Gracias a Expat507 entendí exactamente qué visa necesitaba y cómo abrirme una cuenta bancaria. El proceso que parecía imposible lo completé en 3 meses.", name: "Michael R.", origin: "🇺🇸 Estados Unidos", objective: "Residente Pensionado" },
-    { quote: "La consulta gratuita fue directa y honesta. Me dijeron exactamente qué esperarme y me conectaron con el abogado correcto. Muy profesional.", name: "Anna K.", origin: "🇩🇪 Alemania", objective: "Inversión Inmobiliaria" },
-    { quote: "Llevaba meses buscando información confiable sobre la Visa de Nómada Digital. Expat507 tiene la guía más completa que encontré en todo internet.", name: "Carlos M.", origin: "🇪🇸 España", objective: "Nómada Digital" },
-  ],
 };
 
 export default trustSection;

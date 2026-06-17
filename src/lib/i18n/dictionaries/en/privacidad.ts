@@ -3,7 +3,7 @@ const privacidad = {
   metaDescription: "Expat507's privacy policy and data handling practices.",
   title: "Privacy Policy",
   lastUpdated: "Last updated: {date}",
-  lastUpdatedDate: "June 16, 2025",
+  lastUpdatedDate: "June 16, 2026",
   sections: [
     {
       heading: "1. Information we collect",

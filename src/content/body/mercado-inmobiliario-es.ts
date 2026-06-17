@@ -1,5 +1,5 @@
 const content = `
-## El mercado inmobiliario panameño en 2024
+## El mercado inmobiliario panameño hoy
 
 Ciudad de Panamá ofrece uno de los mercados inmobiliarios más dinámicos de América Latina. La combinación de dolarización, crecimiento constante y ausencia de restricciones para extranjeros crea un ambiente favorable para la inversión.
 

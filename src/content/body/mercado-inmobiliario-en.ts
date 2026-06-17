@@ -1,5 +1,5 @@
 const content = `
-## Panama's real estate market in 2024
+## Panama's real estate market today
 
 Panama City offers one of the most dynamic real estate markets in Latin America. The combination of dollarization, steady growth, and the absence of restrictions for foreigners creates a favorable environment for investment.
 

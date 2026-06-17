@@ -115,6 +115,15 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.75rem;
 }
 
+@keyframes quizStepIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quiz-step {
+  animation: quizStepIn 0.3s ease;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
