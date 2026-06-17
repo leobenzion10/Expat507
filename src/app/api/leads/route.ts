@@ -19,10 +19,11 @@ export async function POST(req: NextRequest) {
     const email = clampString(body.email, 254);
     const phone = clampString(body.phone, 40);
     const country = clampString(body.country, 100);
-    const objective = clampString(body.objective, 200);
+    const objective = clampString(body.objective, 500);
     const budget = clampString(body.budget, 100);
     const urgency = clampString(body.urgency, 100);
     const message = clampString(body.message, 2000);
+    const subscribeNewsletter = body.subscribeNewsletter === true;
 
     if (!name || !phone || !country || !objective || !budget || !urgency || !isValidEmail(email)) {
       return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
@@ -43,6 +44,17 @@ export async function POST(req: NextRequest) {
 
     if (dbError) {
       console.error("[/api/leads] Supabase error:", dbError);
+    }
+
+    if (subscribeNewsletter) {
+      const { error: subError } = await db.from("subscribers").insert({
+        name,
+        email,
+        created_at: new Date().toISOString(),
+      });
+      if (subError && subError.code !== "23505") {
+        console.error("[/api/leads] Newsletter subscribe error:", subError);
+      }
     }
 
     const safe = {
@@ -76,6 +88,7 @@ export async function POST(req: NextRequest) {
                 <p style="color: #6B7280; font-size: 13px; margin: 0;"><strong style="color: #0A1628;">Urgencia:</strong> ${safe.urgency}</p>
               </div>
               <p style="color: #374151; line-height: 1.6;">Mientras tanto, puedes explorar nuestras <a href="${SITE_URL}/guias" style="color: #C9A84C;">guías</a>.</p>
+              ${subscribeNewsletter ? `<p style="color: #374151; line-height: 1.6;">También te suscribimos a nuestro newsletter — recibirás análisis y guías exclusivas sobre Panamá cada semana.</p>` : ""}
             </div>
             <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
               <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · Panamá</p>

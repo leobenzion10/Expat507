@@ -12,10 +12,11 @@ type FormState = {
   phoneCode: string;
   phone: string;
   country: string;
-  objective: string;
+  objectives: string[];
   budget: string;
   urgency: string;
   message: string;
+  subscribeNewsletter: boolean;
 };
 
 const STEP_KEYS = ["name", "email", "phone", "country", "objective", "budget", "urgency", "message"] as const;
@@ -24,7 +25,7 @@ type StepKey = (typeof STEP_KEYS)[number];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ConsultaPage() {
-  const { dict } = useLocale();
+  const { locale, dict } = useLocale();
   const t = dict.consulta;
   const COUNTRIES = dict.countries;
   const DIAL_CODES = dict.dialCodes;
@@ -41,23 +42,33 @@ export default function ConsultaPage() {
     phoneCode: "",
     phone: "",
     country: "",
-    objective: "",
+    objectives: [],
     budget: "",
     urgency: "",
     message: "",
+    subscribeNewsletter: false,
   });
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
   const waMessage = encodeURIComponent(
-    t.success.waMessage.replace("{name}", form.name || "...").replace("{objective}", form.objective || "...")
+    t.success.waMessage.replace("{name}", form.name || "...").replace("{objective}", form.objectives.join(", ") || "...")
   );
 
   const totalSteps = STEP_KEYS.length;
   const currentKey: StepKey = STEP_KEYS[stepIndex];
   const isLastStep = stepIndex === totalSteps - 1;
 
-  function update(field: keyof FormState, value: string) {
+  function update(field: Exclude<keyof FormState, "objectives">, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function toggleObjective(value: string) {
+    setForm((prev) => ({
+      ...prev,
+      objectives: prev.objectives.includes(value)
+        ? prev.objectives.filter((o) => o !== value)
+        : [...prev.objectives, value],
+    }));
   }
 
   function canContinue(): boolean {
@@ -71,7 +82,7 @@ export default function ConsultaPage() {
       case "country":
         return form.country !== "";
       case "objective":
-        return form.objective !== "";
+        return form.objectives.length > 0;
       case "budget":
         return form.budget !== "";
       case "urgency":
@@ -94,7 +105,7 @@ export default function ConsultaPage() {
     if (stepIndex > 0) setStepIndex((s) => s - 1);
   }
 
-  function selectChoice(field: StepKey, value: string) {
+  function selectChoice(field: "budget" | "urgency", value: string) {
     update(field, value);
     setTimeout(() => {
       setStepIndex((s) => Math.min(s + 1, totalSteps - 1));
@@ -104,8 +115,8 @@ export default function ConsultaPage() {
   async function handleSubmit() {
     setLoading(true);
     try {
-      const { phoneCode, phone, ...rest } = form;
-      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim() };
+      const { phoneCode, phone, objectives, ...rest } = form;
+      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim(), objective: objectives.join(", "), locale };
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -305,22 +316,31 @@ export default function ConsultaPage() {
 
           {currentKey === "objective" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.objective}</label>
+              <label className="block text-lg font-bold text-[#0A1628] mb-1">{t.fields.objective}</label>
+              <p className="text-xs text-[#6B7280] mb-4">{t.fields.objectiveHint}</p>
               <div className="grid grid-cols-1 gap-2">
-                {OBJECTIVES.map((obj) => (
-                  <button
-                    key={obj}
-                    type="button"
-                    onClick={() => selectChoice("objective", obj)}
-                    className={`text-left p-3.5 rounded-xl border transition-all ${
-                      form.objective === obj
-                        ? "border-[#C9A84C] bg-[#FBF6EC]"
-                        : "border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
-                    <span className="text-sm text-[#374151]">{obj}</span>
-                  </button>
-                ))}
+                {OBJECTIVES.map((obj) => {
+                  const selected = form.objectives.includes(obj);
+                  return (
+                    <button
+                      key={obj}
+                      type="button"
+                      onClick={() => toggleObjective(obj)}
+                      className={`flex items-center gap-3 text-left p-3.5 rounded-xl border transition-all ${
+                        selected ? "border-[#C9A84C] bg-[#FBF6EC]" : "border-gray-200 hover:border-gray-300"
+                      }`}
+                    >
+                      <div
+                        className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                          selected ? "border-[#C9A84C] bg-[#C9A84C]" : "border-gray-300"
+                        }`}
+                      >
+                        {selected && <div className="w-2 h-2 bg-white rounded-sm" />}
+                      </div>
+                      <span className="text-sm text-[#374151]">{obj}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -380,6 +400,15 @@ export default function ConsultaPage() {
                 rows={4}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all resize-none"
               />
+              <label className="flex items-start gap-3 mt-5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.subscribeNewsletter}
+                  onChange={(e) => setForm((prev) => ({ ...prev, subscribeNewsletter: e.target.checked }))}
+                  className="mt-0.5 w-4 h-4 accent-[#C9A84C] flex-shrink-0"
+                />
+                <span className="text-sm text-[#374151]">{t.fields.newsletterOptIn}</span>
+              </label>
             </div>
           )}
 
@@ -398,8 +427,8 @@ export default function ConsultaPage() {
               <span />
             )}
 
-            {/* Choice steps auto-advance, so only show a button for text-input steps and the final step */}
-            {(currentKey === "name" || currentKey === "email" || currentKey === "phone" || currentKey === "country" || currentKey === "message") && (
+            {/* Multi-select and text-input steps need an explicit continue button; single-choice steps auto-advance */}
+            {(currentKey === "name" || currentKey === "email" || currentKey === "phone" || currentKey === "country" || currentKey === "objective" || currentKey === "message") && (
               <button
                 type="button"
                 onClick={goNext}
