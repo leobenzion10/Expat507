@@ -24,6 +24,7 @@ import Analytics from "@/components/ui/Analytics";
 import { Toaster } from "react-hot-toast";
 import { getLocale } from "@/lib/i18n/locale";
 import { LocaleProvider } from "@/components/providers/LocaleProvider";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -37,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : "La plataforma de referencia para expatriados e inversionistas que quieren establecerse o invertir en Panamá. Guías de migración, bienes raíces, banca, y vida expat.";
 
   return {
-    metadataBase: new URL("https://expat507.com"),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: title,
       template: "%s | Expat507",
@@ -51,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: "website",
       locale: isEn ? "en_US" : "es_PA",
-      url: "https://expat507.com",
+      url: SITE_URL,
       siteName: "Expat507",
       title,
       description,

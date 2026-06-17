@@ -7,7 +7,7 @@ import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function NewsletterBanner() {
-  const { dict } = useLocale();
+  const { locale, dict } = useLocale();
   const t = dict.newsletterBanner;
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function NewsletterBanner() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, locale }),
       });
       if (res.ok) {
         setDone(true);

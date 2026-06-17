@@ -7,7 +7,7 @@ const terminos = {
   sections: [
     {
       heading: "1. Acceptance of terms",
-      body: "By accessing and using Expat507 (expat507.com), you accept these terms of use. If you do not agree with any part of them, please do not use the platform.",
+      body: "By accessing and using Expat507, you accept these terms of use. If you do not agree with any part of them, please do not use the platform.",
     },
     {
       heading: "2. Nature of the service",
@@ -40,7 +40,7 @@ const terminos = {
     },
     {
       heading: "9. Contact",
-      body: "For questions about these terms, write to us at hola@expat507.com.",
+      body: "For questions about these terms, write to us through our contact form.",
     },
   ],
 };

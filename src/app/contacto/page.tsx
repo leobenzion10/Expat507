@@ -14,6 +14,7 @@ export default function ContactoPage() {
   const [done, setDone] = useState(false);
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 
   function update(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -94,20 +95,22 @@ export default function ContactoPage() {
               </a>
             )}
 
-            <a
-              href="mailto:hola@expat507.com"
-              className="flex items-center gap-3 bg-[#F4F6F9] hover:bg-[#E8ECF2] rounded-xl p-4 transition-colors group"
-            >
-              <div className="w-10 h-10 bg-[#C9A84C]/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Mail size={18} className="text-[#C9A84C]" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#0A1628] group-hover:text-[#C9A84C] transition-colors">
-                  {t.emailTitle}
-                </p>
-                <p className="text-xs text-[#6B7280]">hola@expat507.com</p>
-              </div>
-            </a>
+            {contactEmail && (
+              <a
+                href={`mailto:${contactEmail}`}
+                className="flex items-center gap-3 bg-[#F4F6F9] hover:bg-[#E8ECF2] rounded-xl p-4 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-[#C9A84C]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail size={18} className="text-[#C9A84C]" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#0A1628] group-hover:text-[#C9A84C] transition-colors">
+                    {t.emailTitle}
+                  </p>
+                  <p className="text-xs text-[#6B7280]">{contactEmail}</p>
+                </div>
+              </a>
+            )}
 
             <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-xl p-4">
               <p className="text-xs text-[#6B7280] leading-relaxed">

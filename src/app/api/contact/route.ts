@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { clampString, escapeHtml, isValidEmail, rateLimit } from "@/lib/security";
+import { SITE_URL } from "@/lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL || "hola@expat507.com";
+const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL;
 const FROM_EMAIL = process.env.FROM_EMAIL || "Expat507 <noreply@expat507.com>";
 
 export async function POST(req: NextRequest) {
@@ -30,25 +31,29 @@ export async function POST(req: NextRequest) {
     };
 
     const results = await Promise.allSettled([
-      resend.emails.send({
-        from: FROM_EMAIL,
-        to: OPERATOR_EMAIL,
-        replyTo: email,
-        subject: `Contacto: ${subject}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px;">
-            <h2 style="color: #0A1628;">Nuevo mensaje de contacto</h2>
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold; width: 120px;">Nombre</td><td style="padding: 8px;">${safe.name}</td></tr>
-              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Email</td><td style="padding: 8px;"><a href="mailto:${safe.email}">${safe.email}</a></td></tr>
-              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Asunto</td><td style="padding: 8px;">${safe.subject}</td></tr>
-            </table>
-            <div style="background: #F4F6F9; border-radius: 8px; padding: 16px; margin-top: 16px;">
-              <p style="color: #374151; white-space: pre-wrap; margin: 0;">${safe.message}</p>
-            </div>
-          </div>
-        `,
-      }),
+      ...(OPERATOR_EMAIL
+        ? [
+            resend.emails.send({
+              from: FROM_EMAIL,
+              to: OPERATOR_EMAIL,
+              replyTo: email,
+              subject: `Contacto: ${subject}`,
+              html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px;">
+                  <h2 style="color: #0A1628;">Nuevo mensaje de contacto</h2>
+                  <table style="width: 100%; border-collapse: collapse;">
+                    <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold; width: 120px;">Nombre</td><td style="padding: 8px;">${safe.name}</td></tr>
+                    <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Email</td><td style="padding: 8px;"><a href="mailto:${safe.email}">${safe.email}</a></td></tr>
+                    <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Asunto</td><td style="padding: 8px;">${safe.subject}</td></tr>
+                  </table>
+                  <div style="background: #F4F6F9; border-radius: 8px; padding: 16px; margin-top: 16px;">
+                    <p style="color: #374151; white-space: pre-wrap; margin: 0;">${safe.message}</p>
+                  </div>
+                </div>
+              `,
+            }),
+          ]
+        : []),
       resend.emails.send({
         from: FROM_EMAIL,
         to: email,
@@ -61,10 +66,10 @@ export async function POST(req: NextRequest) {
             <div style="padding: 32px 24px;">
               <h2 style="color: #0A1628; margin: 0 0 16px;">Hola ${safe.name},</h2>
               <p style="color: #374151; line-height: 1.6;">Recibimos tu mensaje sobre "<strong>${safe.subject}</strong>". Te responderemos a este email en menos de 24 horas hábiles.</p>
-              <p style="color: #374151; line-height: 1.6;">Si tienes una consulta sobre migración, bienes raíces u otro tema especializado, también puedes usar nuestro <a href="https://expat507.com/asistente" style="color: #C9A84C;">asistente IA</a> para obtener respuestas inmediatas.</p>
+              <p style="color: #374151; line-height: 1.6;">Si tienes una consulta sobre migración, bienes raíces u otro tema especializado, también puedes explorar nuestras <a href="${SITE_URL}/guias" style="color: #C9A84C;">guías</a> o <a href="${SITE_URL}/consulta" style="color: #C9A84C;">agendar una consulta gratuita</a>.</p>
             </div>
             <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
-              <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · hola@expat507.com</p>
+              <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · Panamá</p>
             </div>
           </div>
         `,

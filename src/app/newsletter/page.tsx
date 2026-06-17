@@ -9,7 +9,7 @@ import { useLocale } from "@/components/providers/LocaleProvider";
 const ICONS = [TrendingUp, Shield, BookOpen, Mail];
 
 export default function NewsletterPage() {
-  const { dict } = useLocale();
+  const { locale, dict } = useLocale();
   const t = dict.newsletter;
   const [form, setForm] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function NewsletterPage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, locale }),
       });
       if (res.ok) {
         setDone(true);

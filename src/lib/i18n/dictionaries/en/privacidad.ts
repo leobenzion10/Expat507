@@ -39,11 +39,11 @@ const privacidad = {
     },
     {
       heading: "6. Your rights",
-      body: "You have the right to access, correct, or delete your personal information. To exercise any of these rights, write to us at hola@expat507.com. We will respond within a maximum of 30 days.",
+      body: "You have the right to access, correct, or delete your personal information. To exercise any of these rights, reach out through our contact form. We will respond within a maximum of 30 days.",
     },
     {
       heading: "7. Unsubscribing",
-      body: "You can cancel the newsletter at any time using the unsubscribe link included in every email, or by emailing us at hola@expat507.com.",
+      body: "You can cancel the newsletter at any time using the unsubscribe link included in every email.",
     },
     {
       heading: "8. Changes to this policy",
@@ -51,7 +51,7 @@ const privacidad = {
     },
     {
       heading: "9. Contact",
-      body: "If you have questions about this privacy policy, contact us at hola@expat507.com.",
+      body: "If you have questions about this privacy policy, reach out through our contact form.",
     },
   ],
 };

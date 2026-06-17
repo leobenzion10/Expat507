@@ -39,11 +39,11 @@ const privacidad = {
     },
     {
       heading: "6. Tus derechos",
-      body: "Tienes derecho a acceder, corregir o eliminar tu información personal. Para ejercer cualquiera de estos derechos, escríbenos a hola@expat507.com. Responderemos en un plazo máximo de 30 días.",
+      body: "Tienes derecho a acceder, corregir o eliminar tu información personal. Para ejercer cualquiera de estos derechos, escríbenos a través de nuestro formulario de contacto. Responderemos en un plazo máximo de 30 días.",
     },
     {
       heading: "7. Cancelar suscripción",
-      body: "Puedes cancelar el newsletter en cualquier momento usando el enlace de cancelación incluido en cada email, o enviándonos un correo a hola@expat507.com.",
+      body: "Puedes cancelar el newsletter en cualquier momento usando el enlace de cancelación incluido en cada email.",
     },
     {
       heading: "8. Cambios a esta política",
@@ -51,7 +51,7 @@ const privacidad = {
     },
     {
       heading: "9. Contacto",
-      body: "Si tienes preguntas sobre esta política de privacidad, contáctanos en hola@expat507.com.",
+      body: "Si tienes preguntas sobre esta política de privacidad, contáctanos a través de nuestro formulario de contacto.",
     },
   ],
 };

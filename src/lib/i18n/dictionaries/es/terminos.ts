@@ -7,7 +7,7 @@ const terminos = {
   sections: [
     {
       heading: "1. Aceptación de los términos",
-      body: "Al acceder y usar Expat507 (expat507.com), aceptas estos términos de uso. Si no estás de acuerdo con alguna parte de ellos, por favor no uses la plataforma.",
+      body: "Al acceder y usar Expat507, aceptas estos términos de uso. Si no estás de acuerdo con alguna parte de ellos, por favor no uses la plataforma.",
     },
     {
       heading: "2. Naturaleza del servicio",
@@ -40,7 +40,7 @@ const terminos = {
     },
     {
       heading: "9. Contacto",
-      body: "Para preguntas sobre estos términos, escríbenos a hola@expat507.com.",
+      body: "Para preguntas sobre estos términos, escríbenos a través de nuestro formulario de contacto.",
     },
   ],
 };
