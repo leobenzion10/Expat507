@@ -14,7 +14,7 @@ export default async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0A1628] text-white">
+    <footer className="bg-[#0A1628] text-white print:hidden">
       <GoldDivider className="pt-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

@@ -19,10 +19,10 @@ const ARTICLES_ES: Record<string, ArticleText> = {
     tags: ["visa", "nómada digital"],
   },
   "abrir-cuenta-bancaria-panama-extranjero": {
-    title: "Cómo abrir una cuenta bancaria en Panamá siendo extranjero",
-    excerpt: "Proceso paso a paso, documentos requeridos y los mejores bancos para no residentes.",
+    title: "Cómo abrir una cuenta bancaria o de inversión en Panamá",
+    excerpt: "Tipos de cuenta, proceso de debida diligencia, documentación y tiempos reales para personas naturales, empresas e inversionistas.",
     author: "Equipo Expat507",
-    tags: ["banca", "cuenta bancaria", "requisitos"],
+    tags: ["banca", "cuenta bancaria", "debida diligencia"],
   },
   "mejores-bancos-panama-expatriados": {
     title: "Los mejores bancos de Panamá para expatriados",
@@ -37,10 +37,10 @@ const ARTICLES_ES: Record<string, ArticleText> = {
     tags: ["bienes raíces", "inversión", "zonas"],
   },
   "comprar-propiedad-panama-extranjero": {
-    title: "Cómo comprar propiedad en Panamá siendo extranjero",
-    excerpt: "Desde la búsqueda hasta la escritura pública: el proceso completo con sus costos y tiempos reales.",
+    title: "Guía del inversionista extranjero en bienes raíces",
+    excerpt: "Tipos de propiedad, zonas de plusvalía, propiedad titulada vs. derecho posesorio, costos de cierre y errores comunes que cometen los extranjeros.",
     author: "Equipo Expat507",
-    tags: ["bienes raíces", "proceso"],
+    tags: ["bienes raíces", "inversión", "proceso de compra"],
   },
   "fundaciones-interes-privado-panama": {
     title: "Fundaciones de interés privado en Panamá: qué son y para qué sirven",
@@ -49,10 +49,10 @@ const ARTICLES_ES: Record<string, ArticleText> = {
     tags: ["legal", "fundaciones"],
   },
   "sociedades-anonimas-panama": {
-    title: "Sociedades anónimas en Panamá: estructura, costos y usos",
-    excerpt: "La sociedad anónima panameña es mundialmente reconocida. Cuándo usarla, cómo constituirla y qué costos tiene.",
+    title: "Sociedades patrimoniales: cómo estructurar y proteger tu patrimonio",
+    excerpt: "Cómo usar una sociedad panameña como holding de activos, combinada con el régimen territorial y, cuando aplica, con una fundación de interés privado.",
     author: "Equipo Expat507",
-    tags: ["legal", "sociedades"],
+    tags: ["legal", "sociedades", "patrimonio"],
   },
   "planificacion-patrimonial-latinoamericanos-panama": {
     title: "Planificación patrimonial para latinoamericanos en Panamá",
@@ -77,6 +77,42 @@ const ARTICLES_ES: Record<string, ArticleText> = {
     excerpt: "Cómo funciona el sistema de salud, los mejores hospitales privados y qué seguro médico conviene contratar.",
     author: "Equipo Expat507",
     tags: ["expat life", "salud"],
+  },
+  "residencia-permanente-inversionista-calificado-panama": {
+    title: "Residencia Permanente como Inversionista Calificado",
+    excerpt: "Las tres modalidades de inversión, requisitos, proceso paso a paso y la ruta completa hacia la residencia permanente y la naturalización en Panamá.",
+    author: "Equipo Expat507",
+    tags: ["visa", "inversionista calificado", "residencia permanente"],
+  },
+  "comparativa-visas-residencia-panama": {
+    title: "Comparativa de visas de residencia en Panamá",
+    excerpt: "Inversionista Calificado, Pensionado, Naciones Amigas y Nómada Digital cara a cara: requisitos, costos y a quién le conviene cada una.",
+    author: "Equipo Expat507",
+    tags: ["visa", "comparativo", "residencia"],
+  },
+  "naturalizacion-ciudadania-panama": {
+    title: "Proceso de naturalización y ciudadanía panameña",
+    excerpt: "Requisitos tras 5 años de residencia, el examen de naturalización, doble nacionalidad y qué cambia al obtener el pasaporte panameño.",
+    author: "Equipo Expat507",
+    tags: ["naturalización", "ciudadanía", "pasaporte"],
+  },
+  "fundaciones-vs-fideicomisos-panama": {
+    title: "Fundaciones vs. Fideicomisos en Panamá: cuál necesitas",
+    excerpt: "Diferencias reales entre ambos vehículos, ventajas y desventajas de cada uno, y qué conviene según tu objetivo: protección, herencia o sucesión.",
+    author: "Equipo Expat507",
+    tags: ["legal", "fundaciones", "fideicomisos"],
+  },
+  "preconstruccion-vs-propiedad-terminada-panama": {
+    title: "Pre-construcción vs. propiedad terminada en Panamá",
+    excerpt: "Riesgos, retornos y diferencias clave entre comprar sobre planos y comprar una propiedad ya construida.",
+    author: "Equipo Expat507",
+    tags: ["bienes raíces", "preconstrucción", "inversión"],
+  },
+  "sistema-fiscal-territorial-panama": {
+    title: "El sistema fiscal territorial de Panamá",
+    excerpt: "Qué se grava y qué no, el ITBMS, las ganancias de capital y una nota especial para ciudadanos de Estados Unidos.",
+    author: "Equipo Expat507",
+    tags: ["fiscalidad", "impuestos", "régimen territorial"],
   },
 };
 

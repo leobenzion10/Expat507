@@ -19,10 +19,10 @@ const ARTICLES_EN: Record<string, ArticleText> = {
     tags: ["visa", "digital nomad"],
   },
   "abrir-cuenta-bancaria-panama-extranjero": {
-    title: "How to open a bank account in Panama as a foreigner",
-    excerpt: "Step-by-step process, required documents, and the best banks for non-residents.",
+    title: "How to open a bank or investment account in Panama",
+    excerpt: "Account types, the due-diligence process, documentation, and realistic timelines for individuals, companies, and investors.",
     author: "Expat507 Team",
-    tags: ["banking", "bank account", "requirements"],
+    tags: ["banking", "bank account", "due diligence"],
   },
   "mejores-bancos-panama-expatriados": {
     title: "The best banks in Panama for expatriates",
@@ -37,10 +37,10 @@ const ARTICLES_EN: Record<string, ArticleText> = {
     tags: ["real estate", "investment", "areas"],
   },
   "comprar-propiedad-panama-extranjero": {
-    title: "How to buy property in Panama as a foreigner",
-    excerpt: "From the search to the public deed: the full process with real costs and timelines.",
+    title: "The foreign investor's guide to Panama real estate",
+    excerpt: "Property types, high-growth areas, titled property vs. possessory rights, closing costs, and common mistakes foreigners make.",
     author: "Expat507 Team",
-    tags: ["real estate", "process"],
+    tags: ["real estate", "investment", "buying process"],
   },
   "fundaciones-interes-privado-panama": {
     title: "Private interest foundations in Panama: what they are and what they're for",
@@ -49,10 +49,10 @@ const ARTICLES_EN: Record<string, ArticleText> = {
     tags: ["legal", "foundations"],
   },
   "sociedades-anonimas-panama": {
-    title: "Corporations (S.A.) in Panama: structure, costs, and uses",
-    excerpt: "The Panamanian corporation (Sociedad Anónima) is recognized worldwide. When to use it, how to set it up, and what it costs.",
+    title: "Asset-holding companies: how to structure and protect your wealth",
+    excerpt: "How to use a Panamanian corporation as an asset-holding vehicle, combined with the territorial tax regime and, when it applies, a private interest foundation.",
     author: "Expat507 Team",
-    tags: ["legal", "corporations"],
+    tags: ["legal", "corporations", "wealth"],
   },
   "planificacion-patrimonial-latinoamericanos-panama": {
     title: "Estate planning for Latin Americans in Panama",
@@ -77,6 +77,42 @@ const ARTICLES_EN: Record<string, ArticleText> = {
     excerpt: "How the healthcare system works, the best private hospitals, and which health insurance is worth getting.",
     author: "Expat507 Team",
     tags: ["expat life", "healthcare"],
+  },
+  "residencia-permanente-inversionista-calificado-panama": {
+    title: "Permanent Residency as a Qualified Investor",
+    excerpt: "The three investment paths, requirements, the step-by-step process, and the full route to permanent residency and naturalization in Panama.",
+    author: "Expat507 Team",
+    tags: ["visa", "qualified investor", "permanent residency"],
+  },
+  "comparativa-visas-residencia-panama": {
+    title: "Panama residency visas compared",
+    excerpt: "Qualified Investor, Pensionado, Friendly Nations, and Digital Nomad side by side: requirements, costs, and who each one is best for.",
+    author: "Expat507 Team",
+    tags: ["visa", "comparison", "residency"],
+  },
+  "naturalizacion-ciudadania-panama": {
+    title: "Naturalization and Panamanian citizenship",
+    excerpt: "Requirements after 5 years of residency, the naturalization exam, dual nationality, and what changes once you hold a Panamanian passport.",
+    author: "Expat507 Team",
+    tags: ["naturalization", "citizenship", "passport"],
+  },
+  "fundaciones-vs-fideicomisos-panama": {
+    title: "Foundations vs. Trusts in Panama: which one do you need",
+    excerpt: "The real differences between both vehicles, their pros and cons, and which fits your goal: asset protection, inheritance, or succession.",
+    author: "Expat507 Team",
+    tags: ["legal", "foundations", "trusts"],
+  },
+  "preconstruccion-vs-propiedad-terminada-panama": {
+    title: "Pre-construction vs. completed property in Panama",
+    excerpt: "Risks, returns, and the key differences between buying off-plan and buying an already-built property.",
+    author: "Expat507 Team",
+    tags: ["real estate", "pre-construction", "investment"],
+  },
+  "sistema-fiscal-territorial-panama": {
+    title: "Panama's territorial tax system",
+    excerpt: "What's taxed and what isn't, the 7% ITBMS, capital gains, and a special note for U.S. citizens.",
+    author: "Expat507 Team",
+    tags: ["taxation", "taxes", "territorial regime"],
   },
 };
 

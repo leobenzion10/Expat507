@@ -60,7 +60,7 @@ export interface CategoryInfo {
 export const CATEGORIES: CategoryInfo[] = [
   {
     id: "migracion",
-    label: "Migración",
+    label: "Migración y Residencia",
     description: "Visas, permisos de residencia y ciudadanía",
     icon: "🛂",
     color: "#C9A84C",
@@ -76,7 +76,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: "banca",
-    label: "Banca",
+    label: "Banca y Finanzas",
     description: "Apertura de cuentas y servicios financieros",
     icon: "🏦",
     color: "#C9A84C",
@@ -84,7 +84,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: "legal",
-    label: "Legal",
+    label: "Legal y Estructuras",
     description: "Estructuras jurídicas, fundaciones y contratos",
     icon: "⚖️",
     color: "#0A1628",
@@ -92,15 +92,15 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: "patrimonio",
-    label: "Patrimonio",
-    description: "Planificación patrimonial y protección de activos",
+    label: "Patrimonio y Fiscalidad",
+    description: "Planificación patrimonial, protección de activos y fiscalidad",
     icon: "💼",
     color: "#C9A84C",
     bgColor: "#FBF6EC",
   },
   {
     id: "expat-life",
-    label: "Expat Life",
+    label: "Vida Expat",
     description: "Vida cotidiana, cultura y comunidad en Panamá",
     icon: "🌴",
     color: "#0A1628",
@@ -109,10 +109,10 @@ export const CATEGORIES: CategoryInfo[] = [
 ];
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  migracion: "Migración",
+  migracion: "Migración y Residencia",
   "bienes-raices": "Bienes Raíces",
-  banca: "Banca",
-  legal: "Legal",
-  patrimonio: "Patrimonio",
-  "expat-life": "Expat Life",
+  banca: "Banca y Finanzas",
+  legal: "Legal y Estructuras",
+  patrimonio: "Patrimonio y Fiscalidad",
+  "expat-life": "Vida Expat",
 };

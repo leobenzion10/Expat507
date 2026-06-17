@@ -7,7 +7,7 @@ import { CATEGORIES, type Category } from "@/types";
 import { Clock, Search } from "lucide-react";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
-import { getArticles } from "@/content/articles";
+import { getArticles, getPillar } from "@/content/articles";
 
 export default function GuiasPage() {
   const { locale, dict } = useLocale();
@@ -15,6 +15,12 @@ export default function GuiasPage() {
   const ALL_ARTICLES = getArticles(locale);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
+
+  const clusters = CATEGORIES.map((cat) => ({
+    ...cat,
+    pillarArticle: getPillar(locale, cat.id),
+    count: ALL_ARTICLES.filter((a) => a.category === cat.id).length,
+  }));
 
   const filtered = ALL_ARTICLES.filter((a) => {
     const matchCat = activeCategory === "all" || a.category === activeCategory;
@@ -66,7 +72,68 @@ export default function GuiasPage() {
 
       <GoldDivider />
 
+      {/* Clusters overview */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <p className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase mb-6">
+          {t.clustersEyebrow}
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+          {clusters.map((cluster) => (
+            <div
+              key={cluster.id}
+              className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl"
+                  style={{ backgroundColor: cluster.bgColor }}
+                >
+                  {cluster.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#0A1628] text-base" style={{ fontFamily: "var(--font-display)" }}>
+                    {dict.categories[cluster.id].label}
+                  </h3>
+                  <p className="text-xs text-[#6B7280]">
+                    {cluster.count === 1 ? t.guidesCountOne : t.guidesCount.replace("{n}", String(cluster.count))}
+                  </p>
+                </div>
+              </div>
+
+              {cluster.pillarArticle ? (
+                <Link
+                  href={`/guias/${cluster.pillarArticle.slug}`}
+                  className="block bg-[#F4F6F9] hover:bg-[#FBF6EC] rounded-xl p-3.5 mb-4 transition-colors group"
+                >
+                  <p className="text-[10px] font-semibold text-[#C9A84C] uppercase tracking-wide mb-1">
+                    {t.pillarLabel}
+                  </p>
+                  <p className="text-sm font-semibold text-[#0A1628] leading-snug group-hover:text-[#C9A84C] transition-colors">
+                    {cluster.pillarArticle.title}
+                  </p>
+                </Link>
+              ) : (
+                <div className="bg-[#F4F6F9] rounded-xl p-3.5 mb-4">
+                  <p className="text-xs text-[#9CA3AF]">{t.pillarComingSoon}</p>
+                </div>
+              )}
+
+              <button
+                onClick={() => setActiveCategory(cluster.id)}
+                className="text-sm text-[#C9A84C] hover:underline font-medium inline-flex items-center gap-1"
+              >
+                {t.viewCluster}
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <GoldDivider className="mb-12" />
+
+        <h2 className="text-xl font-bold text-[#0A1628] mb-6" style={{ fontFamily: "var(--font-display)" }}>
+          {t.browseAllTitle}
+        </h2>
+
         {/* Category filters */}
         <div className="flex flex-wrap gap-2 mb-10">
           <button

@@ -11,6 +11,13 @@ const guias = {
   noResults: "No encontramos guías con esos criterios.",
   featuredBadge: "Destacado",
   readTime: "{n} min de lectura",
+  clustersEyebrow: "Explora por tema",
+  pillarLabel: "Guía pilar",
+  pillarComingSoon: "Guía pilar en preparación",
+  guidesCountOne: "1 guía",
+  guidesCount: "{n} guías",
+  viewCluster: "Ver todas →",
+  browseAllTitle: "Todas las guías",
 };
 
 export default guias;

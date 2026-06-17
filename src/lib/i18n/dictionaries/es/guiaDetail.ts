@@ -14,6 +14,11 @@ const guiaDetail = {
   notFoundTitle: "Artículo no encontrado",
   comingSoonTitle: "Este artículo está en preparación",
   comingSoonText: "Estamos completando esta guía con información detallada y verificada. Mientras tanto, agenda una consulta gratuita y te orientamos directamente sobre este tema.",
+  updatedLabel: "Actualizado: {date}",
+  tocTitle: "En esta guía",
+  shareLabel: "Compartir",
+  printLabel: "Descargar / Imprimir",
+  relatedTitle: "Guías relacionadas",
 };
 
 export default guiaDetail;

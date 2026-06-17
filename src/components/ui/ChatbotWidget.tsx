@@ -98,7 +98,7 @@ export default function ChatbotWidget() {
   if (process.env.NEXT_PUBLIC_CHATBOT_ENABLED !== "true") return null;
 
   return (
-    <div className="fixed bottom-24 right-6 z-40">
+    <div className="fixed bottom-24 right-6 z-40 print:hidden">
       {open ? (
         <div
           className={`bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col transition-all duration-200 ${

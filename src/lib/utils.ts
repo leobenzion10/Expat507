@@ -5,11 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: string) {
-  return new Date(date).toLocaleDateString("es-ES", {
+export function formatDate(date: string, locale: "es" | "en" = "es") {
+  return new Date(date).toLocaleDateString(locale === "en" ? "en-US" : "es-ES", {
     year: "numeric",
     month: "long",
     day: "numeric",
+  });
+}
+
+export function formatMonthYear(date: string, locale: "es" | "en" = "es") {
+  return new Date(date).toLocaleDateString(locale === "en" ? "en-US" : "es-ES", {
+    year: "numeric",
+    month: "long",
   });
 }
 

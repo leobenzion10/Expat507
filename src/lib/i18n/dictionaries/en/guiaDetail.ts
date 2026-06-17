@@ -14,6 +14,11 @@ const guiaDetail = {
   notFoundTitle: "Article not found",
   comingSoonTitle: "This article is being prepared",
   comingSoonText: "We're putting together detailed, verified information for this guide. In the meantime, book a free consultation and we'll guide you directly on this topic.",
+  updatedLabel: "Updated: {date}",
+  tocTitle: "In this guide",
+  shareLabel: "Share",
+  printLabel: "Download / Print",
+  relatedTitle: "Related guides",
 };
 
 export default guiaDetail;

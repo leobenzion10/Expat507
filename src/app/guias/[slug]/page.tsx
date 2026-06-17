@@ -3,12 +3,16 @@ import Link from "next/link";
 import Badge from "@/components/ui/Badge";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { Clock, ArrowLeft, Calendar, ArrowRight } from "lucide-react";
-import { formatDate } from "@/lib/utils";
+import { formatDate, formatMonthYear } from "@/lib/utils";
 import { CATEGORIES } from "@/types";
 import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n/locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { getArticle } from "@/content/articles";
+import { getArticle, getRelatedArticles } from "@/content/articles";
+import { renderGuideBody, buildToc } from "@/components/guias/GuideBody";
+import TableOfContents from "@/components/guias/TableOfContents";
+import { ShareButtons, PrintButton } from "@/components/guias/ShareButtons";
+import RelatedGuides from "@/components/guias/RelatedGuides";
 
 type Params = Promise<{ slug: string }>;
 
@@ -38,11 +42,13 @@ export default async function ArticlePage({ params }: { params: Params }) {
   if (!article) notFound();
 
   const categoryInfo = CATEGORIES.find((c) => c.id === article.category);
+  const toc = article.content ? buildToc(article.content) : [];
+  const related = getRelatedArticles(locale, slug);
 
   return (
     <div className="pt-20">
       {/* Header */}
-      <div className="gradient-navy pt-12 pb-16 px-4">
+      <div className="gradient-navy pt-12 pb-16 px-4 print:hidden">
         <div className="max-w-4xl mx-auto">
           <Link
             href="/guias"
@@ -61,10 +67,10 @@ export default async function ArticlePage({ params }: { params: Params }) {
             {article.title}
           </h1>
           <p className="text-white/70 text-lg mb-6">{article.excerpt}</p>
-          <div className="flex items-center gap-5 text-white/50 text-sm">
+          <div className="flex items-center gap-5 text-white/50 text-sm flex-wrap">
             <div className="flex items-center gap-1.5">
               <Calendar size={14} />
-              <span>{formatDate(article.published_at)}</span>
+              <span>{t.updatedLabel.replace("{date}", formatMonthYear(article.updated_at, locale))}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Clock size={14} />
@@ -75,67 +81,21 @@ export default async function ArticlePage({ params }: { params: Params }) {
         </div>
       </div>
 
-      <GoldDivider />
+      <GoldDivider className="print:hidden" />
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main content */}
           <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-8 print:hidden">
+              <ShareButtons title={article.title} label={t.shareLabel} />
+              <PrintButton label={t.printLabel} />
+            </div>
+
             <div className="prose-expat">
               {article.content ? (
-                article.content.split("\n\n").map((block, i) => {
-                  if (block.startsWith("## ")) {
-                    return (
-                      <h2 key={i} className="text-2xl font-bold text-[#0A1628] mt-10 mb-4" style={{ fontFamily: "var(--font-display)" }}>
-                        {block.slice(3)}
-                      </h2>
-                    );
-                  }
-                  if (block.startsWith("### ")) {
-                    return (
-                      <h3 key={i} className="text-xl font-bold text-[#0A1628] mt-8 mb-3" style={{ fontFamily: "var(--font-display)" }}>
-                        {block.slice(4)}
-                      </h3>
-                    );
-                  }
-                  if (block.startsWith("- ")) {
-                    const items = block.split("\n").filter((l) => l.startsWith("- "));
-                    return (
-                      <ul key={i} className="space-y-2 mb-5">
-                        {items.map((item, j) => (
-                          <li key={j} className="flex items-start gap-2 text-[#374151]">
-                            <span className="text-[#C9A84C] mt-1 text-xs">✦</span>
-                            <span dangerouslySetInnerHTML={{ __html: item.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                          </li>
-                        ))}
-                      </ul>
-                    );
-                  }
-                  if (block.startsWith("1. ")) {
-                    const items = block.split("\n").filter((l) => /^\d+\./.test(l));
-                    return (
-                      <ol key={i} className="space-y-2 mb-5 counter-reset-list">
-                        {items.map((item, j) => (
-                          <li key={j} className="flex items-start gap-3 text-[#374151]">
-                            <span className="w-6 h-6 rounded-full bg-[#FBF6EC] text-[#C9A84C] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
-                              {j + 1}
-                            </span>
-                            <span dangerouslySetInnerHTML={{ __html: item.replace(/^\d+\.\s/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                          </li>
-                        ))}
-                      </ol>
-                    );
-                  }
-                  if (block.trim()) {
-                    return (
-                      <p key={i} className="text-[#374151] leading-relaxed mb-5"
-                         dangerouslySetInnerHTML={{ __html: block.replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#0A1628]">$1</strong>') }}
-                      />
-                    );
-                  }
-                  return null;
-                })
+                renderGuideBody(article.content)
               ) : (
                 <div className="bg-[#F4F6F9] rounded-2xl p-8 text-center">
                   <h2 className="text-xl font-bold text-[#0A1628] mb-3" style={{ fontFamily: "var(--font-display)" }}>
@@ -164,10 +124,14 @@ export default async function ArticlePage({ params }: { params: Params }) {
                 </span>
               ))}
             </div>
+
+            <RelatedGuides title={t.relatedTitle} articles={related} />
           </div>
 
           {/* Sidebar */}
-          <aside className="lg:col-span-1 space-y-6">
+          <aside className="lg:col-span-1 space-y-6 print:hidden">
+            {toc.length > 0 && <TableOfContents items={toc} title={t.tocTitle} />}
+
             {/* CTA Card */}
             <div className="gradient-navy rounded-2xl p-6 text-white sticky top-24">
               <div className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-3">
