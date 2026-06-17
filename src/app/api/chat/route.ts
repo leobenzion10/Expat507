@@ -2,10 +2,31 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
 import { rateLimit } from "@/lib/security";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 2000;
+
+const UNAVAILABLE_ES = "El asistente de IA no está disponible en este momento. Mientras tanto, puedes escribirnos por WhatsApp o agendar una consulta gratuita.";
+const UNAVAILABLE_EN = "The AI assistant isn't available right now. In the meantime, you can message us on WhatsApp or book a free consultation.";
+
+function unavailableStream(locale: string) {
+  const encoder = new TextEncoder();
+  const text = locale === "en" ? UNAVAILABLE_EN : UNAVAILABLE_ES;
+  const readable = new ReadableStream({
+    start(controller) {
+      const chunk = JSON.stringify({ type: "text", text });
+      controller.enqueue(encoder.encode(`data: ${chunk}\n\n`));
+      controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+      controller.close();
+    },
+  });
+  return new Response(readable, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+  });
+}
 
 const SYSTEM_PROMPT_ES = `Eres el asistente experto de Expat507, la plataforma de referencia para expatriados e inversionistas internacionales interesados en Panamá.
 
@@ -54,6 +75,10 @@ export async function POST(req: NextRequest) {
     const { messages, locale } = await req.json();
     const systemPrompt = locale === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_ES;
 
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return unavailableStream(locale);
+    }
+
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return new Response("Invalid request body", { status: 400 });
     }
@@ -75,6 +100,7 @@ export async function POST(req: NextRequest) {
       sanitized.push({ role: m.role, content: m.content });
     }
 
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const stream = await client.messages.create({
       model: "claude-opus-4-8",
       max_tokens: 1024,
