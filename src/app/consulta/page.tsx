@@ -9,6 +9,8 @@ import { useLocale } from "@/components/providers/LocaleProvider";
 type FormState = {
   name: string;
   email: string;
+  phoneCode: string;
+  phone: string;
   country: string;
   objective: string;
   budget: string;
@@ -16,7 +18,7 @@ type FormState = {
   message: string;
 };
 
-const STEP_KEYS = ["name", "email", "country", "objective", "budget", "urgency", "message"] as const;
+const STEP_KEYS = ["name", "email", "phone", "country", "objective", "budget", "urgency", "message"] as const;
 type StepKey = (typeof STEP_KEYS)[number];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,6 +27,7 @@ export default function ConsultaPage() {
   const { dict } = useLocale();
   const t = dict.consulta;
   const COUNTRIES = dict.countries;
+  const DIAL_CODES = dict.dialCodes;
   const OBJECTIVES = t.objectives;
   const BUDGETS = t.budgets;
   const URGENCIES = t.urgencies;
@@ -35,6 +38,8 @@ export default function ConsultaPage() {
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
+    phoneCode: "",
+    phone: "",
     country: "",
     objective: "",
     budget: "",
@@ -51,7 +56,7 @@ export default function ConsultaPage() {
   const currentKey: StepKey = STEP_KEYS[stepIndex];
   const isLastStep = stepIndex === totalSteps - 1;
 
-  function update(field: StepKey, value: string) {
+  function update(field: keyof FormState, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -61,6 +66,8 @@ export default function ConsultaPage() {
         return form.name.trim().length > 0;
       case "email":
         return EMAIL_RE.test(form.email.trim());
+      case "phone":
+        return form.phoneCode !== "" && form.phone.trim().length > 0;
       case "country":
         return form.country !== "";
       case "objective":
@@ -97,10 +104,12 @@ export default function ConsultaPage() {
   async function handleSubmit() {
     setLoading(true);
     try {
+      const { phoneCode, phone, ...rest } = form;
+      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim() };
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         setSubmitted(true);
@@ -250,6 +259,33 @@ export default function ConsultaPage() {
             </div>
           )}
 
+          {currentKey === "phone" && (
+            <div>
+              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.phone}</label>
+              <div className="flex gap-3">
+                <select
+                  autoFocus
+                  value={form.phoneCode}
+                  onChange={(e) => update("phoneCode", e.target.value)}
+                  className="w-32 sm:w-40 border border-gray-200 rounded-xl px-3 py-3.5 text-base text-[#0A1628] focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all bg-white"
+                >
+                  <option value="">{t.fields.phoneCodePlaceholder}</option>
+                  {DIAL_CODES.map((d) => (
+                    <option key={`${d.code}-${d.label}`} value={d.code}>{d.label}</option>
+                  ))}
+                </select>
+                <input
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => update("phone", e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={t.fields.phonePlaceholder}
+                  className="flex-1 border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                />
+              </div>
+            </div>
+          )}
+
           {currentKey === "country" && (
             <div>
               <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.country}</label>
@@ -363,7 +399,7 @@ export default function ConsultaPage() {
             )}
 
             {/* Choice steps auto-advance, so only show a button for text-input steps and the final step */}
-            {(currentKey === "name" || currentKey === "email" || currentKey === "country" || currentKey === "message") && (
+            {(currentKey === "name" || currentKey === "email" || currentKey === "phone" || currentKey === "country" || currentKey === "message") && (
               <button
                 type="button"
                 onClick={goNext}

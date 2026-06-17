@@ -18,6 +18,7 @@ import sobreNosotros from "./sobreNosotros";
 import privacidad from "./privacidad";
 import terminos from "./terminos";
 import countries from "../../countries-es";
+import dialCodes from "../../dial-codes-es";
 
 const es = {
   nav,
@@ -40,6 +41,7 @@ const es = {
   privacidad,
   terminos,
   countries,
+  dialCodes,
 };
 
 export default es;

@@ -6,6 +6,7 @@ create table if not exists leads (
   id          uuid primary key default gen_random_uuid(),
   name        text not null,
   email       text not null,
+  phone       text not null,
   country     text not null,
   objective   text not null,
   budget      text not null,
@@ -13,6 +14,9 @@ create table if not exists leads (
   message     text,
   created_at  timestamptz not null default now()
 );
+
+-- Run this once if the "leads" table already exists from a previous deploy:
+-- alter table leads add column if not exists phone text not null default '';
 
 -- Index for operator lookups by date and email
 create index if not exists leads_created_at_idx on leads (created_at desc);

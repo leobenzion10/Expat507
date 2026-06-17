@@ -18,6 +18,7 @@ import sobreNosotros from "./sobreNosotros";
 import privacidad from "./privacidad";
 import terminos from "./terminos";
 import countries from "../../countries-en";
+import dialCodes from "../../dial-codes-en";
 
 const en: typeof import("../es/index").default = {
   nav,
@@ -40,6 +41,7 @@ const en: typeof import("../es/index").default = {
   privacidad,
   terminos,
   countries,
+  dialCodes,
 };
 
 export default en;

@@ -16,13 +16,14 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const name = clampString(body.name, 200);
     const email = clampString(body.email, 254);
+    const phone = clampString(body.phone, 40);
     const country = clampString(body.country, 100);
     const objective = clampString(body.objective, 200);
     const budget = clampString(body.budget, 100);
     const urgency = clampString(body.urgency, 100);
     const message = clampString(body.message, 2000);
 
-    if (!name || !country || !objective || !budget || !urgency || !isValidEmail(email)) {
+    if (!name || !phone || !country || !objective || !budget || !urgency || !isValidEmail(email)) {
       return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
     }
 
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
     const { error: dbError } = await db.from("leads").insert({
       name,
       email,
+      phone,
       country,
       objective,
       budget,
@@ -45,6 +47,7 @@ export async function POST(req: NextRequest) {
     const safe = {
       name: escapeHtml(name),
       email: escapeHtml(email),
+      phone: escapeHtml(phone),
       country: escapeHtml(country),
       objective: escapeHtml(objective),
       budget: escapeHtml(budget),
@@ -89,6 +92,7 @@ export async function POST(req: NextRequest) {
             <table style="width: 100%; border-collapse: collapse;">
               <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Nombre</td><td style="padding: 8px;">${safe.name}</td></tr>
               <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Email</td><td style="padding: 8px;"><a href="mailto:${safe.email}">${safe.email}</a></td></tr>
+              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Teléfono</td><td style="padding: 8px;">${safe.phone}</td></tr>
               <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">País</td><td style="padding: 8px;">${safe.country}</td></tr>
               <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Objetivo</td><td style="padding: 8px;">${safe.objective}</td></tr>
               <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Budget</td><td style="padding: 8px;">${safe.budget}</td></tr>
