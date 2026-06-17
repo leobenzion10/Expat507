@@ -1,54 +1,16 @@
 import Link from "next/link";
 import Badge from "@/components/ui/Badge";
 import { Clock } from "lucide-react";
-import { type Article } from "@/types";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getFeaturedArticles } from "@/content/articles";
 
-const FEATURED_ARTICLES: Article[] = [
-  {
-    id: "1",
-    title: "Visa de Jubilados Pensionado: La guía completa 2024",
-    slug: "visa-jubilados-pensionado-guia-completa",
-    excerpt:
-      "Todo lo que necesitas saber sobre la visa más atractiva de Panamá para extranjeros que reciben ingresos pasivos regulares.",
-    content: "",
-    category: "migracion",
-    author: "Expat507",
-    published_at: "2024-01-15",
-    read_time: 8,
-    featured: true,
-    tags: ["visa", "jubilados", "residencia"],
-  },
-  {
-    id: "2",
-    title: "Cómo abrir una cuenta bancaria en Panamá siendo extranjero",
-    slug: "abrir-cuenta-bancaria-panama-extranjero",
-    excerpt:
-      "Proceso paso a paso, documentos requeridos y los mejores bancos para no residentes en 2024.",
-    content: "",
-    category: "banca",
-    author: "Expat507",
-    published_at: "2024-02-10",
-    read_time: 6,
-    featured: true,
-    tags: ["banca", "cuenta bancaria", "requisitos"],
-  },
-  {
-    id: "3",
-    title: "Mercado inmobiliario en Panamá: zonas clave para invertir",
-    slug: "mercado-inmobiliario-panama-zonas-clave",
-    excerpt:
-      "Análisis comparativo de los mejores barrios para inversión inmobiliaria: Punta Pacífica, Costa del Este, Casco Antiguo y más.",
-    content: "",
-    category: "bienes-raices",
-    author: "Expat507",
-    published_at: "2024-03-05",
-    read_time: 10,
-    featured: true,
-    tags: ["bienes raíces", "inversión", "zonas"],
-  },
-];
+export default async function FeaturedArticles() {
+  const locale = await getLocale();
+  const dict = getDictionary(locale);
+  const t = dict.featuredArticles;
+  const FEATURED_ARTICLES = getFeaturedArticles(locale);
 
-export default function FeaturedArticles() {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,21 +19,21 @@ export default function FeaturedArticles() {
             <div className="flex items-center gap-3 mb-3">
               <div className="h-px w-10 bg-[#C9A84C]" />
               <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
-                Artículos Destacados
+                {t.eyebrow}
               </span>
             </div>
             <h2
               className="text-3xl sm:text-4xl font-bold text-[#0A1628]"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Las guías más leídas
+              {t.title}
             </h2>
           </div>
           <Link
             href="/guias"
             className="text-sm font-semibold text-[#C9A84C] hover:text-[#A8883A] transition-colors border-b border-[#C9A84C] pb-0.5 whitespace-nowrap"
           >
-            Ver todo →
+            {t.viewAll}
           </Link>
         </div>
 
@@ -91,7 +53,7 @@ export default function FeaturedArticles() {
                     {article.category === "bienes-raices" && "🏙️"}
                   </div>
                   <div className="absolute top-4 left-4">
-                    <Badge category={article.category} />
+                    <Badge category={article.category} label={dict.categories[article.category].label} />
                   </div>
                 </div>
 
@@ -107,7 +69,7 @@ export default function FeaturedArticles() {
                   </p>
                   <div className="flex items-center gap-1 text-xs text-[#6B7280]">
                     <Clock size={12} />
-                    <span>{article.read_time} min de lectura</span>
+                    <span>{t.readTime.replace("{n}", String(article.read_time))}</span>
                   </div>
                 </div>
               </article>

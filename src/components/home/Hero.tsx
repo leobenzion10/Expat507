@@ -2,8 +2,12 @@
 
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function Hero() {
+  const { dict } = useLocale();
+  const t = dict.hero;
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden gradient-navy">
       {/* Background pattern */}
@@ -32,7 +36,7 @@ export default function Hero() {
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px w-12 bg-[#C9A84C]" />
             <span className="text-[#C9A84C] text-sm font-semibold tracking-widest uppercase">
-              Tu guía insider
+              {t.eyebrow}
             </span>
           </div>
 
@@ -41,16 +45,14 @@ export default function Hero() {
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Vive, invierte y
+            {t.headlineLine1}
             <br />
-            <span className="text-gradient-gold">prospera en Panamá</span>
+            <span className="text-gradient-gold">{t.headlineLine2}</span>
           </h1>
 
           {/* Subheading */}
           <p className="text-lg sm:text-xl text-white/70 leading-relaxed mb-10 max-w-2xl">
-            Información privilegiada sobre migración, bienes raíces, banca y
-            planificación patrimonial en Panamá. Para expatriados e
-            inversionistas internacionales serios.
+            {t.subheading}
           </p>
 
           {/* CTAs */}
@@ -59,14 +61,14 @@ export default function Hero() {
               href="/consulta"
               className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-8 py-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl text-base"
             >
-              Agenda Consulta Gratuita
+              {t.ctaPrimary}
               <ArrowRight size={18} />
             </Link>
             <Link
               href="/guias"
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-8 py-4 rounded-lg transition-all duration-200 text-base"
             >
-              Explorar Guías
+              {t.ctaSecondary}
             </Link>
           </div>
 
@@ -84,21 +86,16 @@ export default function Hero() {
             </div>
             <div>
               <p className="text-white text-sm font-semibold">
-                +500 expatriados e inversionistas
+                {t.socialProofText}
               </p>
-              <p className="text-white/50 text-xs">ya confían en Expat507</p>
+              <p className="text-white/50 text-xs">{t.socialProofSub}</p>
             </div>
           </div>
         </div>
 
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-white/10 pt-12">
-          {[
-            { value: "50+", label: "Guías especializadas" },
-            { value: "7", label: "Visas documentadas" },
-            { value: "15+", label: "Años de experiencia" },
-            { value: "100%", label: "Consultas gratuitas" },
-          ].map((stat) => (
+          {t.stats.map((stat) => (
             <div key={stat.label}>
               <p
                 className="text-3xl font-bold text-[#C9A84C] mb-1"

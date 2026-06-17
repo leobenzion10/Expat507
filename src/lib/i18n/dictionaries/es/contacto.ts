@@ -1,0 +1,35 @@
+const contacto = {
+  badge: "Estamos aquí",
+  title: "Contáctanos",
+  subtitle: "¿Tienes alguna pregunta o comentario? Escríbenos y te respondemos en menos de 24 horas hábiles.",
+  otherWaysTitle: "Otras formas de contacto",
+  whatsappTitle: "WhatsApp",
+  whatsappDesc: "Respuesta rápida",
+  whatsappMessage: "Hola, tengo una consulta sobre Expat507",
+  emailTitle: "Email directo",
+  noteLabel: "Nota:",
+  notePrefix: "Para consultas sobre migración, bienes raíces u otros temas especializados, te recomendamos usar el formulario de ",
+  noteLink: "Consulta Gratuita",
+  noteSuffix: " para que podamos orientarte mejor.",
+  fields: {
+    name: "Nombre *",
+    namePlaceholder: "Tu nombre",
+    email: "Email *",
+    emailPlaceholder: "tu@email.com",
+    subject: "Asunto *",
+    subjectPlaceholder: "¿En qué podemos ayudarte?",
+    message: "Mensaje *",
+    messagePlaceholder: "Cuéntanos más...",
+  },
+  submitLoading: "Enviando...",
+  submitIdle: "Enviar mensaje",
+  toastError: "Algo salió mal. Intenta de nuevo.",
+  toastConnError: "Error de conexión.",
+  success: {
+    title: "Mensaje enviado",
+    textPrefix: "Te responderemos a ",
+    textSuffix: " en menos de 24 horas hábiles.",
+  },
+};
+
+export default contacto;

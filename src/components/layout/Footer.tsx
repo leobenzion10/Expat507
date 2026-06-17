@@ -1,26 +1,16 @@
 import Link from "next/link";
 import GoldDivider from "@/components/ui/GoldDivider";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
-const LINKS = {
-  recursos: [
-    { href: "/guias", label: "Centro de Conocimiento" },
-    { href: "/guias?category=migracion", label: "Migración" },
-    { href: "/guias?category=bienes-raices", label: "Bienes Raíces" },
-    { href: "/guias?category=banca", label: "Banca" },
-    { href: "/guias?category=legal", label: "Legal" },
-  ],
-  servicios: [
-    { href: "/consulta", label: "Consulta Gratuita" },
-    { href: "/asistente", label: "Asistente IA" },
-    { href: "/newsletter", label: "Newsletter" },
-  ],
-  empresa: [
-    { href: "/sobre-nosotros", label: "Sobre Nosotros" },
-    { href: "/contacto", label: "Contacto" },
-  ],
-};
-
-export default function Footer() {
+export default async function Footer() {
+  const locale = await getLocale();
+  const dict = getDictionary(locale).footer;
+  const LINKS = {
+    recursos: dict.recursos,
+    servicios: dict.servicios,
+    empresa: dict.empresa,
+  };
   const year = new Date().getFullYear();
 
   return (
@@ -43,21 +33,20 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-6">
-              Tu guía insider para vivir, invertir y establecerte en Panamá con
-              claridad y confianza.
+              {dict.tagline}
             </p>
             <Link
               href="/consulta"
               className="inline-block bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
             >
-              Agenda Consulta Gratuita
+              {dict.ctaButton}
             </Link>
           </div>
 
           {/* Recursos */}
           <div>
             <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-4">
-              Recursos
+              {dict.recursosTitle}
             </h4>
             <ul className="space-y-2.5">
               {LINKS.recursos.map((l) => (
@@ -76,7 +65,7 @@ export default function Footer() {
           {/* Servicios */}
           <div>
             <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-4">
-              Servicios
+              {dict.serviciosTitle}
             </h4>
             <ul className="space-y-2.5">
               {LINKS.servicios.map((l) => (
@@ -95,7 +84,7 @@ export default function Footer() {
           {/* Empresa */}
           <div>
             <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-4">
-              Empresa
+              {dict.empresaTitle}
             </h4>
             <ul className="space-y-2.5">
               {LINKS.empresa.map((l) => (
@@ -112,16 +101,16 @@ export default function Footer() {
 
             <div className="mt-6">
               <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-3">
-                Newsletter
+                {dict.newsletterTitle}
               </h4>
               <p className="text-white/60 text-xs mb-3">
-                Recibe insights exclusivos cada semana.
+                {dict.newsletterDesc}
               </p>
               <Link
                 href="/newsletter"
                 className="text-[#C9A84C] text-sm hover:underline font-medium"
               >
-                Suscribirme →
+                {dict.newsletterCta}
               </Link>
             </div>
           </div>
@@ -131,16 +120,14 @@ export default function Footer() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-xs text-center sm:text-left">
-            © {year} Expat507. Todos los derechos reservados. La información
-            publicada es de carácter informativo y no constituye asesoría legal
-            o financiera.
+            {dict.copyright.replace("{year}", String(year))}
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacidad" className="text-white/40 hover:text-white/60 text-xs transition-colors">
-              Privacidad
+              {dict.privacidad}
             </Link>
             <Link href="/terminos" className="text-white/40 hover:text-white/60 text-xs transition-colors">
-              Términos
+              {dict.terminos}
             </Link>
           </div>
         </div>

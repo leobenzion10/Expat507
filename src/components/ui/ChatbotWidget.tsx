@@ -3,27 +3,20 @@
 import { useState, useRef, useEffect } from "react";
 import { X, Send, MessageCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-const SUGGESTED = [
-  "¿Cuál es la mejor visa para jubilados?",
-  "¿Cómo abrir cuenta bancaria en Panamá?",
-  "¿Qué zonas son mejores para invertir?",
-  "¿Cuánto cuesta vivir en Panamá?",
-];
-
 export default function ChatbotWidget() {
+  const { locale, dict } = useLocale();
+  const t = dict.widgets.chatbot;
+  const SUGGESTED = t.suggested;
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Hola 👋 Soy el asistente de Expat507. Puedo ayudarte con preguntas sobre migración, bienes raíces, banca y la vida en Panamá. ¿Qué te gustaría saber?",
-    },
+    { role: "assistant", content: t.welcome },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +46,7 @@ export default function ChatbotWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: newMessages, locale }),
       });
 
       if (!res.ok) throw new Error("Error en la respuesta");
@@ -93,8 +86,7 @@ export default function ChatbotWidget() {
         const updated = [...prev];
         updated[updated.length - 1] = {
           role: "assistant",
-          content:
-            "Lo siento, hubo un error. Por favor intenta de nuevo o usa el Asistente completo.",
+          content: t.errorMessage,
         };
         return updated;
       });
@@ -118,10 +110,10 @@ export default function ChatbotWidget() {
                 IA
               </div>
               <div>
-                <p className="text-white text-sm font-semibold leading-none">Asistente Expat507</p>
+                <p className="text-white text-sm font-semibold leading-none">{t.title}</p>
                 {!minimized && (
                   <p className="text-white/50 text-xs mt-0.5">
-                    {loading ? "Escribiendo..." : "En línea"}
+                    {loading ? t.typing : t.online}
                   </p>
                 )}
               </div>
@@ -178,13 +170,13 @@ export default function ChatbotWidget() {
                   !loading && (
                     <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-xl p-3 text-center">
                       <p className="text-xs text-[#0A1628] mb-2 font-medium">
-                        ¿Listo para dar el siguiente paso?
+                        {t.ctaTitle}
                       </p>
                       <Link
                         href="/consulta"
                         className="inline-block bg-[#C9A84C] text-[#0A1628] text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#A8883A] transition-colors"
                       >
-                        Agenda Consulta Gratuita
+                        {t.ctaButton}
                       </Link>
                     </div>
                   )}
@@ -214,7 +206,7 @@ export default function ChatbotWidget() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-                    placeholder="Escribe tu pregunta..."
+                    placeholder={t.placeholder}
                     className="flex-1 bg-transparent text-sm text-[#0A1628] placeholder-gray-400 outline-none"
                   />
                   <button
@@ -226,7 +218,7 @@ export default function ChatbotWidget() {
                   </button>
                 </div>
                 <p className="text-center text-[10px] text-gray-400 mt-2">
-                  IA informativa · No es asesoría legal
+                  {t.footnote}
                 </p>
               </div>
             </>
@@ -236,7 +228,7 @@ export default function ChatbotWidget() {
         <button
           onClick={() => setOpen(true)}
           className="w-12 h-12 bg-[#0A1628] hover:bg-[#122040] rounded-full shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 border-2 border-[#C9A84C]"
-          aria-label="Abrir asistente IA"
+          aria-label={t.openLabel}
         >
           <MessageCircle size={20} className="text-[#C9A84C]" />
         </button>

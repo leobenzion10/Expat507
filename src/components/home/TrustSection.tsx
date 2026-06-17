@@ -1,58 +1,16 @@
 import GoldDivider from "@/components/ui/GoldDivider";
 import { Shield, Users, Clock, Award } from "lucide-react";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
-const TRUST_ITEMS = [
-  {
-    icon: Shield,
-    title: "Información verificada",
-    description:
-      "Toda nuestra información es revisada por profesionales con experiencia en el sistema panameño.",
-  },
-  {
-    icon: Users,
-    title: "Red privada de aliados",
-    description:
-      "Te conectamos con abogados, agentes inmobiliarios y asesores financieros de confianza.",
-  },
-  {
-    icon: Clock,
-    title: "Actualizado regularmente",
-    description:
-      "Mantenemos nuestras guías al día con los cambios legislativos y del mercado panameño.",
-  },
-  {
-    icon: Award,
-    title: "Sin conflictos de interés",
-    description:
-      "Nuestro modelo de referidos garantiza que te conectemos con quien realmente es el mejor para tu caso.",
-  },
-];
+const ICONS = [Shield, Users, Clock, Award];
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "Gracias a Expat507 entendí exactamente qué visa necesitaba y cómo abrirme una cuenta bancaria. El proceso que parecía imposible lo completé en 3 meses.",
-    name: "Michael R.",
-    origin: "🇺🇸 Estados Unidos",
-    objective: "Residente Pensionado",
-  },
-  {
-    quote:
-      "La consulta gratuita fue directa y honesta. Me dijeron exactamente qué esperarme y me conectaron con el abogado correcto. Muy profesional.",
-    name: "Anna K.",
-    origin: "🇩🇪 Alemania",
-    objective: "Inversión Inmobiliaria",
-  },
-  {
-    quote:
-      "Llevaba meses buscando información confiable sobre la Visa de Nómada Digital. Expat507 tiene la guía más completa que encontré en todo internet.",
-    name: "Carlos M.",
-    origin: "🇪🇸 España",
-    objective: "Nómada Digital",
-  },
-];
+export default async function TrustSection() {
+  const locale = await getLocale();
+  const t = getDictionary(locale).trustSection;
+  const TRUST_ITEMS = t.items.map((item, i) => ({ ...item, icon: ICONS[i] }));
+  const TESTIMONIALS = t.testimonials;
 
-export default function TrustSection() {
   return (
     <section className="py-20 gradient-navy">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,7 +19,7 @@ export default function TrustSection() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-10 bg-[#C9A84C]" />
             <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
-              Por qué confiar en nosotros
+              {t.eyebrow}
             </span>
             <div className="h-px w-10 bg-[#C9A84C]" />
           </div>
@@ -69,11 +27,10 @@ export default function TrustSection() {
             className="text-3xl sm:text-4xl font-bold text-white mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            La diferencia Expat507
+            {t.title}
           </h2>
           <p className="text-white/60 max-w-xl mx-auto text-lg">
-            No somos una agencia de migración ni una inmobiliaria. Somos la
-            guía que te da el contexto para tomar decisiones inteligentes.
+            {t.subtitle}
           </p>
         </div>
 
@@ -108,25 +65,25 @@ export default function TrustSection() {
             className="text-2xl font-bold text-white text-center mb-10"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Lo que dicen nuestros usuarios
+            {t.testimonialsTitle}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map((t) => (
+            {TESTIMONIALS.map((testimonial) => (
               <div
-                key={t.name}
+                key={testimonial.name}
                 className="bg-white/5 border border-white/10 rounded-2xl p-6"
               >
                 <div className="text-[#C9A84C] text-3xl mb-3">&ldquo;</div>
                 <p className="text-white/80 text-sm leading-relaxed mb-5 italic">
-                  {t.quote}
+                  {testimonial.quote}
                 </p>
                 <div className="flex items-center gap-3 border-t border-white/10 pt-4">
                   <div className="w-10 h-10 bg-[#C9A84C]/20 rounded-full flex items-center justify-center text-lg">
-                    {t.origin.split(" ")[0]}
+                    {testimonial.origin.split(" ")[0]}
                   </div>
                   <div>
-                    <p className="text-white text-sm font-semibold">{t.name}</p>
-                    <p className="text-white/40 text-xs">{t.origin.split(" ").slice(1).join(" ")} · {t.objective}</p>
+                    <p className="text-white text-sm font-semibold">{testimonial.name}</p>
+                    <p className="text-white/40 text-xs">{testimonial.origin.split(" ").slice(1).join(" ")} · {testimonial.objective}</p>
                   </div>
                 </div>
               </div>

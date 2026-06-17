@@ -2,14 +2,22 @@ import Link from "next/link";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
-export const metadata: Metadata = {
-  title: "Sobre Nosotros",
-  description:
-    "Expat507 es la plataforma de referencia para expatriados e inversionistas que quieren establecerse o invertir en Panamá con claridad y confianza.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDictionary(locale).sobreNosotros;
+  return {
+    title: t.metaTitle,
+    description: t.metaDescription,
+  };
+}
 
-export default function SobreNosotrosPage() {
+export default async function SobreNosotrosPage() {
+  const locale = await getLocale();
+  const t = getDictionary(locale).sobreNosotros;
+
   return (
     <div className="pt-20">
       {/* Header */}
@@ -17,7 +25,7 @@ export default function SobreNosotrosPage() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#C9A84C]" />
           <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
-            Nuestra Historia
+            {t.badge}
           </span>
           <div className="h-px w-10 bg-[#C9A84C]" />
         </div>
@@ -25,11 +33,10 @@ export default function SobreNosotrosPage() {
           className="text-4xl sm:text-5xl font-bold text-white mb-4"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          Sobre Expat507
+          {t.title}
         </h1>
         <p className="text-white/60 text-lg max-w-xl mx-auto">
-          Nacimos de la frustración de no encontrar información honesta y
-          actualizada sobre Panamá para extranjeros.
+          {t.subtitle}
         </p>
       </div>
 
@@ -42,30 +49,13 @@ export default function SobreNosotrosPage() {
             className="text-2xl font-bold text-[#0A1628] mb-5"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            ¿Por qué existe Expat507?
+            {t.storyTitle}
           </h2>
-          <p className="text-[#374151] leading-relaxed mb-5">
-            Panamá es uno de los destinos más atractivos del mundo para
-            expatriados, inversionistas y familias que buscan estabilidad,
-            calidad de vida y un sistema tributario favorable. Sin embargo, la
-            información disponible en internet es fragmentada, desactualizada o
-            directamente incorrecta.
-          </p>
-          <p className="text-[#374151] leading-relaxed mb-5">
-            Expat507 nació para cambiar eso. Creamos una plataforma donde
-            encontrarás información real, actualizada y contextualizada sobre
-            todos los aspectos de vivir e invertir en Panamá: desde qué visa
-            aplica a tu caso hasta qué banco es más fácil para no residentes,
-            qué barrio se adapta a tu estilo de vida o cómo estructurar tu
-            patrimonio de manera eficiente.
-          </p>
-          <p className="text-[#374151] leading-relaxed">
-            Nuestro modelo es simple: te damos la información para que puedas
-            tomar decisiones inteligentes, y cuando estés listo para dar el
-            siguiente paso, te conectamos con los profesionales correctos de
-            nuestra red privada de aliados: abogados, agentes inmobiliarios,
-            asesores financieros y bancarios con trayectoria probada.
-          </p>
+          {t.storyParagraphs.map((p, i) => (
+            <p key={i} className="text-[#374151] leading-relaxed mb-5">
+              {p}
+            </p>
+          ))}
         </div>
 
         <GoldDivider className="mb-16" />
@@ -76,31 +66,10 @@ export default function SobreNosotrosPage() {
             className="text-2xl font-bold text-[#0A1628] mb-8 text-center"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Lo que nos diferencia
+            {t.valuesTitle}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[
-              {
-                icon: "🔍",
-                title: "Información verificada",
-                desc: "Toda nuestra información pasa por revisión de profesionales activos en el mercado panameño.",
-              },
-              {
-                icon: "🤝",
-                title: "Sin conflictos de interés",
-                desc: "No somos una agencia de migración ni una inmobiliaria. Nuestro interés es que tomes la mejor decisión.",
-              },
-              {
-                icon: "🔄",
-                title: "Actualización constante",
-                desc: "Panamá cambia. Nuestras guías se actualizan con cada cambio legislativo relevante.",
-              },
-              {
-                icon: "🌐",
-                title: "Red privada de aliados",
-                desc: "Cuando necesites un profesional, te conectamos con quien conocemos personalmente y en quien confiamos.",
-              },
-            ].map((v) => (
+            {t.values.map((v) => (
               <div
                 key={v.title}
                 className="bg-[#F4F6F9] rounded-2xl p-6"
@@ -118,63 +87,30 @@ export default function SobreNosotrosPage() {
           </div>
         </div>
 
-        <GoldDivider className="mb-16" />
-
-        {/* Model */}
-        <div className="mb-16">
-          <h2
-            className="text-2xl font-bold text-[#0A1628] mb-5"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Nuestro modelo de negocio
-          </h2>
-          <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-2xl p-7">
-            <p className="text-[#374151] leading-relaxed mb-4">
-              Expat507 funciona como una plataforma de contenido y referidos. No
-              cobramos ni membresías ni honorarios a los usuarios. La plataforma
-              es gratuita para todos.
-            </p>
-            <p className="text-[#374151] leading-relaxed mb-4">
-              Cuando conectamos a un usuario con un profesional de nuestra red
-              privada y se concreta una relación de servicio, el profesional
-              comparte con nosotros una comisión de referido. Esto nos permite
-              mantener la plataforma libre de costo para los usuarios.
-            </p>
-            <p className="text-[#374151] leading-relaxed">
-              <strong className="text-[#0A1628]">¿Afecta esto a los profesionales que recomendamos?</strong>{" "}
-              No. Solo trabajamos con profesionales que han demostrado calidad en
-              su trabajo, independientemente de cualquier acuerdo comercial.
-              Nuestra reputación depende de que la gente que conectamos haga un
-              buen trabajo.
-            </p>
-          </div>
-        </div>
-
         {/* CTA */}
         <div className="gradient-navy rounded-3xl p-10 text-center">
           <h3
             className="text-2xl font-bold text-white mb-3"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            ¿Listo para empezar?
+            {t.ctaTitle}
           </h3>
           <p className="text-white/60 mb-6">
-            Agenda una consulta gratuita o explora nuestras guías para empezar
-            a entender el panorama.
+            {t.ctaSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/consulta"
               className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3.5 rounded-xl transition-colors"
             >
-              Consulta Gratuita
+              {t.ctaPrimary}
               <ArrowRight size={16} />
             </Link>
             <Link
               href="/guias"
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-6 py-3.5 rounded-xl transition-colors"
             >
-              Explorar Guías
+              {t.ctaSecondary}
             </Link>
           </div>
         </div>

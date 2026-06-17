@@ -4,22 +4,17 @@ import { useState, useRef, useEffect } from "react";
 import { Send, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import GoldDivider from "@/components/ui/GoldDivider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-const SUGGESTED_QUESTIONS = [
-  "¿Cuál es la mejor visa para alguien que quiere jubilarse en Panamá?",
-  "¿Cómo funciona el sistema tributario para no residentes?",
-  "¿Qué documentos necesito para abrir una empresa en Panamá?",
-  "¿Cuáles son los mejores barrios para vivir en Ciudad de Panamá?",
-  "¿Qué ventajas tiene invertir en bienes raíces en Panamá?",
-  "¿Cómo abrir una cuenta bancaria siendo extranjero?",
-];
-
 export default function AsistentePage() {
+  const { locale, dict } = useLocale();
+  const t = dict.asistente;
+  const SUGGESTED_QUESTIONS = t.suggestedQuestions;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -47,7 +42,7 @@ export default function AsistentePage() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: newMessages, locale }),
       });
 
       if (!res.ok) throw new Error("Error");
@@ -87,8 +82,7 @@ export default function AsistentePage() {
         const updated = [...prev];
         updated[updated.length - 1] = {
           role: "assistant",
-          content:
-            "Lo siento, hubo un error al procesar tu pregunta. Por favor intenta de nuevo.",
+          content: t.errorMessage,
         };
         return updated;
       });
@@ -109,7 +103,7 @@ export default function AsistentePage() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#C9A84C]" />
           <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
-            Inteligencia Artificial
+            {t.eyebrow}
           </span>
           <div className="h-px w-10 bg-[#C9A84C]" />
         </div>
@@ -121,15 +115,14 @@ export default function AsistentePage() {
             className="text-3xl sm:text-4xl font-bold text-white"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Asistente Expat507
+            {t.title}
           </h1>
         </div>
         <p className="text-white/60 max-w-lg mx-auto">
-          Pregúntame sobre migración, bienes raíces, banca, legal y vida en
-          Panamá. Respondo con información actualizada y contextualizada.
+          {t.subtitle}
         </p>
         <p className="text-white/30 text-xs mt-2">
-          Información general · No es asesoría legal ni financiera
+          {t.footnote}
         </p>
       </div>
 
@@ -142,8 +135,7 @@ export default function AsistentePage() {
           <div>
             <div className="text-center mb-8">
               <p className="text-[#6B7280] mb-6">
-                Hola 👋 Soy el asistente de Expat507. ¿Sobre qué tema quieres
-                aprender hoy?
+                {t.welcome}
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -196,18 +188,17 @@ export default function AsistentePage() {
             {showCTA && (
               <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-2xl p-6 text-center">
                 <p className="text-[#0A1628] font-semibold mb-2">
-                  ¿Listo para dar el siguiente paso?
+                  {t.ctaTitle}
                 </p>
                 <p className="text-[#6B7280] text-sm mb-4">
-                  Para tu situación específica, una consulta personalizada es la
-                  mejor manera de obtener orientación concreta.
+                  {t.ctaDescription}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link
                     href="/consulta"
                     className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3 rounded-xl text-sm transition-colors"
                   >
-                    Agenda Consulta Gratuita
+                    {t.ctaButton}
                     <ArrowRight size={16} />
                   </Link>
                   <button
@@ -217,7 +208,7 @@ export default function AsistentePage() {
                     }}
                     className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:bg-[#F4F6F9] text-[#0A1628] font-medium px-6 py-3 rounded-xl text-sm transition-colors"
                   >
-                    Nueva pregunta
+                    {t.newQuestion}
                   </button>
                 </div>
               </div>
@@ -244,7 +235,7 @@ export default function AsistentePage() {
                     sendMessage();
                   }
                 }}
-                placeholder="Escribe tu pregunta sobre Panamá..."
+                placeholder={t.placeholder}
                 className="w-full bg-transparent px-5 py-4 text-sm text-[#0A1628] placeholder-gray-400 outline-none"
                 disabled={loading}
               />
@@ -258,9 +249,9 @@ export default function AsistentePage() {
             </button>
           </div>
           <p className="text-center text-[11px] text-gray-400 mt-2">
-            Asistente IA informativo · No reemplaza asesoría profesional ·{" "}
+            {t.footnoteBar} ·{" "}
             <Link href="/consulta" className="text-[#C9A84C] hover:underline">
-              Consulta gratuita disponible
+              {t.footnoteLink}
             </Link>
           </p>
         </div>

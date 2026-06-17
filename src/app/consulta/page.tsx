@@ -4,44 +4,17 @@ import { useState } from "react";
 import { ArrowRight, CheckCircle, Calendar, MessageCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 type Step = "form" | "success";
 
-const COUNTRIES = [
-  "Estados Unidos", "Canadá", "México", "Colombia", "Venezuela", "Argentina",
-  "España", "Alemania", "Francia", "Reino Unido", "Italia", "Brasil",
-  "Chile", "Perú", "Ecuador", "Uruguay", "Costa Rica", "Otro",
-];
-
-const OBJECTIVES = [
-  "Obtener residencia / visa",
-  "Inversión inmobiliaria",
-  "Apertura de empresa",
-  "Planificación patrimonial",
-  "Apertura de cuenta bancaria",
-  "Jubilación en Panamá",
-  "Nómada digital",
-  "Otro",
-];
-
-const BUDGETS = [
-  "Menos de $10,000 USD",
-  "$10,000 - $50,000 USD",
-  "$50,000 - $200,000 USD",
-  "$200,000 - $500,000 USD",
-  "Más de $500,000 USD",
-  "Por definir",
-];
-
-const URGENCIES = [
-  "Lo antes posible (1-3 meses)",
-  "Corto plazo (3-6 meses)",
-  "Mediano plazo (6-12 meses)",
-  "Largo plazo (más de 1 año)",
-  "Solo estoy explorando",
-];
-
 export default function ConsultaPage() {
+  const { dict } = useLocale();
+  const t = dict.consulta;
+  const COUNTRIES = dict.countries;
+  const OBJECTIVES = t.objectives;
+  const BUDGETS = t.budgets;
+  const URGENCIES = t.urgencies;
   const [step, setStep] = useState<Step>("form");
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -56,9 +29,9 @@ export default function ConsultaPage() {
 
   const calendlyUrl =
     process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/expat507";
-  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50712345678";
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
   const waMessage = encodeURIComponent(
-    `Hola, completé el formulario de consulta en Expat507. Mi nombre es ${form.name || "..."} y me interesa: ${form.objective || "..."}`
+    t.success.waMessage.replace("{name}", form.name || "...").replace("{objective}", form.objective || "...")
   );
 
   function update(field: string, value: string) {
@@ -78,10 +51,10 @@ export default function ConsultaPage() {
         setStep("success");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        toast.error("Algo salió mal. Por favor intenta de nuevo.");
+        toast.error(t.toastError);
       }
     } catch {
-      toast.error("Error de conexión.");
+      toast.error(t.toastConnError);
     } finally {
       setLoading(false);
     }
@@ -102,11 +75,10 @@ export default function ConsultaPage() {
               className="text-3xl sm:text-4xl font-bold text-white mb-4"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              ¡Perfecto, {form.name}!
+              {t.success.title.replace("{name}", form.name)}
             </h1>
             <p className="text-white/70 text-lg">
-              Recibimos tu información. El siguiente paso es agendar tu llamada
-              de orientación gratuita.
+              {t.success.subtitle}
             </p>
           </div>
         </div>
@@ -114,7 +86,7 @@ export default function ConsultaPage() {
         <GoldDivider />
 
         <div className="max-w-2xl mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
+          <div className={`grid grid-cols-1 ${waNumber ? "sm:grid-cols-2" : ""} gap-5 mb-10`}>
             {/* Calendly option */}
             <a
               href={calendlyUrl}
@@ -126,44 +98,45 @@ export default function ConsultaPage() {
                 <Calendar size={22} className="text-[#C9A84C]" />
               </div>
               <h3 className="font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                Agenda por Calendly
+                {t.success.calendlyTitle}
               </h3>
               <p className="text-white/60 text-sm mb-4">
-                Selecciona el horario que mejor te convenga en nuestro calendario.
+                {t.success.calendlyDesc}
               </p>
               <span className="inline-flex items-center gap-1.5 bg-[#C9A84C] text-[#0A1628] text-sm font-bold px-4 py-2.5 rounded-xl">
-                Abrir Calendario
+                {t.success.calendlyButton}
                 <ArrowRight size={15} />
               </span>
             </a>
 
             {/* WhatsApp option */}
-            <a
-              href={`https://wa.me/${waNumber}?text=${waMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#25D366] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity"
-            >
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <MessageCircle size={22} className="text-white" />
-              </div>
-              <h3 className="font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                Escríbenos por WhatsApp
-              </h3>
-              <p className="text-white/80 text-sm mb-4">
-                Mensaje directo. Te respondemos en menos de 24 horas hábiles.
-              </p>
-              <span className="inline-flex items-center gap-1.5 bg-white text-[#25D366] text-sm font-bold px-4 py-2.5 rounded-xl">
-                Abrir WhatsApp
-                <ArrowRight size={15} />
-              </span>
-            </a>
+            {waNumber && (
+              <a
+                href={`https://wa.me/${waNumber}?text=${waMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#25D366] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity"
+              >
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <MessageCircle size={22} className="text-white" />
+                </div>
+                <h3 className="font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                  {t.success.whatsappTitle}
+                </h3>
+                <p className="text-white/80 text-sm mb-4">
+                  {t.success.whatsappDesc}
+                </p>
+                <span className="inline-flex items-center gap-1.5 bg-white text-[#25D366] text-sm font-bold px-4 py-2.5 rounded-xl">
+                  {t.success.whatsappButton}
+                  <ArrowRight size={15} />
+                </span>
+              </a>
+            )}
           </div>
 
           <div className="bg-[#F4F6F9] rounded-2xl p-6 text-center">
             <p className="text-[#6B7280] text-sm">
-              También revisaremos tu información y nos pondremos en contacto contigo
-              en <strong className="text-[#0A1628]">menos de 24 horas hábiles</strong>.
+              {t.success.footer}
             </p>
           </div>
         </div>
@@ -178,7 +151,7 @@ export default function ConsultaPage() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#C9A84C]" />
           <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
-            Sin costo · Sin compromiso
+            {t.eyebrowBadge}
           </span>
           <div className="h-px w-10 bg-[#C9A84C]" />
         </div>
@@ -186,11 +159,10 @@ export default function ConsultaPage() {
           className="text-3xl sm:text-5xl font-bold text-white mb-4"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          Consulta Gratuita
+          {t.title}
         </h1>
         <p className="text-white/60 text-lg max-w-xl mx-auto">
-          Cuéntanos tu situación y te orientamos con los profesionales correctos
-          de nuestra red privada en Panamá.
+          {t.subtitle}
         </p>
       </div>
 
@@ -199,11 +171,7 @@ export default function ConsultaPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         {/* How it works */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-          {[
-            { step: "01", title: "Completa el formulario", desc: "2 minutos para darnos contexto de tu situación" },
-            { step: "02", title: "Agenda tu llamada", desc: "Selecciona el horario de tu preferencia" },
-            { step: "03", title: "Recibe orientación concreta", desc: "Te conectamos con el especialista correcto" },
-          ].map((s) => (
+          {t.steps.map((s) => (
             <div key={s.step} className="text-center">
               <div className="text-[#C9A84C] text-2xl font-bold opacity-40 mb-2">
                 {s.step}
@@ -221,27 +189,27 @@ export default function ConsultaPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-                Nombre completo *
+                {t.fields.name}
               </label>
               <input
                 type="text"
                 required
                 value={form.name}
                 onChange={(e) => update("name", e.target.value)}
-                placeholder="Tu nombre"
+                placeholder={t.fields.namePlaceholder}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
               />
             </div>
             <div>
               <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-                Email *
+                {t.fields.email}
               </label>
               <input
                 type="email"
                 required
                 value={form.email}
                 onChange={(e) => update("email", e.target.value)}
-                placeholder="tu@email.com"
+                placeholder={t.fields.emailPlaceholder}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
               />
             </div>
@@ -249,7 +217,7 @@ export default function ConsultaPage() {
 
           <div>
             <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-              País de residencia actual *
+              {t.fields.country}
             </label>
             <select
               required
@@ -257,7 +225,7 @@ export default function ConsultaPage() {
               onChange={(e) => update("country", e.target.value)}
               className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all bg-white"
             >
-              <option value="">Selecciona tu país</option>
+              <option value="">{t.fields.countryPlaceholder}</option>
               {COUNTRIES.map((c) => (
                 <option key={c} value={c}>{c}</option>
               ))}
@@ -266,7 +234,7 @@ export default function ConsultaPage() {
 
           <div>
             <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-              ¿Cuál es tu objetivo principal? *
+              {t.fields.objective}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {OBJECTIVES.map((obj) => (
@@ -301,7 +269,7 @@ export default function ConsultaPage() {
 
           <div>
             <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-              Rango de inversión estimada *
+              {t.fields.budget}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {BUDGETS.map((b) => (
@@ -336,7 +304,7 @@ export default function ConsultaPage() {
 
           <div>
             <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-              ¿Con qué urgencia planeas tomar acción? *
+              {t.fields.urgency}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {URGENCIES.map((u) => (
@@ -371,12 +339,12 @@ export default function ConsultaPage() {
 
           <div>
             <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-              Cuéntanos más (opcional)
+              {t.fields.message}
             </label>
             <textarea
               value={form.message}
               onChange={(e) => update("message", e.target.value)}
-              placeholder="Contexto adicional que nos ayude a orientarte mejor..."
+              placeholder={t.fields.messagePlaceholder}
               rows={4}
               className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all resize-none"
             />
@@ -387,13 +355,12 @@ export default function ConsultaPage() {
             disabled={!isFormValid || loading}
             className="w-full bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-50 disabled:cursor-not-allowed text-[#0A1628] font-bold py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-base shadow-lg hover:shadow-xl"
           >
-            {loading ? "Enviando..." : "Enviar y continuar"}
+            {loading ? t.submitLoading : t.submitIdle}
             {!loading && <ArrowRight size={18} />}
           </button>
 
           <p className="text-center text-xs text-[#6B7280]">
-            Tu información es confidencial y nunca será compartida con terceros
-            sin tu consentimiento.
+            {t.privacyNote}
           </p>
         </form>
       </div>

@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
-import { CATEGORY_LABELS, type Category } from "@/types";
+import type { Category } from "@/types";
 
 interface BadgeProps {
   category: Category;
+  label: string;
   className?: string;
 }
 
@@ -15,7 +16,7 @@ const categoryStyles: Record<Category, string> = {
   "expat-life": "bg-teal-50 text-teal-800 border border-teal-200",
 };
 
-export default function Badge({ category, className }: BadgeProps) {
+export default function Badge({ category, label, className }: BadgeProps) {
   return (
     <span
       className={cn(
@@ -24,7 +25,7 @@ export default function Badge({ category, className }: BadgeProps) {
         className
       )}
     >
-      {CATEGORY_LABELS[category]}
+      {label}
     </span>
   );
 }

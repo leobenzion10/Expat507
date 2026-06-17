@@ -4,8 +4,13 @@ import { useState } from "react";
 import { ArrowRight, CheckCircle, Mail, BookOpen, TrendingUp, Shield } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import { useLocale } from "@/components/providers/LocaleProvider";
+
+const ICONS = [TrendingUp, Shield, BookOpen, Mail];
 
 export default function NewsletterPage() {
+  const { dict } = useLocale();
+  const t = dict.newsletter;
   const [form, setForm] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -23,37 +28,16 @@ export default function NewsletterPage() {
         setDone(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        toast.error("Algo salió mal. Intenta de nuevo.");
+        toast.error(t.toastError);
       }
     } catch {
-      toast.error("Error de conexión.");
+      toast.error(t.toastConnError);
     } finally {
       setLoading(false);
     }
   }
 
-  const BENEFITS = [
-    {
-      icon: TrendingUp,
-      title: "Análisis del mercado semanal",
-      desc: "Tendencias inmobiliarias, cambios en tasas y oportunidades de inversión.",
-    },
-    {
-      icon: Shield,
-      title: "Alertas regulatorias",
-      desc: "Cambios en leyes de migración, tributación y regulación bancaria.",
-    },
-    {
-      icon: BookOpen,
-      title: "Guías exclusivas",
-      desc: "Contenido de profundidad que no publicamos en el sitio web.",
-    },
-    {
-      icon: Mail,
-      title: "Lead magnet de bienvenida",
-      desc: 'Recibe gratis nuestra guía "Los 7 errores que cometen los expatriados al llegar a Panamá".',
-    },
-  ];
+  const BENEFITS = t.benefits.map((b, i) => ({ ...b, icon: ICONS[i] }));
 
   if (done) {
     return (
@@ -66,17 +50,15 @@ export default function NewsletterPage() {
             className="text-4xl font-bold text-white mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            ¡Bienvenido/a a Expat507!
+            {t.success.title}
           </h1>
           <p className="text-white/70 text-lg max-w-lg mx-auto mb-6">
-            Te enviamos un email de confirmación a{" "}
-            <strong className="text-[#C9A84C]">{form.email}</strong>. Revisa tu
-            bandeja de entrada y también tu carpeta de spam.
+            {t.success.subtitlePrefix}
+            <strong className="text-[#C9A84C]">{form.email}</strong>{t.success.subtitleSuffix}
           </p>
           <div className="bg-white/10 border border-white/20 rounded-2xl p-5 max-w-sm mx-auto">
             <p className="text-white text-sm">
-              🎁 Tu guía de bienvenida está en camino. En el email encontrarás
-              el link de descarga.
+              {t.success.boxText}
             </p>
           </div>
         </div>
@@ -91,7 +73,7 @@ export default function NewsletterPage() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#C9A84C]" />
           <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
-            Gratis · Sin spam
+            {t.badge}
           </span>
           <div className="h-px w-10 bg-[#C9A84C]" />
         </div>
@@ -99,11 +81,10 @@ export default function NewsletterPage() {
           className="text-4xl sm:text-5xl font-bold text-white mb-4"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          Newsletter Expat507
+          {t.title}
         </h1>
         <p className="text-white/60 text-lg max-w-xl mx-auto">
-          Información privilegiada sobre Panamá, directa a tu inbox cada semana.
-          Más de 500 lectores activos.
+          {t.subtitle}
         </p>
       </div>
 
@@ -117,7 +98,7 @@ export default function NewsletterPage() {
               className="text-2xl font-bold text-[#0A1628] mb-8"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              ¿Qué recibirás cada semana?
+              {t.benefitsTitle}
             </h2>
             <div className="space-y-6">
               {BENEFITS.map((b) => (
@@ -135,15 +116,14 @@ export default function NewsletterPage() {
 
             <div className="mt-10 bg-[#F4F6F9] rounded-2xl p-5">
               <p className="text-sm text-[#6B7280] italic">
-                &ldquo;El newsletter de Expat507 es lo primero que leo los
-                lunes. La información es concisa, útil y sin relleno.&rdquo;
+                &ldquo;{t.testimonialQuote}&rdquo;
               </p>
               <div className="flex items-center gap-2 mt-3">
                 <div className="w-7 h-7 bg-[#C9A84C]/20 rounded-full flex items-center justify-center text-sm">
                   🇺🇸
                 </div>
                 <span className="text-xs text-[#6B7280]">
-                  Robert K. · Inversionista, Miami
+                  {t.testimonialName}
                 </span>
               </div>
             </div>
@@ -159,35 +139,35 @@ export default function NewsletterPage() {
                 className="text-xl font-bold text-[#0A1628] mb-2"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Suscríbete gratis
+                {t.formTitle}
               </h3>
               <p className="text-[#6B7280] text-sm mb-6">
-                Cancela cuando quieras. Sin spam, prometido.
+                {t.formSubtitle}
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-                    Tu nombre
+                    {t.nameLabel}
                   </label>
                   <input
                     type="text"
                     value={form.name}
                     onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                    placeholder="Tu nombre"
+                    placeholder={t.namePlaceholder}
                     className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-[#0A1628] mb-2">
-                    Email *
+                    {t.emailLabel}
                   </label>
                   <input
                     type="email"
                     required
                     value={form.email}
                     onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                    placeholder="tu@email.com"
+                    placeholder={t.emailPlaceholder}
                     className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
                   />
                 </div>
@@ -196,16 +176,16 @@ export default function NewsletterPage() {
                   disabled={!form.email || loading}
                   className="w-full bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-50 disabled:cursor-not-allowed text-[#0A1628] font-bold py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
-                  {loading ? "Enviando..." : "Suscribirme gratis"}
+                  {loading ? t.submitLoading : t.submitIdle}
                   {!loading && <ArrowRight size={16} />}
                 </button>
               </form>
 
               <div className="mt-6 pt-5 border-t border-gray-100">
                 <div className="flex justify-center gap-6 text-xs text-[#6B7280]">
-                  <span>✓ Sin spam</span>
-                  <span>✓ Cancela cuando quieras</span>
-                  <span>✓ Gratis</span>
+                  {t.footnotes.map((f) => (
+                    <span key={f}>{f}</span>
+                  ))}
                 </div>
               </div>
             </div>

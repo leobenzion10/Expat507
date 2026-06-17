@@ -5,15 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-
-const NAV_LINKS = [
-  { href: "/guias", label: "Centro de Conocimiento" },
-  { href: "/asistente", label: "Asistente IA" },
-  { href: "/sobre-nosotros", label: "Nosotros" },
-  { href: "/contacto", label: "Contacto" },
-];
+import { useLocale } from "@/components/providers/LocaleProvider";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 export default function Navbar() {
+  const { dict } = useLocale();
+  const NAV_LINKS = [
+    { href: "/guias", label: dict.nav.guias },
+    { href: "/asistente", label: dict.nav.asistente },
+    { href: "/sobre-nosotros", label: dict.nav.nosotros },
+    { href: "/contacto", label: dict.nav.contacto },
+  ];
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -55,7 +57,7 @@ export default function Navbar() {
                 Expat<span className="text-[#C9A84C]">507</span>
               </span>
               <span className="text-[10px] text-[#C9A84C] tracking-widest uppercase font-medium opacity-80">
-                Panamá
+                {dict.nav.panama}
               </span>
             </div>
           </Link>
@@ -79,23 +81,27 @@ export default function Navbar() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-4">
+            <LanguageSwitcher />
             <Link
               href="/consulta"
               className="bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
             >
-              Consulta Gratuita
+              {dict.nav.cta}
             </Link>
           </div>
 
           {/* Mobile toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <LanguageSwitcher />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -122,7 +128,7 @@ export default function Navbar() {
                 href="/consulta"
                 className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] text-sm font-semibold px-5 py-3 rounded-lg transition-colors"
               >
-                Consulta Gratuita
+                {dict.nav.cta}
               </Link>
             </div>
           </div>

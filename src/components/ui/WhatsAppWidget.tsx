@@ -2,11 +2,16 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const { dict } = useLocale();
+  const t = dict.widgets.whatsapp;
 
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "50712345678";
+  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  if (!number) return null;
+
   const message = encodeURIComponent(
     process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ||
       "Hola, me interesa una consulta sobre Panamá"
@@ -24,10 +29,10 @@ export default function WhatsAppWidget() {
                 <WhatsAppIcon className="w-6 h-6 text-white" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#0A1628]">Expat507</p>
+                <p className="text-sm font-semibold text-[#0A1628]">{t.brand}</p>
                 <div className="flex items-center gap-1">
                   <span className="w-2 h-2 bg-[#25D366] rounded-full"></span>
-                  <span className="text-xs text-gray-500">En línea</span>
+                  <span className="text-xs text-gray-500">{t.online}</span>
                 </div>
               </div>
             </div>
@@ -40,10 +45,10 @@ export default function WhatsAppWidget() {
           </div>
           <div className="bg-[#F4F6F9] rounded-xl rounded-tl-none p-3 mb-3">
             <p className="text-sm text-[#0A1628]">
-              👋 ¡Hola! ¿Tienes preguntas sobre vivir o invertir en Panamá?
+              {t.greeting}
             </p>
             <p className="text-sm text-[#0A1628] mt-1">
-              Escríbenos, respondemos en menos de 24 horas.
+              {t.greeting2}
             </p>
           </div>
           <a
@@ -53,7 +58,7 @@ export default function WhatsAppWidget() {
             className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1da851] text-white text-sm font-semibold py-2.5 rounded-xl transition-colors"
           >
             <WhatsAppIcon className="w-4 h-4" />
-            Abrir WhatsApp
+            {t.openButton}
           </a>
         </div>
       )}
@@ -62,7 +67,7 @@ export default function WhatsAppWidget() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 bg-[#25D366] hover:bg-[#1da851] rounded-full shadow-2xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
-        aria-label="Abrir WhatsApp"
+        aria-label={t.openLabel}
       >
         {isOpen ? (
           <X className="w-6 h-6 text-white" />

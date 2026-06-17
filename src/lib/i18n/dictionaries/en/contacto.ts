@@ -1,0 +1,35 @@
+const contacto = {
+  badge: "We're here",
+  title: "Contact Us",
+  subtitle: "Have a question or comment? Write to us and we'll respond within 24 business hours.",
+  otherWaysTitle: "Other ways to reach us",
+  whatsappTitle: "WhatsApp",
+  whatsappDesc: "Quick response",
+  whatsappMessage: "Hi, I have a question about Expat507",
+  emailTitle: "Direct email",
+  noteLabel: "Note:",
+  notePrefix: "For questions about migration, real estate, or other specialized topics, we recommend using the ",
+  noteLink: "Free Consultation",
+  noteSuffix: " form so we can guide you better.",
+  fields: {
+    name: "Name *",
+    namePlaceholder: "Your name",
+    email: "Email *",
+    emailPlaceholder: "you@email.com",
+    subject: "Subject *",
+    subjectPlaceholder: "How can we help you?",
+    message: "Message *",
+    messagePlaceholder: "Tell us more...",
+  },
+  submitLoading: "Sending...",
+  submitIdle: "Send message",
+  toastError: "Something went wrong. Please try again.",
+  toastConnError: "Connection error.",
+  success: {
+    title: "Message sent",
+    textPrefix: "We'll respond to ",
+    textSuffix: " within 24 business hours.",
+  },
+};
+
+export default contacto;
