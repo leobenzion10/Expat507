@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL;
-const FROM_EMAIL = process.env.FROM_EMAIL || "Expat507 <noreply@expat507.com>";
+const EMAIL_FROM = process.env.EMAIL_FROM || "Expat507 <noreply@expat507.com>";
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,6 +24,8 @@ export async function POST(req: NextRequest) {
     const urgency = clampString(body.urgency, 100);
     const message = clampString(body.message, 2000);
     const subscribeNewsletter = body.subscribeNewsletter === true;
+    const language = body.locale === "en" ? "en" : "es";
+    const source = clampString(body.source, 50) || "consulta";
 
     if (!name || !phone || !country || !objective || !budget || !urgency || !isValidEmail(email)) {
       return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
@@ -39,6 +41,8 @@ export async function POST(req: NextRequest) {
       budget,
       urgency,
       message: message || null,
+      source,
+      language,
       created_at: new Date().toISOString(),
     });
 
@@ -50,6 +54,8 @@ export async function POST(req: NextRequest) {
       const { error: subError } = await db.from("subscribers").insert({
         name,
         email,
+        source,
+        language,
         created_at: new Date().toISOString(),
       });
       if (subError && subError.code !== "23505") {
@@ -68,9 +74,9 @@ export async function POST(req: NextRequest) {
       message: escapeHtml(message),
     };
 
-    await Promise.allSettled([
+    const results = await Promise.allSettled([
       resend.emails.send({
-        from: FROM_EMAIL,
+        from: EMAIL_FROM,
         to: email,
         subject: "Recibimos tu consulta — Expat507",
         html: `
@@ -81,7 +87,7 @@ export async function POST(req: NextRequest) {
             </div>
             <div style="padding: 32px 24px;">
               <h2 style="color: #0A1628; margin: 0 0 16px;">Hola ${safe.name},</h2>
-              <p style="color: #374151; line-height: 1.6;">Recibimos tu consulta correctamente. Nuestro equipo la revisará y te contactará directamente por WhatsApp en menos de 24 horas hábiles.</p>
+              <p style="color: #374151; line-height: 1.6;">Recibimos tu consulta correctamente. Nuestro equipo la revisará y se pondrá en contacto contigo para coordinar una llamada en menos de 24 horas hábiles.</p>
               <div style="background: #F4F6F9; border-radius: 12px; padding: 20px; margin: 24px 0;">
                 <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0A1628;">Tu objetivo:</strong> ${safe.objective}</p>
                 <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0A1628;">Rango de inversión:</strong> ${safe.budget}</p>
@@ -99,7 +105,7 @@ export async function POST(req: NextRequest) {
       ...(OPERATOR_EMAIL
         ? [
             resend.emails.send({
-              from: FROM_EMAIL,
+              from: EMAIL_FROM,
               to: OPERATOR_EMAIL,
               subject: `Nuevo lead: ${name} (${objective})`,
               html: `
@@ -113,6 +119,8 @@ export async function POST(req: NextRequest) {
                     <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Objetivo</td><td style="padding: 8px;">${safe.objective}</td></tr>
                     <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Budget</td><td style="padding: 8px;">${safe.budget}</td></tr>
                     <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Urgencia</td><td style="padding: 8px;">${safe.urgency}</td></tr>
+                    <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Idioma</td><td style="padding: 8px;">${language}</td></tr>
+                    <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Origen</td><td style="padding: 8px;">${escapeHtml(source)}</td></tr>
                     ${safe.message ? `<tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Mensaje</td><td style="padding: 8px;">${safe.message}</td></tr>` : ""}
                   </table>
                 </div>
@@ -122,9 +130,15 @@ export async function POST(req: NextRequest) {
         : []),
     ]);
 
+    const failed = results.filter((r) => r.status === "rejected");
+    if (failed.length > 0) {
+      console.error("[/api/leads] Resend error(s):", failed.map((r) => (r as PromiseRejectedResult).reason));
+    }
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[/api/leads]", err);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    const detail = process.env.NODE_ENV === "development" && err instanceof Error ? err.message : undefined;
+    return NextResponse.json({ error: "Internal Server Error", detail }, { status: 500 });
   }
 }

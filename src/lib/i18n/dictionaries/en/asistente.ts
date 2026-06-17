@@ -20,6 +20,12 @@ const asistente = {
   placeholder: "Type your question about Panama...",
   footnoteBar: "Informational AI assistant · Does not replace professional advice",
   footnoteLink: "Free consultation available",
+  comingSoon: {
+    badge: "Coming soon",
+    title: "The AI assistant is on its way",
+    description: "We're preparing an assistant trained on migration, residency by investment, banking, real estate, and wealth planning in Panama. In the meantime, book a free consultation and we'll guide you directly.",
+    button: "Book your free consultation",
+  },
 };
 
 export default asistente;

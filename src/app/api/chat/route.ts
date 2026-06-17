@@ -5,8 +5,8 @@ import { rateLimit } from "@/lib/security";
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 2000;
 
-const UNAVAILABLE_ES = "El asistente de IA no está disponible en este momento. Mientras tanto, puedes escribirnos por WhatsApp o agendar una consulta gratuita.";
-const UNAVAILABLE_EN = "The AI assistant isn't available right now. In the meantime, you can message us on WhatsApp or book a free consultation.";
+const UNAVAILABLE_ES = "El asistente de IA todavía no está disponible. Mientras tanto, puedes agendar una consulta gratuita.";
+const UNAVAILABLE_EN = "The AI assistant isn't available yet. In the meantime, you can book a free consultation.";
 
 function unavailableStream(locale: string) {
   const encoder = new TextEncoder();
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     const { messages, locale } = await req.json();
     const systemPrompt = locale === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_ES;
 
-    if (!process.env.ANTHROPIC_API_KEY) {
+    if (process.env.NEXT_PUBLIC_CHATBOT_ENABLED !== "true" || !process.env.ANTHROPIC_API_KEY) {
       return unavailableStream(locale);
     }
 

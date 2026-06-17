@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createServiceClient } from "@/lib/supabase";
 import { clampString, escapeHtml, isValidEmail, rateLimit } from "@/lib/security";
 import { SITE_URL } from "@/lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL;
-const FROM_EMAIL = process.env.FROM_EMAIL || "Expat507 <noreply@expat507.com>";
+const EMAIL_FROM = process.env.EMAIL_FROM || "Expat507 <noreply@expat507.com>";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,9 +19,25 @@ export async function POST(req: NextRequest) {
     const email = clampString(body.email, 254);
     const subject = clampString(body.subject, 200);
     const message = clampString(body.message, 4000);
+    const language = body.locale === "en" ? "en" : "es";
+    const source = clampString(body.source, 50) || "contacto";
 
     if (!name || !subject || !message || !isValidEmail(email)) {
       return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
+    }
+
+    const db = createServiceClient();
+    const { error: dbError } = await db.from("contacts").insert({
+      name,
+      email,
+      subject,
+      message,
+      source,
+      language,
+      created_at: new Date().toISOString(),
+    });
+    if (dbError) {
+      console.error("[/api/contact] Supabase error:", dbError);
     }
 
     const safe = {
@@ -34,7 +51,7 @@ export async function POST(req: NextRequest) {
       ...(OPERATOR_EMAIL
         ? [
             resend.emails.send({
-              from: FROM_EMAIL,
+              from: EMAIL_FROM,
               to: OPERATOR_EMAIL,
               replyTo: email,
               subject: `Contacto: ${subject}`,
@@ -55,7 +72,7 @@ export async function POST(req: NextRequest) {
           ]
         : []),
       resend.emails.send({
-        from: FROM_EMAIL,
+        from: EMAIL_FROM,
         to: email,
         subject: "Recibimos tu mensaje — Expat507",
         html: `
@@ -77,14 +94,17 @@ export async function POST(req: NextRequest) {
     ]);
 
     const failed = results.filter((r) => r.status === "rejected");
+    if (failed.length > 0) {
+      console.error("[/api/contact] Resend error(s):", failed.map((r) => (r as PromiseRejectedResult).reason));
+    }
     if (failed.length === results.length) {
-      console.error("[/api/contact] All emails failed:", failed);
       return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[/api/contact]", err);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    const detail = process.env.NODE_ENV === "development" && err instanceof Error ? err.message : undefined;
+    return NextResponse.json({ error: "Internal Server Error", detail }, { status: 500 });
   }
 }

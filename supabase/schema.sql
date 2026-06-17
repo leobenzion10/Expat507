@@ -12,11 +12,16 @@ create table if not exists leads (
   budget      text not null,
   urgency     text not null,
   message     text,
+  source      text not null default 'consulta',
+  language    text not null default 'es' check (language in ('es', 'en')),
   created_at  timestamptz not null default now()
 );
 
 -- Run this once if the "leads" table already exists from a previous deploy:
 -- alter table leads add column if not exists phone text not null default '';
+-- alter table leads add column if not exists source text not null default 'consulta';
+-- alter table leads add column if not exists language text not null default 'es';
+-- alter table leads add constraint leads_language_check check (language in ('es', 'en'));
 
 -- Index for operator lookups by date and email
 create index if not exists leads_created_at_idx on leads (created_at desc);
@@ -27,9 +32,16 @@ create table if not exists subscribers (
   id          uuid primary key default gen_random_uuid(),
   email       text not null unique,
   name        text,
+  source      text not null default 'newsletter',
+  language    text not null default 'es' check (language in ('es', 'en')),
   created_at  timestamptz not null default now(),
   active      boolean not null default true
 );
+
+-- Run this once if the "subscribers" table already exists from a previous deploy:
+-- alter table subscribers add column if not exists source text not null default 'newsletter';
+-- alter table subscribers add column if not exists language text not null default 'es';
+-- alter table subscribers add constraint subscribers_language_check check (language in ('es', 'en'));
 
 create index if not exists subscribers_email_idx on subscribers (email);
 create index if not exists subscribers_created_at_idx on subscribers (created_at desc);
@@ -78,10 +90,31 @@ create table if not exists contacts (
   email      text not null,
   subject    text not null,
   message    text not null,
+  source     text not null default 'contacto',
+  language   text not null default 'es' check (language in ('es', 'en')),
   created_at timestamptz not null default now()
 );
 
+-- Run this once if the "contacts" table already exists from a previous deploy:
+-- alter table contacts add column if not exists source text not null default 'contacto';
+-- alter table contacts add column if not exists language text not null default 'es';
+-- alter table contacts add constraint contacts_language_check check (language in ('es', 'en'));
+
 create index if not exists contacts_created_at_idx on contacts (created_at desc);
+
+-- Downloads (lead-magnet guide downloads)
+create table if not exists downloads (
+  id         uuid primary key default gen_random_uuid(),
+  name       text,
+  email      text not null,
+  resource   text not null,
+  source     text not null default 'guias',
+  language   text not null default 'es' check (language in ('es', 'en')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists downloads_email_idx on downloads (email);
+create index if not exists downloads_created_at_idx on downloads (created_at desc);
 
 -- Row Level Security
 -- All tables are write-only from the public (anon) client.
@@ -91,6 +124,7 @@ alter table leads enable row level security;
 alter table subscribers enable row level security;
 alter table articles enable row level security;
 alter table contacts enable row level security;
+alter table downloads enable row level security;
 
 -- Public can insert leads
 create policy "Public can insert leads"
@@ -107,5 +141,9 @@ create policy "Public can read published articles"
 -- Public can insert contacts
 create policy "Public can insert contacts"
   on contacts for insert to anon with check (true);
+
+-- Public can insert downloads
+create policy "Public can insert downloads"
+  on downloads for insert to anon with check (true);
 
 -- Service role has full access (implicit - service role bypasses RLS)

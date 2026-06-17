@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ArrowLeft, CheckCircle, MessageCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, MessageCircle, Calendar } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
@@ -50,9 +50,12 @@ export default function ConsultaPage() {
   });
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const waEnabled = process.env.NEXT_PUBLIC_WHATSAPP_ENABLED === "true" && !!waNumber;
   const waMessage = encodeURIComponent(
     t.success.waMessage.replace("{name}", form.name || "...").replace("{objective}", form.objectives.join(", ") || "...")
   );
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL;
+  const calendlyEnabled = process.env.NEXT_PUBLIC_CALENDLY_ENABLED === "true" && !!calendlyUrl;
 
   const totalSteps = STEP_KEYS.length;
   const currentKey: StepKey = STEP_KEYS[stepIndex];
@@ -116,7 +119,7 @@ export default function ConsultaPage() {
     setLoading(true);
     try {
       const { phoneCode, phone, objectives, ...rest } = form;
-      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim(), objective: objectives.join(", "), locale };
+      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim(), objective: objectives.join(", "), locale, source: "consulta" };
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -165,12 +168,12 @@ export default function ConsultaPage() {
         <GoldDivider />
 
         <div className="max-w-2xl mx-auto px-4 py-12">
-          {waNumber && (
+          {waEnabled && (
             <a
               href={`https://wa.me/${waNumber}?text=${waMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#25D366] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity mb-10"
+              className="block bg-[#25D366] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity mb-6"
             >
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <MessageCircle size={22} className="text-white" />
@@ -183,6 +186,29 @@ export default function ConsultaPage() {
               </p>
               <span className="inline-flex items-center gap-1.5 bg-white text-[#25D366] text-sm font-bold px-4 py-2.5 rounded-xl">
                 {t.success.whatsappButton}
+                <ArrowRight size={15} />
+              </span>
+            </a>
+          )}
+
+          {calendlyEnabled && (
+            <a
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-[#0A1628] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity mb-6"
+            >
+              <div className="w-12 h-12 bg-[#C9A84C]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Calendar size={22} className="text-[#C9A84C]" />
+              </div>
+              <h3 className="font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                {t.success.calendlyTitle}
+              </h3>
+              <p className="text-white/70 text-sm mb-4">
+                {t.success.calendlyDesc}
+              </p>
+              <span className="inline-flex items-center gap-1.5 bg-[#C9A84C] text-[#0A1628] text-sm font-bold px-4 py-2.5 rounded-xl">
+                {t.success.calendlyButton}
                 <ArrowRight size={15} />
               </span>
             </a>

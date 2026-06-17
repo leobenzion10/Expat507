@@ -5,7 +5,7 @@ const consulta = {
   steps: [
     { step: "01", title: "Responde el mini-cuestionario", desc: "Una pregunta a la vez, 2 minutos en total" },
     { step: "02", title: "Guardamos tu información", desc: "De forma privada y segura" },
-    { step: "03", title: "Te contactamos por WhatsApp", desc: "En menos de 24 horas hábiles" },
+    { step: "03", title: "Coordinamos contigo", desc: "En menos de 24 horas hábiles" },
   ],
   objectives: [
     "Obtener residencia / visa",
@@ -59,11 +59,14 @@ const consulta = {
   skipButton: "Omitir",
   success: {
     title: "¡Perfecto, {name}!",
-    subtitle: "Recibimos tu información. Nuestro equipo la revisará y te contactará directamente.",
+    subtitle: "Recibimos tu información. Nuestro equipo la revisará y se pondrá en contacto contigo para coordinar una llamada.",
     whatsappTitle: "Escríbenos por WhatsApp",
     whatsappDesc: "Si quieres adelantar la conversación, mándanos un mensaje directo ahora.",
     whatsappButton: "Abrir WhatsApp",
-    footer: "Te contactaremos por WhatsApp en menos de 24 horas hábiles.",
+    calendlyTitle: "Agenda tu llamada",
+    calendlyDesc: "Elige el horario que mejor te convenga para tu consulta gratuita.",
+    calendlyButton: "Ver disponibilidad",
+    footer: "Te contactaremos en menos de 24 horas hábiles para coordinar los siguientes pasos.",
     waMessage: "Hola, completé el formulario de consulta en Expat507. Mi nombre es {name} y me interesa: {objective}",
   },
 };

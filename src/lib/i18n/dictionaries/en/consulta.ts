@@ -5,7 +5,7 @@ const consulta = {
   steps: [
     { step: "01", title: "Answer the mini-quiz", desc: "One question at a time, 2 minutes total" },
     { step: "02", title: "We save your information", desc: "Privately and securely" },
-    { step: "03", title: "We reach out on WhatsApp", desc: "Within 24 business hours" },
+    { step: "03", title: "We coordinate with you", desc: "Within 24 business hours" },
   ],
   objectives: [
     "Get residency / a visa",
@@ -59,11 +59,14 @@ const consulta = {
   skipButton: "Skip",
   success: {
     title: "Perfect, {name}!",
-    subtitle: "We received your information. Our team will review it and reach out to you directly.",
+    subtitle: "We received your information. Our team will review it and reach out to coordinate a call.",
     whatsappTitle: "Message us on WhatsApp",
     whatsappDesc: "Want to get a head start? Send us a direct message now.",
     whatsappButton: "Open WhatsApp",
-    footer: "We'll reach out on WhatsApp within 24 business hours.",
+    calendlyTitle: "Book your call",
+    calendlyDesc: "Pick the time that works best for your free consultation.",
+    calendlyButton: "View availability",
+    footer: "We'll reach out within 24 business hours to coordinate next steps.",
     waMessage: "Hi, I completed the consultation form on Expat507. My name is {name} and I'm interested in: {objective}",
   },
 };

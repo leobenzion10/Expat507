@@ -20,6 +20,12 @@ const asistente = {
   placeholder: "Escribe tu pregunta sobre Panamá...",
   footnoteBar: "Asistente IA informativo · No reemplaza asesoría profesional",
   footnoteLink: "Consulta gratuita disponible",
+  comingSoon: {
+    badge: "Próximamente",
+    title: "El asistente de IA está en camino",
+    description: "Estamos preparando un asistente entrenado en migración, residencia por inversión, banca, bienes raíces y patrimonio en Panamá. Mientras tanto, agenda una consulta gratuita y te orientamos directamente.",
+    button: "Agenda tu consulta gratuita",
+  },
 };
 
 export default asistente;

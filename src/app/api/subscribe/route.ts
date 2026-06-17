@@ -5,7 +5,7 @@ import { clampString, escapeHtml, isValidEmail, rateLimit } from "@/lib/security
 import { SITE_URL } from "@/lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = process.env.FROM_EMAIL || "Expat507 <noreply@expat507.com>";
+const EMAIL_FROM = process.env.EMAIL_FROM || "Expat507 <noreply@expat507.com>";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
     const name = clampString(body.name, 200);
     const email = clampString(body.email, 254);
     const locale = body.locale === "en" ? "en" : "es";
+    const source = clampString(body.source, 50) || "newsletter";
 
     if (!isValidEmail(email)) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
@@ -26,6 +27,8 @@ export async function POST(req: NextRequest) {
     const { error: dbError } = await db.from("subscribers").insert({
       name: name || null,
       email,
+      source,
+      language: locale,
       created_at: new Date().toISOString(),
     });
 
@@ -75,11 +78,15 @@ export async function POST(req: NextRequest) {
         </div>
       `;
 
-    await resend.emails.send({ from: FROM_EMAIL, to: email, subject, html });
+    const { error: emailError } = await resend.emails.send({ from: EMAIL_FROM, to: email, subject, html });
+    if (emailError) {
+      console.error("[/api/subscribe] Resend error:", emailError);
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[/api/subscribe]", err);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    const detail = process.env.NODE_ENV === "development" && err instanceof Error ? err.message : undefined;
+    return NextResponse.json({ error: "Internal Server Error", detail }, { status: 500 });
   }
 }

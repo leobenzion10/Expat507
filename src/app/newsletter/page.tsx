@@ -22,7 +22,7 @@ export default function NewsletterPage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, locale }),
+        body: JSON.stringify({ ...form, locale, source: "newsletter_page" }),
       });
       if (res.ok) {
         setDone(true);

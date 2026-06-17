@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, ArrowRight, Sparkles } from "lucide-react";
+import { Send, ArrowRight, Sparkles, Clock } from "lucide-react";
 import Link from "next/link";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
@@ -15,6 +15,7 @@ export default function AsistentePage() {
   const { locale, dict } = useLocale();
   const t = dict.asistente;
   const SUGGESTED_QUESTIONS = t.suggestedQuestions;
+  const chatbotEnabled = process.env.NEXT_PUBLIC_CHATBOT_ENABLED === "true";
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -95,6 +96,39 @@ export default function AsistentePage() {
   const lastIsAssistant =
     messages.length > 0 && messages[messages.length - 1].role === "assistant";
   const showCTA = lastIsAssistant && !loading && messages.length >= 2;
+
+  if (!chatbotEnabled) {
+    const cs = t.comingSoon;
+    return (
+      <div className="pt-20 min-h-screen flex flex-col">
+        <div className="gradient-navy flex-1 flex items-center justify-center px-4 py-20">
+          <div className="max-w-lg w-full text-center">
+            <div className="inline-flex items-center gap-2 bg-[#C9A84C]/15 border border-[#C9A84C]/30 rounded-full px-4 py-1.5 mb-6">
+              <Clock size={14} className="text-[#C9A84C]" />
+              <span className="text-[#C9A84C] text-xs font-semibold tracking-wide uppercase">{cs.badge}</span>
+            </div>
+            <div className="w-14 h-14 bg-[#C9A84C]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Sparkles size={24} className="text-[#C9A84C]" />
+            </div>
+            <h1
+              className="text-3xl sm:text-4xl font-bold text-white mb-4"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {cs.title}
+            </h1>
+            <p className="text-white/60 mb-8">{cs.description}</p>
+            <Link
+              href="/consulta"
+              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3.5 rounded-xl text-sm transition-colors"
+            >
+              {cs.button}
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-20 min-h-screen flex flex-col">

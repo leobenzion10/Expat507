@@ -95,6 +95,8 @@ export default function ChatbotWidget() {
     }
   }
 
+  if (process.env.NEXT_PUBLIC_CHATBOT_ENABLED !== "true") return null;
+
   return (
     <div className="fixed bottom-24 right-6 z-40">
       {open ? (

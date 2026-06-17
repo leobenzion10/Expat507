@@ -10,7 +10,7 @@ export default function WhatsAppWidget() {
   const t = dict.widgets.whatsapp;
 
   const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-  if (!number) return null;
+  if (process.env.NEXT_PUBLIC_WHATSAPP_ENABLED !== "true" || !number) return null;
 
   const message = encodeURIComponent(
     process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ||

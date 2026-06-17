@@ -21,7 +21,7 @@ export default function NewsletterBanner() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, locale }),
+        body: JSON.stringify({ email, locale, source: "newsletter_banner" }),
       });
       if (res.ok) {
         setDone(true);

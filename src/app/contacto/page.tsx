@@ -7,13 +7,14 @@ import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function ContactoPage() {
-  const { dict } = useLocale();
+  const { locale, dict } = useLocale();
   const t = dict.contacto;
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const waEnabled = process.env.NEXT_PUBLIC_WHATSAPP_ENABLED === "true" && !!waNumber;
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 
   function update(field: string, value: string) {
@@ -27,7 +28,7 @@ export default function ContactoPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, locale, source: "contacto" }),
       });
       if (res.ok) {
         setDone(true);
@@ -76,7 +77,7 @@ export default function ContactoPage() {
               {t.otherWaysTitle}
             </h2>
 
-            {waNumber && (
+            {waEnabled && (
               <a
                 href={`https://wa.me/${waNumber}?text=${encodeURIComponent(t.whatsappMessage)}`}
                 target="_blank"
