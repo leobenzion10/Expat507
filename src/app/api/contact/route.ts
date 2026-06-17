@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { clampString, escapeHtml, isValidEmail, rateLimit } from "@/lib/security";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL || "hola@expat507.com";
@@ -7,13 +8,28 @@ const FROM_EMAIL = process.env.FROM_EMAIL || "Expat507 <noreply@expat507.com>";
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, subject, message } = await req.json();
-
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    if (!rateLimit(req, "contact", 5, 60_000)) {
+      return NextResponse.json({ error: "Too many requests, please try again shortly" }, { status: 429 });
     }
 
-    await Promise.all([
+    const body = await req.json();
+    const name = clampString(body.name, 200);
+    const email = clampString(body.email, 254);
+    const subject = clampString(body.subject, 200);
+    const message = clampString(body.message, 4000);
+
+    if (!name || !subject || !message || !isValidEmail(email)) {
+      return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
+    }
+
+    const safe = {
+      name: escapeHtml(name),
+      email: escapeHtml(email),
+      subject: escapeHtml(subject),
+      message: escapeHtml(message),
+    };
+
+    const results = await Promise.allSettled([
       resend.emails.send({
         from: FROM_EMAIL,
         to: OPERATOR_EMAIL,
@@ -23,12 +39,12 @@ export async function POST(req: NextRequest) {
           <div style="font-family: Arial, sans-serif; max-width: 600px;">
             <h2 style="color: #0A1628;">Nuevo mensaje de contacto</h2>
             <table style="width: 100%; border-collapse: collapse;">
-              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold; width: 120px;">Nombre</td><td style="padding: 8px;">${name}</td></tr>
-              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Email</td><td style="padding: 8px;"><a href="mailto:${email}">${email}</a></td></tr>
-              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Asunto</td><td style="padding: 8px;">${subject}</td></tr>
+              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold; width: 120px;">Nombre</td><td style="padding: 8px;">${safe.name}</td></tr>
+              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Email</td><td style="padding: 8px;"><a href="mailto:${safe.email}">${safe.email}</a></td></tr>
+              <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Asunto</td><td style="padding: 8px;">${safe.subject}</td></tr>
             </table>
             <div style="background: #F4F6F9; border-radius: 8px; padding: 16px; margin-top: 16px;">
-              <p style="color: #374151; white-space: pre-wrap; margin: 0;">${message}</p>
+              <p style="color: #374151; white-space: pre-wrap; margin: 0;">${safe.message}</p>
             </div>
           </div>
         `,
@@ -43,8 +59,8 @@ export async function POST(req: NextRequest) {
               <h1 style="color: #C9A84C; margin: 0; font-size: 24px;">Expat507</h1>
             </div>
             <div style="padding: 32px 24px;">
-              <h2 style="color: #0A1628; margin: 0 0 16px;">Hola ${name},</h2>
-              <p style="color: #374151; line-height: 1.6;">Recibimos tu mensaje sobre "<strong>${subject}</strong>". Te responderemos a este email en menos de 24 horas hábiles.</p>
+              <h2 style="color: #0A1628; margin: 0 0 16px;">Hola ${safe.name},</h2>
+              <p style="color: #374151; line-height: 1.6;">Recibimos tu mensaje sobre "<strong>${safe.subject}</strong>". Te responderemos a este email en menos de 24 horas hábiles.</p>
               <p style="color: #374151; line-height: 1.6;">Si tienes una consulta sobre migración, bienes raíces u otro tema especializado, también puedes usar nuestro <a href="https://expat507.com/asistente" style="color: #C9A84C;">asistente IA</a> para obtener respuestas inmediatas.</p>
             </div>
             <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
@@ -54,6 +70,12 @@ export async function POST(req: NextRequest) {
         `,
       }),
     ]);
+
+    const failed = results.filter((r) => r.status === "rejected");
+    if (failed.length === results.length) {
+      console.error("[/api/contact] All emails failed:", failed);
+      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {

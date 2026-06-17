@@ -1,7 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
+import { rateLimit } from "@/lib/security";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 2000;
 
 const SYSTEM_PROMPT = `Eres el asistente experto de Expat507, la plataforma de referencia para expatriados e inversionistas internacionales interesados en Panamá.
 
@@ -24,10 +28,31 @@ Principios:
 
 export async function POST(req: NextRequest) {
   try {
+    if (!rateLimit(req, "chat", 15, 60_000)) {
+      return new Response("Too many requests, please try again shortly", { status: 429 });
+    }
+
     const { messages } = await req.json();
 
-    if (!messages || !Array.isArray(messages)) {
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return new Response("Invalid request body", { status: 400 });
+    }
+    if (messages.length > MAX_MESSAGES) {
+      return new Response("Conversation too long", { status: 400 });
+    }
+
+    const sanitized: { role: "user" | "assistant"; content: string }[] = [];
+    for (const m of messages) {
+      if (
+        !m ||
+        (m.role !== "user" && m.role !== "assistant") ||
+        typeof m.content !== "string" ||
+        m.content.length === 0 ||
+        m.content.length > MAX_MESSAGE_LENGTH
+      ) {
+        return new Response("Invalid message in conversation", { status: 400 });
+      }
+      sanitized.push({ role: m.role, content: m.content });
     }
 
     const stream = await client.messages.create({
@@ -35,10 +60,7 @@ export async function POST(req: NextRequest) {
       max_tokens: 1024,
       thinking: { type: "adaptive" },
       system: SYSTEM_PROMPT,
-      messages: messages.map((m: { role: string; content: string }) => ({
-        role: m.role as "user" | "assistant",
-        content: m.content,
-      })),
+      messages: sanitized,
       stream: true,
     });
 

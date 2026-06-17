@@ -1,16 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase";
 import { Resend } from "resend";
+import { clampString, escapeHtml, isValidEmail, rateLimit } from "@/lib/security";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || "Expat507 <noreply@expat507.com>";
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email } = await req.json();
+    if (!rateLimit(req, "subscribe", 5, 60_000)) {
+      return NextResponse.json({ error: "Too many requests, please try again shortly" }, { status: 429 });
+    }
 
-    if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    const body = await req.json();
+    const name = clampString(body.name, 200);
+    const email = clampString(body.email, 254);
+
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
     }
 
     const db = createServiceClient();
@@ -27,6 +34,8 @@ export async function POST(req: NextRequest) {
       console.error("[/api/subscribe] Supabase error:", dbError);
     }
 
+    const safeName = escapeHtml(name);
+
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
@@ -38,7 +47,7 @@ export async function POST(req: NextRequest) {
             <p style="color: rgba(255,255,255,0.6); margin: 8px 0 0; font-size: 14px;">Tu guía insider para vivir, invertir y establecerte en Panamá</p>
           </div>
           <div style="padding: 32px 24px;">
-            <h2 style="color: #0A1628; margin: 0 0 16px;">¡Bienvenido/a${name ? `, ${name}` : ""}!</h2>
+            <h2 style="color: #0A1628; margin: 0 0 16px;">¡Bienvenido/a${safeName ? `, ${safeName}` : ""}!</h2>
             <p style="color: #374151; line-height: 1.6;">Ya eres parte de la comunidad Expat507. Cada semana recibirás análisis del mercado, alertas regulatorias y guías exclusivas sobre Panamá.</p>
 
             <div style="background: #FBF6EC; border: 1px solid rgba(201,168,76,0.3); border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center;">

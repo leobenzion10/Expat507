@@ -1,5 +1,21 @@
 import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
@@ -8,6 +24,7 @@ import Analytics from "@/components/ui/Analytics";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://expat507.com"),
   title: {
     default: "Expat507 — Tu guía insider para vivir e invertir en Panamá",
     template: "%s | Expat507",
@@ -67,7 +84,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${inter.variable} ${playfairDisplay.variable}`}>
       <body className="min-h-screen flex flex-col">
         <Analytics />
         <Navbar />

@@ -1,7 +1,7 @@
--- Expat507 — Supabase Schema
+-- Expat507 - Supabase Schema
 -- Run this in the Supabase SQL Editor to initialize all tables
 
--- ─── Leads (Consulta Gratuita form) ────────────────────────────────────────
+-- Leads (Consulta Gratuita form)
 create table if not exists leads (
   id          uuid primary key default gen_random_uuid(),
   name        text not null,
@@ -18,7 +18,7 @@ create table if not exists leads (
 create index if not exists leads_created_at_idx on leads (created_at desc);
 create index if not exists leads_email_idx on leads (email);
 
--- ─── Subscribers (Newsletter form) ──────────────────────────────────────────
+-- Subscribers (Newsletter form)
 create table if not exists subscribers (
   id          uuid primary key default gen_random_uuid(),
   email       text not null unique,
@@ -30,7 +30,7 @@ create table if not exists subscribers (
 create index if not exists subscribers_email_idx on subscribers (email);
 create index if not exists subscribers_created_at_idx on subscribers (created_at desc);
 
--- ─── Articles (CMS for Guides) ───────────────────────────────────────────────
+-- Articles (CMS for Guides)
 create table if not exists articles (
   id           uuid primary key default gen_random_uuid(),
   slug         text not null unique,
@@ -67,7 +67,7 @@ create trigger articles_updated_at
   before update on articles
   for each row execute procedure update_updated_at_column();
 
--- ─── Contacts (Contacto form) ───────────────────────────────────────────────
+-- Contacts (Contacto form)
 create table if not exists contacts (
   id         uuid primary key default gen_random_uuid(),
   name       text not null,
@@ -79,7 +79,7 @@ create table if not exists contacts (
 
 create index if not exists contacts_created_at_idx on contacts (created_at desc);
 
--- ─── Row Level Security ─────────────────────────────────────────────────────
+-- Row Level Security
 -- All tables are write-only from the public (anon) client.
 -- Read access requires the service role key (server-side only).
 
@@ -104,4 +104,4 @@ create policy "Public can read published articles"
 create policy "Public can insert contacts"
   on contacts for insert to anon with check (true);
 
--- Service role has full access (implicit — service role bypasses RLS)
+-- Service role has full access (implicit - service role bypasses RLS)
