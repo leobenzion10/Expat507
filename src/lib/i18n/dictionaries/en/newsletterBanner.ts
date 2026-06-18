@@ -3,6 +3,8 @@ const newsletterBanner = {
   title: "Download the 2026 Definitive Guide to Panama",
   subtitle: "Subscribe and get our complete free guide (residency, real estate, banking, legal, and wealth), plus weekly market analysis and regulatory updates.",
   placeholder: "you@email.com",
+  languageEs: "Español",
+  languageEn: "English",
   submitLoading: "Sending...",
   submitIdle: "Subscribe",
   successTitle: "Perfect! You're in. 🎉",

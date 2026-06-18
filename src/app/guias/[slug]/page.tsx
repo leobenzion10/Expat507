@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Badge from "@/components/ui/Badge";
 import GoldDivider from "@/components/ui/GoldDivider";
-import { Clock, ArrowLeft, Calendar, ArrowRight } from "lucide-react";
+import { Clock, ArrowLeft, Calendar, ArrowRight, Download } from "lucide-react";
 import { formatDate, formatMonthYear } from "@/lib/utils";
 import { CATEGORIES } from "@/types";
 import type { Metadata } from "next";
@@ -113,6 +113,23 @@ export default async function ArticlePage({ params }: { params: Params }) {
             <div className="bg-[#F4F6F9] rounded-xl p-5 text-sm text-[#6B7280]">
               <strong className="text-[#0B1A17]">{t.disclaimerLabel}</strong> {t.disclaimerText}
             </div>
+
+            {/* Full guide download CTA */}
+            <Link
+              href="/guia-completa"
+              className="card-editorial mt-6 flex items-center gap-4 bg-white rounded-2xl p-5"
+            >
+              <div className="w-12 h-12 bg-[#FBF6EC] rounded-xl flex items-center justify-center flex-shrink-0">
+                <Download size={20} className="text-[#B8935A]" />
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-[#0B1A17] text-sm">{dict.guiaCompleta.ctaGuide.title}</p>
+                <p className="text-[#6B7280] text-xs mt-0.5">{dict.guiaCompleta.ctaGuide.description}</p>
+              </div>
+              <span className="text-[#B8935A] text-sm font-semibold whitespace-nowrap hidden sm:inline">
+                {dict.guiaCompleta.ctaGuide.button} →
+              </span>
+            </Link>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mt-6">

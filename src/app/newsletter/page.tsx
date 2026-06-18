@@ -12,7 +12,9 @@ const ICONS = [TrendingUp, Shield, BookOpen, Mail];
 export default function NewsletterPage() {
   const { locale, dict } = useLocale();
   const t = dict.newsletter;
+  const tg = dict.guiaCompleta;
   const [form, setForm] = useState({ name: "", email: "" });
+  const [language, setLanguage] = useState<"es" | "en">(locale);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -23,7 +25,7 @@ export default function NewsletterPage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, locale, source: "newsletter_page" }),
+        body: JSON.stringify({ ...form, language, source: "newsletter_page" }),
       });
       if (res.ok) {
         setDone(true);
@@ -64,7 +66,7 @@ export default function NewsletterPage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <a
-              href={`/guias/guia-expat507-${locale}.pdf`}
+              href={`/guias/guia-expat507-${language}.pdf`}
               download
               className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3.5 rounded-xl transition-all duration-200"
             >
@@ -188,6 +190,27 @@ export default function NewsletterPage() {
                     placeholder={t.emailPlaceholder}
                     className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
+                    {tg.languageLabel}
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {(["es", "en"] as const).map((l) => (
+                      <button
+                        key={l}
+                        type="button"
+                        onClick={() => setLanguage(l)}
+                        className={`py-3 rounded-xl text-sm font-semibold border transition-all ${
+                          language === l
+                            ? "bg-[#0B1A17] text-white border-[#0B1A17]"
+                            : "bg-white text-[#6B7280] border-gray-200 hover:border-[#B8935A]"
+                        }`}
+                      >
+                        {l === "es" ? tg.languageEs : tg.languageEn}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 <button
                   type="submit"

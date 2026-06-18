@@ -17,6 +17,7 @@ type FormState = {
   urgency: string;
   message: string;
   subscribeNewsletter: boolean;
+  language: "es" | "en";
 };
 
 const STEP_KEYS = ["name", "email", "phone", "country", "objective", "budget", "urgency", "message"] as const;
@@ -27,6 +28,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default function ConsultaPage() {
   const { locale, dict } = useLocale();
   const t = dict.consulta;
+  const tg = dict.guiaCompleta;
   const COUNTRIES = dict.countries;
   const DIAL_CODES = dict.dialCodes;
   const OBJECTIVES = t.objectives;
@@ -47,6 +49,7 @@ export default function ConsultaPage() {
     urgency: "",
     message: "",
     subscribeNewsletter: false,
+    language: locale,
   });
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
@@ -119,7 +122,7 @@ export default function ConsultaPage() {
     setLoading(true);
     try {
       const { phoneCode, phone, objectives, ...rest } = form;
-      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim(), objective: objectives.join(", "), locale, source: "consulta" };
+      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim(), objective: objectives.join(", "), source: "consulta" };
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -435,6 +438,26 @@ export default function ConsultaPage() {
                 />
                 <span className="text-sm text-[#374151]">{t.fields.newsletterOptIn}</span>
               </label>
+
+              <div className="mt-5">
+                <label className="block text-sm font-semibold text-[#0B1A17] mb-2">{tg.languageLabel}</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {(["es", "en"] as const).map((l) => (
+                    <button
+                      key={l}
+                      type="button"
+                      onClick={() => setForm((prev) => ({ ...prev, language: l }))}
+                      className={`py-2.5 rounded-xl text-sm font-semibold border transition-all ${
+                        form.language === l
+                          ? "border-[#B8935A] bg-[#FBF6EC] text-[#0B1A17]"
+                          : "border-gray-200 text-[#6B7280] hover:border-gray-300"
+                      }`}
+                    >
+                      {l === "es" ? tg.languageEs : tg.languageEn}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 

@@ -17,6 +17,7 @@ import contacto from "./contacto";
 import sobreNosotros from "./sobreNosotros";
 import privacidad from "./privacidad";
 import terminos from "./terminos";
+import guiaCompleta from "./guiaCompleta";
 import countries from "../../countries-es";
 import dialCodes from "../../dial-codes-es";
 
@@ -40,6 +41,7 @@ const es = {
   sobreNosotros,
   privacidad,
   terminos,
+  guiaCompleta,
   countries,
   dialCodes,
 };

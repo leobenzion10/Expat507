@@ -3,6 +3,8 @@ const newsletterBanner = {
   title: "Descarga la Guía Definitiva 2026 de Panamá",
   subtitle: "Suscríbete y recibe gratis nuestra guía completa (residencia, bienes raíces, banca, legal y patrimonio), más análisis del mercado y cambios regulatorios cada semana.",
   placeholder: "tu@email.com",
+  languageEs: "Español",
+  languageEn: "English",
   submitLoading: "Enviando...",
   submitIdle: "Suscribirme",
   successTitle: "¡Perfecto! Ya estás dentro. 🎉",

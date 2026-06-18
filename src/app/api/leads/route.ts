@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const urgency = clampString(body.urgency, 100);
     const message = clampString(body.message, 2000);
     const subscribeNewsletter = body.subscribeNewsletter === true;
-    const language = body.locale === "en" ? "en" : "es";
+    const language = (body.language === "en" || body.locale === "en") ? "en" : "es";
     const source = clampString(body.source, 50) || "consulta";
 
     if (!name || !phone || !country || !objective || !budget || !urgency || !isValidEmail(email)) {
@@ -51,14 +51,11 @@ export async function POST(req: NextRequest) {
     }
 
     if (subscribeNewsletter) {
-      const { error: subError } = await db.from("subscribers").insert({
-        name,
-        email,
-        source,
-        language,
-        created_at: new Date().toISOString(),
-      });
-      if (subError && subError.code !== "23505") {
+      const { error: subError } = await db.from("subscribers").upsert(
+        { name, email, source, language, active: true, created_at: new Date().toISOString() },
+        { onConflict: "email" }
+      );
+      if (subError) {
         console.error("[/api/leads] Newsletter subscribe error:", subError);
       }
     }
@@ -74,12 +71,31 @@ export async function POST(req: NextRequest) {
       message: escapeHtml(message),
     };
 
-    const results = await Promise.allSettled([
-      resend.emails.send({
-        from: EMAIL_FROM,
-        to: email,
-        subject: "Recibimos tu consulta — Expat507",
-        html: `
+    const userEmailHtml =
+      language === "en"
+        ? `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
+            <div style="background: #0B1A17; padding: 32px 24px; text-align: center;">
+              <h1 style="color: #B8935A; margin: 0; font-size: 24px;">Expat507</h1>
+              <p style="color: rgba(255,255,255,0.6); margin: 8px 0 0; font-size: 14px;">Your insider guide to Panama</p>
+            </div>
+            <div style="padding: 32px 24px;">
+              <h2 style="color: #0B1A17; margin: 0 0 16px;">Hi ${safe.name},</h2>
+              <p style="color: #374151; line-height: 1.6;">We received your consultation request. Our team will review it and get in touch to coordinate a call within 24 business hours.</p>
+              <div style="background: #F4F6F9; border-radius: 12px; padding: 20px; margin: 24px 0;">
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0B1A17;">Your goal:</strong> ${safe.objective}</p>
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0B1A17;">Investment range:</strong> ${safe.budget}</p>
+                <p style="color: #6B7280; font-size: 13px; margin: 0;"><strong style="color: #0B1A17;">Urgency:</strong> ${safe.urgency}</p>
+              </div>
+              <p style="color: #374151; line-height: 1.6;">In the meantime, you can browse our <a href="${SITE_URL}/guias" style="color: #B8935A;">guides</a>.</p>
+              ${subscribeNewsletter ? `<p style="color: #374151; line-height: 1.6;">We also subscribed you to our newsletter — you'll get market analysis and exclusive guides about Panama every week.</p>` : ""}
+            </div>
+            <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
+              <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · Panama</p>
+            </div>
+          </div>
+        `
+        : `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
             <div style="background: #0B1A17; padding: 32px 24px; text-align: center;">
               <h1 style="color: #B8935A; margin: 0; font-size: 24px;">Expat507</h1>
@@ -100,7 +116,14 @@ export async function POST(req: NextRequest) {
               <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · Panamá</p>
             </div>
           </div>
-        `,
+        `;
+
+    const results = await Promise.allSettled([
+      resend.emails.send({
+        from: EMAIL_FROM,
+        to: email,
+        subject: language === "en" ? "We received your consultation — Expat507" : "Recibimos tu consulta — Expat507",
+        html: userEmailHtml,
       }),
       ...(OPERATOR_EMAIL
         ? [

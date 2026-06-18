@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const name = clampString(body.name, 200);
     const email = clampString(body.email, 254);
-    const locale = body.locale === "en" ? "en" : "es";
+    const locale = (body.language === "en" || body.locale === "en") ? "en" : "es";
     const source = clampString(body.source, 50) || "newsletter";
 
     if (!isValidEmail(email)) {
@@ -24,19 +24,30 @@ export async function POST(req: NextRequest) {
     }
 
     const db = createServiceClient();
-    const { error: dbError } = await db.from("subscribers").insert({
-      name: name || null,
-      email,
-      source,
-      language: locale,
-      created_at: new Date().toISOString(),
-    });
+
+    const { data: existing } = await db.from("subscribers").select("email").eq("email", email).maybeSingle();
+    const alreadySubscribed = !!existing;
+
+    const { error: dbError } = await db.from("subscribers").upsert(
+      {
+        name: name || null,
+        email,
+        source,
+        language: locale,
+        active: true,
+        created_at: new Date().toISOString(),
+      },
+      { onConflict: "email" }
+    );
 
     if (dbError) {
-      if (dbError.code === "23505") {
-        return NextResponse.json({ ok: true, alreadySubscribed: true });
-      }
       console.error("[/api/subscribe] Supabase error:", dbError);
+    }
+
+    // Returning subscribers just had their language preference updated above —
+    // skip re-sending the welcome email so we don't spam someone who's already in.
+    if (alreadySubscribed) {
+      return NextResponse.json({ ok: true, alreadySubscribed: true });
     }
 
     const safeName = escapeHtml(name);

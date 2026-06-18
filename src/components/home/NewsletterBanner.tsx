@@ -11,6 +11,7 @@ export default function NewsletterBanner() {
   const { locale, dict } = useLocale();
   const t = dict.newsletterBanner;
   const [email, setEmail] = useState("");
+  const [language, setLanguage] = useState<"es" | "en">(locale);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -22,7 +23,7 @@ export default function NewsletterBanner() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, locale, source: "newsletter_banner" }),
+        body: JSON.stringify({ email, language, source: "newsletter_banner" }),
       });
       if (res.ok) {
         setDone(true);
@@ -84,7 +85,7 @@ export default function NewsletterBanner() {
                   {t.successSubtitle}
                 </p>
                 <a
-                  href={`/guias/guia-expat507-${locale}.pdf`}
+                  href={`/guias/guia-expat507-${language}.pdf`}
                   download
                   className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3 rounded-xl transition-all duration-200"
                 >
@@ -93,23 +94,41 @@ export default function NewsletterBanner() {
                 </a>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t.placeholder}
-                  className="flex-1 border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3.5 rounded-xl transition-all duration-200 whitespace-nowrap disabled:opacity-60"
-                >
-                  {loading ? t.submitLoading : t.submitIdle}
-                  {!loading && <ArrowRight size={16} />}
-                </button>
+              <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+                <div className="flex justify-center gap-2 mb-3">
+                  {(["es", "en"] as const).map((l) => (
+                    <button
+                      key={l}
+                      type="button"
+                      onClick={() => setLanguage(l)}
+                      className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                        language === l
+                          ? "bg-[#0B1A17] text-white border-[#0B1A17]"
+                          : "bg-white text-[#6B7280] border-gray-200 hover:border-[#B8935A]"
+                      }`}
+                    >
+                      {l === "es" ? t.languageEs : t.languageEn}
+                    </button>
+                  ))}
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={t.placeholder}
+                    className="flex-1 border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20"
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3.5 rounded-xl transition-all duration-200 whitespace-nowrap disabled:opacity-60"
+                  >
+                    {loading ? t.submitLoading : t.submitIdle}
+                    {!loading && <ArrowRight size={16} />}
+                  </button>
+                </div>
               </form>
             )}
 

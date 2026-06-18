@@ -107,11 +107,15 @@ create table if not exists downloads (
   id         uuid primary key default gen_random_uuid(),
   name       text,
   email      text not null,
+  country    text,
   resource   text not null,
   source     text not null default 'guias',
   language   text not null default 'es' check (language in ('es', 'en')),
   created_at timestamptz not null default now()
 );
+
+-- Run this once if the "downloads" table already exists from a previous deploy:
+-- alter table downloads add column if not exists country text;
 
 create index if not exists downloads_email_idx on downloads (email);
 create index if not exists downloads_created_at_idx on downloads (created_at desc);
