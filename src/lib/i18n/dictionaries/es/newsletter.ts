@@ -7,9 +7,11 @@ const newsletter = {
     { title: "Análisis del mercado semanal", desc: "Tendencias inmobiliarias, cambios en tasas y oportunidades de inversión." },
     { title: "Alertas regulatorias", desc: "Cambios en leyes de migración, tributación y regulación bancaria." },
     { title: "Guías exclusivas", desc: "Contenido de profundidad que no publicamos en el sitio web." },
-    { title: "Lead magnet de bienvenida", desc: "Recibe gratis nuestra guía \"Los 7 errores que cometen los expatriados al llegar a Panamá\"." },
+    { title: "Guía gratuita de bienvenida", desc: "Recibe gratis nuestra Guía Definitiva 2026: cómo establecerte e invertir en Panamá (residencia, bienes raíces, banca, legal y patrimonio)." },
   ],
   highlightText: "Estamos lanzando este newsletter ahora: sé de los primeros en recibir análisis directo y sin relleno sobre Panamá.",
+  highlightLinkPrefix: "Mientras te suscribes, puedes leer ya mismo nuestro artículo",
+  highlightLinkText: "Los 7 errores que cometen los expatriados al llegar a Panamá →",
   formTitle: "Suscríbete gratis",
   formSubtitle: "Cancela cuando quieras. Sin spam, prometido.",
   nameLabel: "Tu nombre",
@@ -25,7 +27,9 @@ const newsletter = {
     title: "¡Bienvenido/a a Expat507!",
     subtitlePrefix: "Te enviamos un email de confirmación a ",
     subtitleSuffix: ". Revisa tu bandeja de entrada y también tu carpeta de spam.",
-    boxText: "🎁 Tu guía de bienvenida está en camino. En el email encontrarás el link de descarga.",
+    boxText: "🎁 Tu guía de bienvenida está en camino. También la encontrarás en el email.",
+    downloadButton: "Descargar la Guía Definitiva 2026 (PDF)",
+    readArticleButton: "Leer: Los 7 errores que cometen los expatriados",
   },
 };
 

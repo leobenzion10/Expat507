@@ -7,9 +7,11 @@ const newsletter = {
     { title: "Weekly market analysis", desc: "Real estate trends, rate changes, and investment opportunities." },
     { title: "Regulatory alerts", desc: "Changes in migration laws, taxation, and banking regulation." },
     { title: "Exclusive guides", desc: "In-depth content we don't publish on the website." },
-    { title: "Welcome lead magnet", desc: "Get our free guide \"The 7 mistakes expatriates make when arriving in Panama.\"" },
+    { title: "Free welcome guide", desc: "Get our free 2026 Definitive Guide: how to settle and invest in Panama (residency, real estate, banking, legal, and wealth)." },
   ],
   highlightText: "We're just launching this newsletter: be one of the first to get direct, no-fluff analysis on Panama.",
+  highlightLinkPrefix: "While you subscribe, you can already read our article",
+  highlightLinkText: "The 7 mistakes expatriates make when arriving in Panama →",
   formTitle: "Subscribe for free",
   formSubtitle: "Cancel anytime. No spam, promised.",
   nameLabel: "Your name",
@@ -25,7 +27,9 @@ const newsletter = {
     title: "Welcome to Expat507!",
     subtitlePrefix: "We sent a confirmation email to ",
     subtitleSuffix: ". Check your inbox and your spam folder too.",
-    boxText: "🎁 Your welcome guide is on its way. You'll find the download link in the email.",
+    boxText: "🎁 Your welcome guide is on its way. You'll also find it in the email.",
+    downloadButton: "Download the 2026 Definitive Guide (PDF)",
+    readArticleButton: "Read: The 7 mistakes expatriates make",
   },
 };
 

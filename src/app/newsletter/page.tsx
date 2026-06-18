@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, CheckCircle, Mail, BookOpen, TrendingUp, Shield } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CheckCircle, Mail, BookOpen, TrendingUp, Shield, Download } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
@@ -56,10 +57,26 @@ export default function NewsletterPage() {
             {t.success.subtitlePrefix}
             <strong className="text-[#B8935A]">{form.email}</strong>{t.success.subtitleSuffix}
           </p>
-          <div className="bg-white/10 border border-white/20 rounded-2xl p-5 max-w-sm mx-auto">
+          <div className="bg-white/10 border border-white/20 rounded-2xl p-5 max-w-sm mx-auto mb-6">
             <p className="text-white text-sm">
               {t.success.boxText}
             </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <a
+              href={`/guias/guia-expat507-${locale}.pdf`}
+              download
+              className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3.5 rounded-xl transition-all duration-200"
+            >
+              <Download size={16} />
+              {t.success.downloadButton}
+            </a>
+            <Link
+              href="/guias/errores-comunes-expatriados-panama"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-6 py-3.5 rounded-xl transition-all duration-200"
+            >
+              {t.success.readArticleButton}
+            </Link>
           </div>
         </div>
       </div>
@@ -115,8 +132,17 @@ export default function NewsletterPage() {
             </div>
 
             <div className="mt-10 bg-[#FBF6EC] border border-[#B8935A]/30 rounded-2xl p-5">
-              <p className="text-sm text-[#374151]">
+              <p className="text-sm text-[#374151] mb-2">
                 {t.highlightText}
+              </p>
+              <p className="text-sm text-[#374151]">
+                {t.highlightLinkPrefix}{" "}
+                <Link
+                  href="/guias/errores-comunes-expatriados-panama"
+                  className="font-semibold text-[#B8935A] hover:text-[#96763F] transition-colors"
+                >
+                  {t.highlightLinkText}
+                </Link>
               </p>
             </div>
           </div>

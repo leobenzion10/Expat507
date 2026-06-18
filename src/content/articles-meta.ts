@@ -30,6 +30,7 @@ const ARTICLES_META: ArticleMeta[] = [
   { id: "16", slug: "fundaciones-vs-fideicomisos-panama", category: "legal", published_at: "2026-06-17", updated_at: "2026-06-17", read_time: 10, featured: false, pillar: true },
   { id: "17", slug: "preconstruccion-vs-propiedad-terminada-panama", category: "bienes-raices", published_at: "2026-06-17", updated_at: "2026-06-17", read_time: 9, featured: false, pillar: false },
   { id: "18", slug: "sistema-fiscal-territorial-panama", category: "patrimonio", published_at: "2026-06-17", updated_at: "2026-06-17", read_time: 10, featured: false, pillar: true },
+  { id: "19", slug: "errores-comunes-expatriados-panama", category: "expat-life", published_at: "2026-06-18", updated_at: "2026-06-18", read_time: 9, featured: false, pillar: true },
 ];
 
 export default ARTICLES_META;

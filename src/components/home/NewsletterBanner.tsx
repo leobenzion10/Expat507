@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Mail, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
@@ -76,13 +76,21 @@ export default function NewsletterBanner() {
             </p>
 
             {done ? (
-              <div className="bg-[#FBF6EC] border border-[#B8935A]/30 rounded-2xl px-8 py-5">
+              <div className="bg-[#FBF6EC] border border-[#B8935A]/30 rounded-2xl px-8 py-6">
                 <p className="text-[#0B1A17] font-semibold">
                   {t.successTitle}
                 </p>
-                <p className="text-[#6B7280] text-sm mt-1">
+                <p className="text-[#6B7280] text-sm mt-1 mb-4">
                   {t.successSubtitle}
                 </p>
+                <a
+                  href={`/guias/guia-expat507-${locale}.pdf`}
+                  download
+                  className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3 rounded-xl transition-all duration-200"
+                >
+                  <Download size={16} />
+                  {t.downloadButton}
+                </a>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">

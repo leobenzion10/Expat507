@@ -41,6 +41,8 @@ export async function POST(req: NextRequest) {
 
     const safeName = escapeHtml(name);
     const unsubscribeUrl = `${SITE_URL}/api/unsubscribe?email=${encodeURIComponent(email)}&locale=${locale}`;
+    const guideUrl = `${SITE_URL}/guias/guia-expat507-${locale}.pdf`;
+    const mistakesUrl = `${SITE_URL}/guias/errores-comunes-expatriados-panama`;
 
     const subject = locale === "en" ? "Welcome to the Expat507 newsletter" : "Bienvenido/a al newsletter de Expat507";
     const html =
@@ -54,7 +56,11 @@ export async function POST(req: NextRequest) {
           <div style="padding: 32px 24px;">
             <h2 style="color: #0B1A17; margin: 0 0 16px;">Welcome${safeName ? `, ${safeName}` : ""}!</h2>
             <p style="color: #374151; line-height: 1.6;">You're now part of the Expat507 community. Every week you'll get market analysis, regulatory alerts, and exclusive guides about Panama.</p>
-            <p style="color: #374151; line-height: 1.6;">While you wait for the next issue, take a look at our <a href="${SITE_URL}/guias" style="color: #B8935A;">guides</a> or <a href="${SITE_URL}/consulta" style="color: #B8935A;">book a free consultation</a> if you'd like personalized guidance.</p>
+            <p style="color: #374151; line-height: 1.6;">As promised, here's your free guide:</p>
+            <p style="text-align: center; margin: 24px 0;">
+              <a href="${guideUrl}" style="background: #B8935A; color: #0B1A17; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; display: inline-block;">Download the 2026 Definitive Guide (PDF)</a>
+            </p>
+            <p style="color: #374151; line-height: 1.6;">While you wait for the next issue, read our article on <a href="${mistakesUrl}" style="color: #B8935A;">the 7 mistakes expatriates make when arriving in Panama</a>, browse our <a href="${SITE_URL}/guias" style="color: #B8935A;">guides</a>, or <a href="${SITE_URL}/consulta" style="color: #B8935A;">book a free consultation</a> if you'd like personalized guidance.</p>
           </div>
           <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
             <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · <a href="${unsubscribeUrl}" style="color: #9CA3AF;">Unsubscribe</a></p>
@@ -70,7 +76,11 @@ export async function POST(req: NextRequest) {
           <div style="padding: 32px 24px;">
             <h2 style="color: #0B1A17; margin: 0 0 16px;">¡Bienvenido/a${safeName ? `, ${safeName}` : ""}!</h2>
             <p style="color: #374151; line-height: 1.6;">Ya eres parte de la comunidad Expat507. Cada semana recibirás análisis del mercado, alertas regulatorias y guías exclusivas sobre Panamá.</p>
-            <p style="color: #374151; line-height: 1.6;">Mientras esperas el próximo envío, explora nuestras <a href="${SITE_URL}/guias" style="color: #B8935A;">guías</a> o <a href="${SITE_URL}/consulta" style="color: #B8935A;">agenda una consulta gratuita</a> si quieres orientación personalizada.</p>
+            <p style="color: #374151; line-height: 1.6;">Como prometimos, aquí está tu guía gratuita:</p>
+            <p style="text-align: center; margin: 24px 0;">
+              <a href="${guideUrl}" style="background: #B8935A; color: #0B1A17; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; display: inline-block;">Descargar la Guía Definitiva 2026 (PDF)</a>
+            </p>
+            <p style="color: #374151; line-height: 1.6;">Mientras esperas el próximo envío, lee nuestro artículo sobre <a href="${mistakesUrl}" style="color: #B8935A;">los 7 errores que cometen los expatriados al llegar a Panamá</a>, explora nuestras <a href="${SITE_URL}/guias" style="color: #B8935A;">guías</a>, o <a href="${SITE_URL}/consulta" style="color: #B8935A;">agenda una consulta gratuita</a> si quieres orientación personalizada.</p>
           </div>
           <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
             <p style="color: #9CA3AF; font-size: 12px; margin: 0;">Expat507 · <a href="${unsubscribeUrl}" style="color: #9CA3AF;">Cancelar suscripción</a></p>

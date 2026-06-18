@@ -26,6 +26,8 @@ import preconstruccionEs from "./body/preconstruccion-es";
 import preconstruccionEn from "./body/preconstruccion-en";
 import sistemaFiscalEs from "./body/sistema-fiscal-es";
 import sistemaFiscalEn from "./body/sistema-fiscal-en";
+import erroresComunesEs from "./body/errores-comunes-expatriados-es";
+import erroresComunesEn from "./body/errores-comunes-expatriados-en";
 
 const CONTENT: Record<string, { es: string; en: string }> = {
   "visa-jubilados-pensionado-guia-completa": { es: visaJubiladosEs, en: visaJubiladosEn },
@@ -39,6 +41,7 @@ const CONTENT: Record<string, { es: string; en: string }> = {
   "comprar-propiedad-panama-extranjero": { es: comprarPropiedadEs, en: comprarPropiedadEn },
   "preconstruccion-vs-propiedad-terminada-panama": { es: preconstruccionEs, en: preconstruccionEn },
   "sistema-fiscal-territorial-panama": { es: sistemaFiscalEs, en: sistemaFiscalEn },
+  "errores-comunes-expatriados-panama": { es: erroresComunesEs, en: erroresComunesEn },
 };
 
 const TEXT = { es: ARTICLES_ES, en: ARTICLES_EN };

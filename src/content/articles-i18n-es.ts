@@ -114,6 +114,12 @@ const ARTICLES_ES: Record<string, ArticleText> = {
     author: "Equipo Expat507",
     tags: ["fiscalidad", "impuestos", "régimen territorial"],
   },
+  "errores-comunes-expatriados-panama": {
+    title: "Los 7 errores que cometen los expatriados al llegar a Panamá",
+    excerpt: "De la vivienda a la banca: los tropiezos más comunes (y más caros) al instalarte en Panamá, y cómo evitarlos.",
+    author: "Equipo Expat507",
+    tags: ["vida expat", "mudanza", "errores comunes"],
+  },
 };
 
 export default ARTICLES_ES;

@@ -114,6 +114,12 @@ const ARTICLES_EN: Record<string, ArticleText> = {
     author: "Expat507 Team",
     tags: ["taxation", "taxes", "territorial regime"],
   },
+  "errores-comunes-expatriados-panama": {
+    title: "The 7 mistakes expatriates make when arriving in Panama",
+    excerpt: "From housing to banking: the most common (and most expensive) stumbles when settling in Panama, and how to avoid them.",
+    author: "Expat507 Team",
+    tags: ["expat life", "relocation", "common mistakes"],
+  },
 };
 
 export default ARTICLES_EN;
