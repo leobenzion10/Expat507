@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Download, ArrowRight, CheckCircle, AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function GuiaCompletaPage() {
@@ -15,6 +17,7 @@ export default function GuiaCompletaPage() {
   const [language, setLanguage] = useState<"es" | "en">(locale);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{ downloadUrl: string; emailSent: boolean } | null>(null);
+  const honeypot = useHoneypot();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,7 +27,7 @@ export default function GuiaCompletaPage() {
       const res = await fetch("/api/guide-download", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, language }),
+        body: JSON.stringify({ ...form, language, website: honeypot.website, ts: honeypot.ts }),
       });
       const data = await res.json();
       if (res.ok && data.ok) {
@@ -42,6 +45,7 @@ export default function GuiaCompletaPage() {
 
   return (
     <div className="pt-20">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       {/* Header */}
       <div className="gradient-navy grain py-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">

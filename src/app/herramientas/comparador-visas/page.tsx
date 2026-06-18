@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowRight, SlidersHorizontal, Check, X } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { VISA_DATA, filterVisas, type BudgetFilter, type YesNoAny, type ComparatorVisaKey } from "@/lib/tools/visaComparator";
 import { trackEvent } from "@/lib/analyticsEvents";
 
@@ -19,6 +21,7 @@ export default function VisaComparatorPage() {
   const [emailForm, setEmailForm] = useState({ name: "", email: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const honeypot = useHoneypot();
 
   const visibleKeys = useMemo(() => filterVisas({ budget, wantsWork, isRetired }), [budget, wantsWork, isRetired]);
   const visibleData = VISA_DATA.filter((v) => visibleKeys.includes(v.key));
@@ -54,6 +57,8 @@ export default function VisaComparatorPage() {
           result: { filters: { budget, wantsWork, isRetired }, visibleKeys },
           resultSummary: `${t.title}: ${visibleData.map((v) => t.visas[v.key].name).join(", ")}`,
           resultHtml,
+          website: honeypot.website,
+          ts: honeypot.ts,
         }),
       });
       if (res.ok) {
@@ -72,6 +77,7 @@ export default function VisaComparatorPage() {
 
   return (
     <div className="pt-20 min-h-screen">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       <div className="gradient-navy grain pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#B8935A]" />

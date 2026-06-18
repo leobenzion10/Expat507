@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import { Mail, ArrowRight, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function NewsletterBanner() {
@@ -15,6 +17,7 @@ export default function NewsletterBanner() {
   const [language, setLanguage] = useState<"es" | "en">(locale);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const honeypot = useHoneypot();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,7 +27,7 @@ export default function NewsletterBanner() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, language, source: "newsletter_banner" }),
+        body: JSON.stringify({ email, language, source: "newsletter_banner", website: honeypot.website, ts: honeypot.ts }),
       });
       if (res.ok) {
         trackEvent("newsletter_subscribed", { language, source: "newsletter_banner" });
@@ -51,6 +54,7 @@ export default function NewsletterBanner() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="bg-white rounded-3xl border border-gray-100 p-10 sm:p-14 text-center max-w-3xl mx-auto relative overflow-hidden"
         >
+          <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
           {/* Decorative */}
           <div className="absolute top-0 right-0 w-48 h-48 bg-[#B8935A] opacity-5 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#0B1A17] opacity-5 rounded-full translate-y-1/2 -translate-x-1/2" />

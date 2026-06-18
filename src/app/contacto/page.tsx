@@ -4,7 +4,9 @@ import { useState } from "react";
 import { ArrowRight, Mail, MessageCircle, CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 
 export default function ContactoPage() {
   const { locale, dict } = useLocale();
@@ -12,6 +14,7 @@ export default function ContactoPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const honeypot = useHoneypot();
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
   const waEnabled = process.env.NEXT_PUBLIC_WHATSAPP_ENABLED === "true" && !!waNumber;
@@ -28,7 +31,7 @@ export default function ContactoPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, locale, source: "contacto" }),
+        body: JSON.stringify({ ...form, locale, source: "contacto", website: honeypot.website, ts: honeypot.ts }),
       });
       if (res.ok) {
         setDone(true);
@@ -44,6 +47,7 @@ export default function ContactoPage() {
 
   return (
     <div className="pt-20 min-h-screen">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">

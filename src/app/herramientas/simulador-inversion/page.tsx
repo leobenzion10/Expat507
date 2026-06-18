@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowRight, Building2, CheckCircle2, Clock } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { simulateInvestment, type SimulatorResult } from "@/lib/tools/investmentSimulator";
 import { trackEvent } from "@/lib/analyticsEvents";
 
@@ -18,6 +20,7 @@ export default function InvestmentSimulatorPage() {
   const [emailForm, setEmailForm] = useState({ name: "", email: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const honeypot = useHoneypot();
 
   function handleSimulate(e: React.FormEvent) {
     e.preventDefault();
@@ -55,6 +58,8 @@ export default function InvestmentSimulatorPage() {
           result: { amount: result.amount, qualifies: result.qualifies, modalities: result.modalities },
           resultSummary: result.qualifies ? t.results.qualifiedTitle : t.results.notQualifiedTitle,
           resultHtml,
+          website: honeypot.website,
+          ts: honeypot.ts,
         }),
       });
       if (res.ok) {
@@ -72,6 +77,7 @@ export default function InvestmentSimulatorPage() {
 
   return (
     <div className="pt-20 min-h-screen">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       <div className="gradient-navy grain pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#B8935A]" />

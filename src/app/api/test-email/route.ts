@@ -1,29 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { isValidEmail, rateLimit } from "@/lib/security";
+import { rateLimit } from "@/lib/security";
+import { isAdminAuthenticated } from "@/lib/admin/auth";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const EMAIL_FROM = process.env.EMAIL_FROM || "Expat507 <noreply@expat507.com>";
+const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL;
 
+// Diagnostic-only route to confirm Resend is wired up correctly. It must never be usable to
+// relay mail to an arbitrary third party: only the authenticated admin can call it, and it
+// only ever sends to the site's own operator address, never to a caller-supplied recipient.
 export async function GET(req: NextRequest) {
-  if (!rateLimit(req, "test-email", 3, 10 * 60_000)) {
-    return NextResponse.json({ error: "Too many requests, please try again shortly" }, { status: 429 });
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const url = new URL(req.url);
-  const to = url.searchParams.get("to") || "";
-
-  if (!isValidEmail(to)) {
-    return NextResponse.json({ error: "Pass a valid email: /api/test-email?to=you@example.com" }, { status: 400 });
+  if (!rateLimit(req, "test-email", 3, 10 * 60_000)) {
+    return NextResponse.json({ error: "Too many requests, please try again shortly" }, { status: 429 });
   }
 
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json({ error: "RESEND_API_KEY is not configured" }, { status: 500 });
   }
 
+  if (!OPERATOR_EMAIL) {
+    return NextResponse.json({ error: "OPERATOR_EMAIL is not configured" }, { status: 500 });
+  }
+
   const { data, error } = await resend.emails.send({
     from: EMAIL_FROM,
-    to,
+    to: OPERATOR_EMAIL,
     subject: "Expat507 — correo de prueba",
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
@@ -39,5 +45,5 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: false, error }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, id: data?.id, from: EMAIL_FROM, to });
+  return NextResponse.json({ ok: true, id: data?.id, from: EMAIL_FROM, to: OPERATOR_EMAIL });
 }

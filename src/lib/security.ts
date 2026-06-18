@@ -22,6 +22,22 @@ export function clampString(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.slice(0, maxLength).trim() : "";
 }
 
+const MIN_HUMAN_FILL_TIME_MS = 1200;
+
+/**
+ * Lightweight bot signal for public lead forms: a hidden honeypot field that only an
+ * automated filler would populate, plus a minimum elapsed time between when the form
+ * mounted (client-sent `ts`) and when it was submitted. No CAPTCHA, no friction for a
+ * real visitor.
+ */
+export function isBotSubmission(body: { website?: unknown; ts?: unknown }): boolean {
+  if (typeof body.website === "string" && body.website.trim() !== "") return true;
+  if (typeof body.ts === "number" && Number.isFinite(body.ts) && Date.now() - body.ts < MIN_HUMAN_FILL_TIME_MS) {
+    return true;
+  }
+  return false;
+}
+
 function getClientIp(req: NextRequest): string {
   return req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
 }

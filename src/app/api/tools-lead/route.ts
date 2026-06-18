@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase";
 import { Resend } from "resend";
-import { clampString, escapeHtml, isValidEmail, rateLimit } from "@/lib/security";
+import { clampString, escapeHtml, isBotSubmission, isValidEmail, rateLimit } from "@/lib/security";
 import { SITE_URL } from "@/lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -23,6 +23,10 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
+    if (isBotSubmission(body)) {
+      return NextResponse.json({ ok: true });
+    }
+
     const tool = clampString(body.tool, 50);
     const name = clampString(body.name, 200);
     const email = clampString(body.email, 254);

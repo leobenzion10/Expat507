@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle, Mail, BookOpen, TrendingUp, Shield, Download } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { trackEvent } from "@/lib/analyticsEvents";
 
 const ICONS = [TrendingUp, Shield, BookOpen, Mail];
@@ -18,6 +20,7 @@ export default function NewsletterPage() {
   const [language, setLanguage] = useState<"es" | "en">(locale);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const honeypot = useHoneypot();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,7 +29,7 @@ export default function NewsletterPage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, language, source: "newsletter_page" }),
+        body: JSON.stringify({ ...form, language, source: "newsletter_page", website: honeypot.website, ts: honeypot.ts }),
       });
       if (res.ok) {
         trackEvent("newsletter_subscribed", { language, source: "newsletter_page" });
@@ -89,6 +92,7 @@ export default function NewsletterPage() {
 
   return (
     <div className="pt-20 min-h-screen">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">

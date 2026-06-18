@@ -4,7 +4,9 @@ import { useState } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle, MessageCircle, Calendar } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { trackEvent } from "@/lib/analyticsEvents";
 
 type FormState = {
@@ -39,6 +41,7 @@ export default function ConsultaPage() {
   const [stepIndex, setStepIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const honeypot = useHoneypot();
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -123,7 +126,14 @@ export default function ConsultaPage() {
     setLoading(true);
     try {
       const { phoneCode, phone, objectives, ...rest } = form;
-      const payload = { ...rest, phone: `${phoneCode} ${phone}`.trim(), objective: objectives.join(", "), source: "consulta" };
+      const payload = {
+        ...rest,
+        phone: `${phoneCode} ${phone}`.trim(),
+        objective: objectives.join(", "),
+        source: "consulta",
+        website: honeypot.website,
+        ts: honeypot.ts,
+      };
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -231,6 +241,7 @@ export default function ConsultaPage() {
 
   return (
     <div className="pt-20 min-h-screen">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">

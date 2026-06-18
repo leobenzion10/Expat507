@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowRight, ArrowLeft, CheckCircle, Compass } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { useHoneypot } from "@/lib/useHoneypot";
 import { QUIZ_QUESTIONS, scoreQuiz, VISA_GUIDE_SLUG, type VisaKey } from "@/lib/tools/visaQuiz";
 import { trackEvent } from "@/lib/analyticsEvents";
 
@@ -21,6 +23,7 @@ export default function VisaQuizPage() {
   const [form, setForm] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<VisaKey | null>(null);
+  const honeypot = useHoneypot();
 
   const totalSteps = QUIZ_QUESTIONS.length;
   const currentQuestion = QUIZ_QUESTIONS[stepIndex];
@@ -67,6 +70,8 @@ export default function VisaQuizPage() {
           result: { visaKey, answers },
           resultSummary: r.title,
           resultHtml,
+          website: honeypot.website,
+          ts: honeypot.ts,
         }),
       });
       if (res.ok) {
@@ -153,6 +158,7 @@ export default function VisaQuizPage() {
 
   return (
     <div className="pt-20 min-h-screen">
+      <HoneypotField value={honeypot.website} onChange={honeypot.setWebsite} />
       <div className="gradient-navy grain pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px w-10 bg-[#B8935A]" />
