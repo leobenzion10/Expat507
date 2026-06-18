@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { calculateCost, type Zone, type FamilySize, type Transport, type Education, type CostBreakdown } from "@/lib/tools/costCalculator";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function CostCalculatorPage() {
   const { locale, dict } = useLocale();
@@ -28,6 +29,7 @@ export default function CostCalculatorPage() {
     e.preventDefault();
     setResult(calculateCost(inputs));
     setSent(false);
+    trackEvent("tool_completed", { tool: "cost-calculator" });
   }
 
   function shareText(r: CostBreakdown) {

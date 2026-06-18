@@ -7,7 +7,7 @@ const hero = {
   ctaSecondary: "Explore Guides",
   trustedLine: "Trusted by investors from Colombia, the United States, Canada, Germany, the United Kingdom, Spain, and many other countries",
   stats: [
-    { value: "18", label: "Specialized guides" },
+    { value: "19", label: "Specialized guides" },
     { value: "6", label: "Areas covered" },
     { value: "100%", label: "Free" },
     { value: "24h", label: "Response time" },

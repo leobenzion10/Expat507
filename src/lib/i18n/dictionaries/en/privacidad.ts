@@ -3,7 +3,7 @@ const privacidad = {
   metaDescription: "Expat507's privacy policy and data handling practices.",
   title: "Privacy Policy",
   lastUpdated: "Last updated: {date}",
-  lastUpdatedDate: "June 16, 2026",
+  lastUpdatedDate: "June 17, 2026",
   sections: [
     {
       heading: "1. Information we collect",
@@ -35,7 +35,7 @@ const privacidad = {
     },
     {
       heading: "5. Cookies and similar technologies",
-      body: "We use essential technical cookies for the site to function and anonymous analytics cookies to understand how the platform is used. We do not use advertising or third-party tracking cookies.",
+      body: "We use essential technical cookies for the site to function (such as your language preference) and analytics tools — Vercel Analytics and, when active, Google Analytics — to understand in aggregate how the platform is used. We don't use these tools for advertising or to identify you individually.",
     },
     {
       heading: "6. Your rights",

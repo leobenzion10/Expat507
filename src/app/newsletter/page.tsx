@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Mail, BookOpen, TrendingUp, Shield, Download }
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 const ICONS = [TrendingUp, Shield, BookOpen, Mail];
 
@@ -28,6 +29,7 @@ export default function NewsletterPage() {
         body: JSON.stringify({ ...form, language, source: "newsletter_page" }),
       });
       if (res.ok) {
+        trackEvent("newsletter_subscribed", { language, source: "newsletter_page" });
         setDone(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {

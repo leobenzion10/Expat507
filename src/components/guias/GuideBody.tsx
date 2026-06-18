@@ -5,6 +5,36 @@ export interface TocItem {
   text: string;
 }
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const FAQ_HEADING = /^(preguntas frecuentes|frequently asked questions)$/i;
+
+export function extractFaq(content: string): FaqItem[] {
+  const blocks = content.split("\n\n");
+  const startIndex = blocks.findIndex((b) => b.startsWith("## ") && FAQ_HEADING.test(b.slice(3).trim()));
+  if (startIndex === -1) return [];
+
+  const items: FaqItem[] = [];
+  let current: FaqItem | null = null;
+
+  for (let i = startIndex + 1; i < blocks.length; i++) {
+    const block = blocks[i];
+    if (block.startsWith("## ")) break; // next section — FAQ block ended
+    if (block.startsWith("### ")) {
+      if (current) items.push(current);
+      current = { question: block.slice(4).trim(), answer: "" };
+    } else if (current && block.trim()) {
+      current.answer = current.answer ? `${current.answer} ${block.trim()}` : block.trim();
+    }
+  }
+  if (current) items.push(current);
+
+  return items;
+}
+
 export function buildToc(content: string): TocItem[] {
   const items: TocItem[] = [];
   const lines = content.split("\n");

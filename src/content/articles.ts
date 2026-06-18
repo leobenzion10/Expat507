@@ -94,10 +94,11 @@ export function getPillar(locale: Locale, category: Category): ArticleFull | nul
   return getArticles(locale).find((a) => a.category === category && a.pillar) || null;
 }
 
-export function getRelatedArticles(locale: Locale, slug: string, limit = 3): ArticleFull[] {
+export function getRelatedArticles(locale: Locale, slug: string, limit = 4): ArticleFull[] {
   const current = getArticle(locale, slug);
   if (!current) return [];
   return getArticles(locale)
     .filter((a) => a.slug !== slug && a.category === current.category && a.content)
+    .sort((a, b) => (b.pillar ? 1 : 0) - (a.pillar ? 1 : 0))
     .slice(0, limit);
 }

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { VISA_DATA, filterVisas, type BudgetFilter, type YesNoAny, type ComparatorVisaKey } from "@/lib/tools/visaComparator";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function VisaComparatorPage() {
   const { locale, dict } = useLocale();
@@ -56,6 +57,7 @@ export default function VisaComparatorPage() {
         }),
       });
       if (res.ok) {
+        trackEvent("tool_completed", { tool: "visa-comparator" });
         setSent(true);
         toast.success(t.form2.successMessage);
       } else {

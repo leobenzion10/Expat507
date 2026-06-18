@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { simulateInvestment, type SimulatorResult } from "@/lib/tools/investmentSimulator";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function InvestmentSimulatorPage() {
   const { locale, dict } = useLocale();
@@ -22,8 +23,10 @@ export default function InvestmentSimulatorPage() {
     e.preventDefault();
     const amount = parseInt(amountInput.replace(/[^0-9]/g, ""), 10);
     if (!amount || amount <= 0) return;
-    setResult(simulateInvestment(amount));
+    const simResult = simulateInvestment(amount);
+    setResult(simResult);
     setSent(false);
+    trackEvent("tool_completed", { tool: "investment-simulator", qualifies: simResult.qualifies });
   }
 
   async function handleSendEmail(e: React.FormEvent) {

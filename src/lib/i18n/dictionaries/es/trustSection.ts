@@ -8,6 +8,11 @@ const trustSection = {
     { title: "Actualizado regularmente", description: "Mantenemos nuestras guías al día con los cambios legislativos y del mercado panameño." },
     { title: "Sin conflictos de interés", description: "Solo recomendamos profesionales con trayectoria comprobada, nunca por conveniencia." },
   ],
+  testimonialsPlaceholder: {
+    badge: "Próximamente",
+    title: "Aquí compartiremos historias reales",
+    text: "Expat507 acaba de lanzarse. En cuanto tengamos testimonios reales de personas que usaron la plataforma, los publicaremos aquí — con nombre y caso real, no citas genéricas.",
+  },
 };
 
 export default trustSection;

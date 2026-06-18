@@ -6,6 +6,7 @@ import { Mail, ArrowRight, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function NewsletterBanner() {
   const { locale, dict } = useLocale();
@@ -26,6 +27,7 @@ export default function NewsletterBanner() {
         body: JSON.stringify({ email, language, source: "newsletter_banner" }),
       });
       if (res.ok) {
+        trackEvent("newsletter_subscribed", { language, source: "newsletter_banner" });
         setDone(true);
         toast.success(t.toastSuccess);
       } else {

@@ -2,6 +2,8 @@
 
 import Script from "next/script";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export default function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -10,23 +12,9 @@ export default function Analytics() {
   return (
     <>
       <VercelAnalytics />
+      <SpeedInsights />
       {/* Google Analytics 4 */}
-      {gaId && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            strategy="afterInteractive"
-          />
-          <Script id="ga4" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${gaId}', { page_path: window.location.pathname });
-            `}
-          </Script>
-        </>
-      )}
+      {gaId && <GoogleAnalytics gaId={gaId} />}
 
       {/* Meta Pixel */}
       {pixelId && (

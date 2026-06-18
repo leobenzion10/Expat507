@@ -3,7 +3,7 @@ const privacidad = {
   metaDescription: "Política de privacidad y tratamiento de datos de Expat507.",
   title: "Política de Privacidad",
   lastUpdated: "Última actualización: {date}",
-  lastUpdatedDate: "16 de junio de 2026",
+  lastUpdatedDate: "17 de junio de 2026",
   sections: [
     {
       heading: "1. Información que recopilamos",
@@ -35,7 +35,7 @@ const privacidad = {
     },
     {
       heading: "5. Cookies y tecnologías similares",
-      body: "Utilizamos cookies técnicas esenciales para el funcionamiento del sitio y cookies de analítica anónima para entender cómo se usa la plataforma. No usamos cookies de publicidad ni rastreo de terceros.",
+      body: "Utilizamos cookies técnicas esenciales para el funcionamiento del sitio (como tu preferencia de idioma) y herramientas de analítica — Vercel Analytics y, cuando esté activo, Google Analytics — para entender de forma agregada cómo se usa la plataforma. No usamos estas herramientas para publicidad ni para identificarte individualmente.",
     },
     {
       heading: "6. Tus derechos",

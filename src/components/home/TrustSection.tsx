@@ -54,6 +54,18 @@ export default async function TrustSection() {
             </FadeInUp>
           ))}
         </div>
+
+        <FadeInUp>
+          <div className="border border-dashed border-white/15 rounded-2xl p-8 text-center max-w-2xl mx-auto">
+            <span className="inline-block text-[#B8935A] text-xs font-semibold tracking-widest uppercase mb-3 border border-[#B8935A]/30 rounded-full px-3 py-1">
+              {t.testimonialsPlaceholder.badge}
+            </span>
+            <h3 className="text-white font-semibold mb-2" style={{ fontFamily: "var(--font-display)" }}>
+              {t.testimonialsPlaceholder.title}
+            </h3>
+            <p className="text-white/45 text-sm leading-relaxed">{t.testimonialsPlaceholder.text}</p>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   );

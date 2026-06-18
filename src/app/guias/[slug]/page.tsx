@@ -9,10 +9,12 @@ import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n/locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getArticle, getRelatedArticles } from "@/content/articles";
-import { renderGuideBody, buildToc } from "@/components/guias/GuideBody";
+import { renderGuideBody, buildToc, extractFaq } from "@/components/guias/GuideBody";
 import TableOfContents from "@/components/guias/TableOfContents";
 import { ShareButtons, PrintButton } from "@/components/guias/ShareButtons";
 import RelatedGuides from "@/components/guias/RelatedGuides";
+import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL } from "@/lib/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -24,10 +26,23 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: `${SITE_URL}/guias/${slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
       type: "article",
+      url: `${SITE_URL}/guias/${slug}`,
+      publishedTime: article.published_at,
+      modifiedTime: article.updated_at,
+      images: [{ url: `${SITE_URL}/guias/${slug}/opengraph-image`, width: 1200, height: 630, alt: article.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [`${SITE_URL}/guias/${slug}/opengraph-image`],
     },
   };
 }
@@ -43,11 +58,55 @@ export default async function ArticlePage({ params }: { params: Params }) {
 
   const categoryInfo = CATEGORIES.find((c) => c.id === article.category);
   const toc = article.content ? buildToc(article.content) : [];
+  const faq = article.content ? extractFaq(article.content) : [];
   const related = getRelatedArticles(locale, slug);
   const chatbotEnabled = process.env.NEXT_PUBLIC_CHATBOT_ENABLED === "true";
+  const guideUrl = `${SITE_URL}/guias/${slug}`;
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.published_at,
+    dateModified: article.updated_at,
+    image: `${SITE_URL}/guias/${slug}/opengraph-image`,
+    author: { "@type": "Organization", name: article.author },
+    publisher: { "@type": "Organization", name: "Expat507", url: SITE_URL },
+    mainEntityOfPage: { "@type": "WebPage", "@id": guideUrl },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: locale === "en" ? "Home" : "Inicio", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: dict.nav.guias, item: `${SITE_URL}/guias` },
+      ...(categoryInfo
+        ? [{ "@type": "ListItem", position: 3, name: dict.categories[categoryInfo.id].label, item: `${SITE_URL}/guias?category=${categoryInfo.id}` }]
+        : []),
+      { "@type": "ListItem", position: categoryInfo ? 4 : 3, name: article.title, item: guideUrl },
+    ],
+  };
+
+  const faqSchema =
+    faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }
+      : null;
 
   return (
     <div className="pt-20">
+      <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      {faqSchema && <JsonLd data={faqSchema} />}
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 print:hidden">
         <div className="max-w-4xl mx-auto">

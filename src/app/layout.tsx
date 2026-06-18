@@ -25,6 +25,7 @@ import { Toaster } from "react-hot-toast";
 import { getLocale } from "@/lib/i18n/locale";
 import { LocaleProvider } from "@/components/providers/LocaleProvider";
 import { SITE_URL } from "@/lib/site";
+import JsonLd from "@/components/seo/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -56,20 +57,11 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Expat507",
       title,
       description,
-      images: [
-        {
-          url: "/og-image.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Expat507",
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/og-image.jpg"],
     },
     robots: {
       index: true,
@@ -95,6 +87,18 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Expat507",
+            url: SITE_URL,
+            description:
+              locale === "en"
+                ? "The go-to platform for expatriates and investors looking to settle or invest in Panama."
+                : "La plataforma de referencia para expatriados e inversionistas que quieren establecerse o invertir en Panamá.",
+          }}
+        />
         <LocaleProvider initialLocale={locale}>
           <Analytics />
           <Navbar />

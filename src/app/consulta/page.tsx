@@ -5,6 +5,7 @@ import { ArrowRight, ArrowLeft, CheckCircle, MessageCircle, Calendar } from "luc
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 type FormState = {
   name: string;
@@ -129,6 +130,7 @@ export default function ConsultaPage() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        trackEvent("consulta_submitted", { language: form.language });
         setSubmitted(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {

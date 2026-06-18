@@ -5,6 +5,7 @@ import { Download, ArrowRight, CheckCircle, AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 export default function GuiaCompletaPage() {
   const { locale, dict } = useLocale();
@@ -27,6 +28,7 @@ export default function GuiaCompletaPage() {
       });
       const data = await res.json();
       if (res.ok && data.ok) {
+        trackEvent("guide_downloaded", { language, source: "guia-completa" });
         setResult({ downloadUrl: data.downloadUrl, emailSent: data.emailSent !== false });
       } else {
         toast.error(t.toastError);

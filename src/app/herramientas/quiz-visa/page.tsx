@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { QUIZ_QUESTIONS, scoreQuiz, VISA_GUIDE_SLUG, type VisaKey } from "@/lib/tools/visaQuiz";
+import { trackEvent } from "@/lib/analyticsEvents";
 
 type Phase = "quiz" | "form" | "result";
 
@@ -69,6 +70,7 @@ export default function VisaQuizPage() {
         }),
       });
       if (res.ok) {
+        trackEvent("tool_completed", { tool: "visa-quiz", result: visaKey });
         setResult(visaKey);
         setPhase("result");
       } else {

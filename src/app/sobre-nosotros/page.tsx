@@ -60,6 +60,43 @@ export default async function SobreNosotrosPage() {
 
         <GoldDivider className="mb-16" />
 
+        {/* Methodology */}
+        <div className="mb-16">
+          <h2
+            className="text-2xl font-bold text-[#0B1A17] mb-3 text-center"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {t.methodologyTitle}
+          </h2>
+          <p className="text-[#6B7280] text-center max-w-2xl mx-auto mb-8">{t.methodologyIntro}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {t.methodologySteps.map((step, i) => (
+              <div key={step.title} className="bg-white border border-gray-100 rounded-2xl p-6">
+                <div className="w-8 h-8 rounded-full bg-[#FBF6EC] text-[#B8935A] text-sm font-bold flex items-center justify-center mb-3">
+                  {i + 1}
+                </div>
+                <h3 className="font-bold text-[#0B1A17] mb-1.5" style={{ fontFamily: "var(--font-display)" }}>
+                  {step.title}
+                </h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <GoldDivider className="mb-16" />
+
+        {/* Launch positioning */}
+        <div className="gradient-navy grain rounded-3xl p-10 text-center mb-16">
+          <span className="inline-block text-[#B8935A] text-xs font-semibold tracking-widest uppercase mb-4 border border-[#B8935A]/30 rounded-full px-4 py-1.5">
+            {t.launchBadge}
+          </span>
+          <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-display)" }}>
+            {t.launchTitle}
+          </h3>
+          <p className="text-white/60 max-w-2xl mx-auto">{t.launchText}</p>
+        </div>
+
         {/* Values */}
         <div className="mb-16">
           <h2

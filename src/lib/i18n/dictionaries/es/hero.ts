@@ -7,7 +7,7 @@ const hero = {
   ctaSecondary: "Explorar Guías",
   trustedLine: "Con la confianza de inversionistas de Colombia, Estados Unidos, Canadá, Alemania, Reino Unido, España y muchos otros países",
   stats: [
-    { value: "18", label: "Guías especializadas" },
+    { value: "19", label: "Guías especializadas" },
     { value: "6", label: "Áreas cubiertas" },
     { value: "100%", label: "Gratuito" },
     { value: "24h", label: "Tiempo de respuesta" },
