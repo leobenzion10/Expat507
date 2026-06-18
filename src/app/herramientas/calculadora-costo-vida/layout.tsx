@@ -6,8 +6,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const isEn = (await getLocale()) === "en";
   const title = isEn ? "Panama Cost of Living Calculator — Free | Expat507" : "Calculadora de Costo de Vida en Panamá — Gratis | Expat507";
   const description = isEn
-    ? "Estimate your monthly cost of living in Panama by zone, family size, transport, and education — compared to Miami, Madrid, and Toronto."
-    : "Estima tu costo de vida mensual en Panamá según zona, tamaño familiar, transporte y educación — comparado con Miami, Madrid y Toronto.";
+    ? "Estimate your monthly cost of living in Panama by zone, family size, transport, and education."
+    : "Estima tu costo de vida mensual en Panamá según zona, tamaño familiar, transporte y educación.";
   return {
     title,
     description,

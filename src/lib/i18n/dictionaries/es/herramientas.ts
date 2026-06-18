@@ -14,7 +14,7 @@ const herramientas = {
         slug: "calculadora-costo-vida",
         icon: "💰",
         title: "Calculadora de costo de vida",
-        desc: "Ajusta tu estilo de vida y obtén un estimado mensual, comparado con Miami, Madrid y Toronto.",
+        desc: "Ajusta tu estilo de vida y obtén un estimado mensual desglosado por categoría.",
       },
       {
         slug: "simulador-inversion",
@@ -158,7 +158,7 @@ const herramientas = {
   costCalculator: {
     eyebrow: "Herramienta Gratuita",
     title: "Calculadora de costo de vida en Panamá",
-    subtitle: "Ajusta tu estilo de vida y obtén un estimado mensual desglosado, comparado con Miami, Madrid y Toronto.",
+    subtitle: "Ajusta tu estilo de vida y obtén un estimado mensual desglosado por categoría.",
     form: {
       zoneLabel: "¿Dónde planeas vivir?",
       zoneOptions: {
@@ -209,8 +209,6 @@ const herramientas = {
         misc: "Otros gastos (10%)",
       },
       totalLabel: "Total mensual estimado",
-      comparisonTitle: "Comparado con un estilo de vida similar en:",
-      comparisonNote: "Cifras de referencia para comparación, no datos precisos de un estudio específico.",
       shareButton: "Compartir resultado",
       copiedLabel: "¡Copiado!",
     },

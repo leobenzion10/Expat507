@@ -41,7 +41,6 @@ export default function CostCalculatorPage() {
       `${cat.utilities}: $${r.utilities.toLocaleString()}`,
       `${cat.health}: $${r.health.toLocaleString()}`,
       `${cat.education}: $${r.education.toLocaleString()}`,
-      `Miami: $${r.comparisons.miami.toLocaleString()} · Madrid: $${r.comparisons.madrid.toLocaleString()} · Toronto: $${r.comparisons.toronto.toLocaleString()}`,
     ].join("\n");
   }
 
@@ -207,23 +206,6 @@ export default function CostCalculatorPage() {
                 </div>
 
                 <p className="text-xs text-[#9CA3AF] mb-6">{t.results.disclaimer}</p>
-
-                <p className="text-xs font-semibold text-[#6B7280] uppercase tracking-wide mb-3">{t.results.comparisonTitle}</p>
-                <div className="grid grid-cols-3 gap-3 mb-2">
-                  <div className="bg-[#F4F6F9] rounded-xl p-3 text-center">
-                    <p className="text-xs text-[#6B7280] mb-1">Miami</p>
-                    <p className="font-semibold text-[#0B1A17] text-sm">${result.comparisons.miami.toLocaleString()}</p>
-                  </div>
-                  <div className="bg-[#F4F6F9] rounded-xl p-3 text-center">
-                    <p className="text-xs text-[#6B7280] mb-1">Madrid</p>
-                    <p className="font-semibold text-[#0B1A17] text-sm">${result.comparisons.madrid.toLocaleString()}</p>
-                  </div>
-                  <div className="bg-[#F4F6F9] rounded-xl p-3 text-center">
-                    <p className="text-xs text-[#6B7280] mb-1">Toronto</p>
-                    <p className="font-semibold text-[#0B1A17] text-sm">${result.comparisons.toronto.toLocaleString()}</p>
-                  </div>
-                </div>
-                <p className="text-xs text-[#9CA3AF] mb-6">{t.results.comparisonNote}</p>
 
                 <button
                   onClick={handleCopy}

@@ -30,7 +30,6 @@ export interface CostBreakdown {
   education: number;
   misc: number;
   total: number;
-  comparisons: { miami: number; madrid: number; toronto: number };
 }
 
 const HOUSING_BASE: Record<Zone, number> = {
@@ -80,10 +79,6 @@ const HEALTH_PER_ADULT = 200;
 const HEALTH_PER_CHILD = 100;
 const MISC_RATE = 0.1;
 
-// Reference multipliers for an equivalent lifestyle in other cities.
-// These are general reference estimates for comparison purposes, not precise indices.
-const CITY_MULTIPLIERS = { miami: 1.35, madrid: 1.05, toronto: 1.25 };
-
 export function calculateCost(inputs: CostInputs): CostBreakdown {
   const fam = FAMILY_FACTOR[inputs.familySize];
 
@@ -107,10 +102,5 @@ export function calculateCost(inputs: CostInputs): CostBreakdown {
     education,
     misc,
     total,
-    comparisons: {
-      miami: Math.round(total * CITY_MULTIPLIERS.miami),
-      madrid: Math.round(total * CITY_MULTIPLIERS.madrid),
-      toronto: Math.round(total * CITY_MULTIPLIERS.toronto),
-    },
   };
 }

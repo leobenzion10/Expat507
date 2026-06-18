@@ -14,7 +14,7 @@ const herramientas = {
         slug: "calculadora-costo-vida",
         icon: "💰",
         title: "Cost of living calculator",
-        desc: "Adjust your lifestyle and get a monthly estimate, compared against Miami, Madrid, and Toronto.",
+        desc: "Adjust your lifestyle and get a detailed monthly estimate broken down by category.",
       },
       {
         slug: "simulador-inversion",
@@ -158,7 +158,7 @@ const herramientas = {
   costCalculator: {
     eyebrow: "Free Tool",
     title: "Panama cost of living calculator",
-    subtitle: "Adjust your lifestyle and get a detailed monthly estimate, compared against Miami, Madrid, and Toronto.",
+    subtitle: "Adjust your lifestyle and get a detailed monthly estimate broken down by category.",
     form: {
       zoneLabel: "Where do you plan to live?",
       zoneOptions: {
@@ -209,8 +209,6 @@ const herramientas = {
         misc: "Other expenses (10%)",
       },
       totalLabel: "Estimated monthly total",
-      comparisonTitle: "Compared to a similar lifestyle in:",
-      comparisonNote: "Reference figures for comparison, not precise data from a specific study.",
       shareButton: "Share result",
       copiedLabel: "Copied!",
     },
