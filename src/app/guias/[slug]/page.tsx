@@ -44,6 +44,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
   const categoryInfo = CATEGORIES.find((c) => c.id === article.category);
   const toc = article.content ? buildToc(article.content) : [];
   const related = getRelatedArticles(locale, slug);
+  const chatbotEnabled = process.env.NEXT_PUBLIC_CHATBOT_ENABLED === "true";
 
   return (
     <div className="pt-20">
@@ -141,10 +142,10 @@ export default async function ArticlePage({ params }: { params: Params }) {
                 className="font-bold text-lg mb-3"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                {t.ctaTitle}
+                {t.ctaTitle.replace("{category}", categoryInfo ? dict.categories[categoryInfo.id].label : "")}
               </h3>
               <p className="text-white/60 text-sm mb-5">
-                {t.ctaDescription}
+                {t.ctaDescription.replace("{category}", categoryInfo ? dict.categories[categoryInfo.id].label : "")}
               </p>
               <Link
                 href="/consulta"
@@ -153,12 +154,14 @@ export default async function ArticlePage({ params }: { params: Params }) {
                 {t.ctaButton}
                 <ArrowRight size={16} />
               </Link>
-              <Link
-                href="/asistente"
-                className="flex items-center justify-center mt-3 text-white/60 hover:text-white text-sm transition-colors gap-1"
-              >
-                {t.ctaAssistant}
-              </Link>
+              {chatbotEnabled && (
+                <Link
+                  href="/asistente"
+                  className="flex items-center justify-center mt-3 text-white/60 hover:text-white text-sm transition-colors gap-1"
+                >
+                  {t.ctaAssistant}
+                </Link>
+              )}
             </div>
 
             {/* Category */}
