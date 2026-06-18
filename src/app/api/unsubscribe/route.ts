@@ -6,11 +6,11 @@ function page(title: string, message: string) {
   return `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="utf-8"><title>${title}</title>
-<style>body{font-family:Arial,sans-serif;background:#0A1628;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:24px;text-align:center}
-.card{max-width:420px;background:#122040;border-radius:16px;padding:40px 32px}
-h1{color:#C9A84C;font-size:20px;margin:0 0 12px}
+<style>body{font-family:Arial,sans-serif;background:#0B1A17;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:24px;text-align:center}
+.card{max-width:420px;background:#11241F;border-radius:16px;padding:40px 32px}
+h1{color:#B8935A;font-size:20px;margin:0 0 12px}
 p{color:rgba(255,255,255,0.7);line-height:1.6;margin:0}
-a{color:#C9A84C}</style></head>
+a{color:#B8935A}</style></head>
 <body><div class="card"><h1>${title}</h1><p>${message}</p></div></body></html>`;
 }
 

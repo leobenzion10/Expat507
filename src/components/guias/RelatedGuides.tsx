@@ -13,7 +13,7 @@ export default function RelatedGuides({
 
   return (
     <div className="mt-12">
-      <h2 className="text-xl font-bold text-[#0A1628] mb-5" style={{ fontFamily: "var(--font-display)" }}>
+      <h2 className="text-xl font-bold text-[#0B1A17] mb-5" style={{ fontFamily: "var(--font-display)" }}>
         {title}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -21,12 +21,12 @@ export default function RelatedGuides({
           <Link
             key={a.slug}
             href={`/guias/${a.slug}`}
-            className="group bg-white border border-gray-100 hover:border-[#C9A84C] rounded-xl p-4 transition-colors"
+            className="group bg-white border border-gray-100 hover:border-[#B8935A] rounded-xl p-4 transition-colors"
           >
-            <p className="font-semibold text-[#0A1628] text-sm mb-1 leading-snug group-hover:text-[#C9A84C] transition-colors">
+            <p className="font-semibold text-[#0B1A17] text-sm mb-1 leading-snug group-hover:text-[#B8935A] transition-colors">
               {a.title}
             </p>
-            <span className="inline-flex items-center gap-1 text-xs text-[#C9A84C]">
+            <span className="inline-flex items-center gap-1 text-xs text-[#B8935A]">
               {a.read_time} min <ArrowRight size={12} />
             </span>
           </Link>

@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
     subject: "Expat507 — correo de prueba",
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
-        <h2 style="color: #0A1628;">Resend está funcionando ✅</h2>
+        <h2 style="color: #0B1A17;">Resend está funcionando ✅</h2>
         <p style="color: #374151;">Este es un correo de prueba enviado desde <strong>/api/test-email</strong> en ${new Date().toISOString()}.</p>
         <p style="color: #9CA3AF; font-size: 12px;">Remitente configurado: ${EMAIL_FROM}</p>
       </div>

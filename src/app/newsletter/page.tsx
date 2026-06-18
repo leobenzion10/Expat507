@@ -43,8 +43,8 @@ export default function NewsletterPage() {
     return (
       <div className="pt-20 min-h-screen">
         <div className="gradient-navy py-24 px-4 text-center">
-          <div className="w-20 h-20 bg-[#C9A84C]/20 rounded-3xl flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={36} className="text-[#C9A84C]" />
+          <div className="w-20 h-20 bg-[#B8935A]/20 rounded-3xl flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={36} className="text-[#B8935A]" />
           </div>
           <h1
             className="text-4xl font-bold text-white mb-4"
@@ -54,7 +54,7 @@ export default function NewsletterPage() {
           </h1>
           <p className="text-white/70 text-lg max-w-lg mx-auto mb-6">
             {t.success.subtitlePrefix}
-            <strong className="text-[#C9A84C]">{form.email}</strong>{t.success.subtitleSuffix}
+            <strong className="text-[#B8935A]">{form.email}</strong>{t.success.subtitleSuffix}
           </p>
           <div className="bg-white/10 border border-white/20 rounded-2xl p-5 max-w-sm mx-auto">
             <p className="text-white text-sm">
@@ -71,11 +71,11 @@ export default function NewsletterPage() {
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="h-px w-10 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+          <div className="h-px w-10 bg-[#B8935A]" />
+          <span className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase">
             {t.badge}
           </span>
-          <div className="h-px w-10 bg-[#C9A84C]" />
+          <div className="h-px w-10 bg-[#B8935A]" />
         </div>
         <h1
           className="text-4xl sm:text-5xl font-bold text-white mb-4"
@@ -95,7 +95,7 @@ export default function NewsletterPage() {
           {/* Benefits */}
           <div>
             <h2
-              className="text-2xl font-bold text-[#0A1628] mb-8"
+              className="text-2xl font-bold text-[#0B1A17] mb-8"
               style={{ fontFamily: "var(--font-display)" }}
             >
               {t.benefitsTitle}
@@ -104,17 +104,17 @@ export default function NewsletterPage() {
               {BENEFITS.map((b) => (
                 <div key={b.title} className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#FBF6EC] rounded-xl flex items-center justify-center flex-shrink-0">
-                    <b.icon size={20} className="text-[#C9A84C]" />
+                    <b.icon size={20} className="text-[#B8935A]" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#0A1628] mb-1">{b.title}</h3>
+                    <h3 className="font-semibold text-[#0B1A17] mb-1">{b.title}</h3>
                     <p className="text-sm text-[#6B7280]">{b.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10 bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-2xl p-5">
+            <div className="mt-10 bg-[#FBF6EC] border border-[#B8935A]/30 rounded-2xl p-5">
               <p className="text-sm text-[#374151]">
                 {t.highlightText}
               </p>
@@ -125,10 +125,10 @@ export default function NewsletterPage() {
           <div>
             <div className="bg-white border border-gray-100 rounded-3xl shadow-xl p-8">
               <div className="w-14 h-14 bg-[#FBF6EC] rounded-2xl flex items-center justify-center mb-5">
-                <Mail size={24} className="text-[#C9A84C]" />
+                <Mail size={24} className="text-[#B8935A]" />
               </div>
               <h3
-                className="text-xl font-bold text-[#0A1628] mb-2"
+                className="text-xl font-bold text-[#0B1A17] mb-2"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 {t.formTitle}
@@ -139,7 +139,7 @@ export default function NewsletterPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                  <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
                     {t.nameLabel}
                   </label>
                   <input
@@ -147,11 +147,11 @@ export default function NewsletterPage() {
                     value={form.name}
                     onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                     placeholder={t.namePlaceholder}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                  <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
                     {t.emailLabel}
                   </label>
                   <input
@@ -160,13 +160,13 @@ export default function NewsletterPage() {
                     value={form.email}
                     onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                     placeholder={t.emailPlaceholder}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={!form.email || loading}
-                  className="w-full bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-50 disabled:cursor-not-allowed text-[#0A1628] font-bold py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full bg-[#B8935A] hover:bg-[#96763F] disabled:opacity-50 disabled:cursor-not-allowed text-[#0B1A17] font-bold py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   {loading ? t.submitLoading : t.submitIdle}
                   {!loading && <ArrowRight size={16} />}

@@ -29,7 +29,7 @@ export default function WhatsAppWidget() {
                 <WhatsAppIcon className="w-6 h-6 text-white" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#0A1628]">{t.brand}</p>
+                <p className="text-sm font-semibold text-[#0B1A17]">{t.brand}</p>
                 <div className="flex items-center gap-1">
                   <span className="w-2 h-2 bg-[#25D366] rounded-full"></span>
                   <span className="text-xs text-gray-500">{t.online}</span>
@@ -44,10 +44,10 @@ export default function WhatsAppWidget() {
             </button>
           </div>
           <div className="bg-[#F4F6F9] rounded-xl rounded-tl-none p-3 mb-3">
-            <p className="text-sm text-[#0A1628]">
+            <p className="text-sm text-[#0B1A17]">
               {t.greeting}
             </p>
-            <p className="text-sm text-[#0A1628] mt-1">
+            <p className="text-sm text-[#0B1A17] mt-1">
               {t.greeting2}
             </p>
           </div>

@@ -81,19 +81,19 @@ export async function POST(req: NextRequest) {
         subject: "Recibimos tu consulta — Expat507",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
-            <div style="background: #0A1628; padding: 32px 24px; text-align: center;">
-              <h1 style="color: #C9A84C; margin: 0; font-size: 24px;">Expat507</h1>
+            <div style="background: #0B1A17; padding: 32px 24px; text-align: center;">
+              <h1 style="color: #B8935A; margin: 0; font-size: 24px;">Expat507</h1>
               <p style="color: rgba(255,255,255,0.6); margin: 8px 0 0; font-size: 14px;">Tu guía insider para Panamá</p>
             </div>
             <div style="padding: 32px 24px;">
-              <h2 style="color: #0A1628; margin: 0 0 16px;">Hola ${safe.name},</h2>
+              <h2 style="color: #0B1A17; margin: 0 0 16px;">Hola ${safe.name},</h2>
               <p style="color: #374151; line-height: 1.6;">Recibimos tu consulta correctamente. Nuestro equipo la revisará y se pondrá en contacto contigo para coordinar una llamada en menos de 24 horas hábiles.</p>
               <div style="background: #F4F6F9; border-radius: 12px; padding: 20px; margin: 24px 0;">
-                <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0A1628;">Tu objetivo:</strong> ${safe.objective}</p>
-                <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0A1628;">Rango de inversión:</strong> ${safe.budget}</p>
-                <p style="color: #6B7280; font-size: 13px; margin: 0;"><strong style="color: #0A1628;">Urgencia:</strong> ${safe.urgency}</p>
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0B1A17;">Tu objetivo:</strong> ${safe.objective}</p>
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 8px;"><strong style="color: #0B1A17;">Rango de inversión:</strong> ${safe.budget}</p>
+                <p style="color: #6B7280; font-size: 13px; margin: 0;"><strong style="color: #0B1A17;">Urgencia:</strong> ${safe.urgency}</p>
               </div>
-              <p style="color: #374151; line-height: 1.6;">Mientras tanto, puedes explorar nuestras <a href="${SITE_URL}/guias" style="color: #C9A84C;">guías</a>.</p>
+              <p style="color: #374151; line-height: 1.6;">Mientras tanto, puedes explorar nuestras <a href="${SITE_URL}/guias" style="color: #B8935A;">guías</a>.</p>
               ${subscribeNewsletter ? `<p style="color: #374151; line-height: 1.6;">También te suscribimos a nuestro newsletter — recibirás análisis y guías exclusivas sobre Panamá cada semana.</p>` : ""}
             </div>
             <div style="background: #F4F6F9; padding: 16px 24px; text-align: center;">
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
               subject: `Nuevo lead: ${name} (${objective})`,
               html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px;">
-                  <h2 style="color: #0A1628;">Nuevo lead calificado</h2>
+                  <h2 style="color: #0B1A17;">Nuevo lead calificado</h2>
                   <table style="width: 100%; border-collapse: collapse;">
                     <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Nombre</td><td style="padding: 8px;">${safe.name}</td></tr>
                     <tr><td style="padding: 8px; background: #F4F6F9; font-weight: bold;">Email</td><td style="padding: 8px;"><a href="mailto:${safe.email}">${safe.email}</a></td></tr>

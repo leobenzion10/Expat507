@@ -39,7 +39,7 @@ function renderTable(block: string, key: number) {
     <div key={key} className="overflow-x-auto mb-6 rounded-xl border border-gray-200">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-[#0A1628]">
+          <tr className="bg-[#0B1A17]">
             {header.map((h, i) => (
               <th key={i} className="text-left text-white font-semibold px-4 py-3 whitespace-nowrap">
                 {h}
@@ -54,7 +54,7 @@ function renderTable(block: string, key: number) {
                 <td
                   key={j}
                   className="px-4 py-3 text-[#374151] align-top"
-                  dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.*?)\*\*/g, "<strong class=\"text-[#0A1628]\">$1</strong>") }}
+                  dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.*?)\*\*/g, "<strong class=\"text-[#0B1A17]\">$1</strong>") }}
                 />
               ))}
             </tr>
@@ -73,7 +73,7 @@ export function renderGuideBody(content: string) {
         <h2
           key={i}
           id={slugify(text)}
-          className="text-2xl font-bold text-[#0A1628] mt-10 mb-4 scroll-mt-28"
+          className="text-2xl font-bold text-[#0B1A17] mt-10 mb-4 scroll-mt-28"
           style={{ fontFamily: "var(--font-display)" }}
         >
           {text}
@@ -86,7 +86,7 @@ export function renderGuideBody(content: string) {
         <h3
           key={i}
           id={slugify(text)}
-          className="text-xl font-bold text-[#0A1628] mt-8 mb-3 scroll-mt-28"
+          className="text-xl font-bold text-[#0B1A17] mt-8 mb-3 scroll-mt-28"
           style={{ fontFamily: "var(--font-display)" }}
         >
           {text}
@@ -102,7 +102,7 @@ export function renderGuideBody(content: string) {
         <ul key={i} className="space-y-2 mb-5">
           {items.map((item, j) => (
             <li key={j} className="flex items-start gap-2 text-[#374151]">
-              <span className="text-[#C9A84C] mt-1 text-xs">✦</span>
+              <span className="text-[#B8935A] mt-1 text-xs">✦</span>
               <span dangerouslySetInnerHTML={{ __html: item.slice(2).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }} />
             </li>
           ))}
@@ -115,7 +115,7 @@ export function renderGuideBody(content: string) {
         <ol key={i} className="space-y-2 mb-5 counter-reset-list">
           {items.map((item, j) => (
             <li key={j} className="flex items-start gap-3 text-[#374151]">
-              <span className="w-6 h-6 rounded-full bg-[#FBF6EC] text-[#C9A84C] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="w-6 h-6 rounded-full bg-[#FBF6EC] text-[#B8935A] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                 {j + 1}
               </span>
               <span dangerouslySetInnerHTML={{ __html: item.replace(/^\d+\.\s/, "").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }} />
@@ -129,7 +129,7 @@ export function renderGuideBody(content: string) {
         <p
           key={i}
           className="text-[#374151] leading-relaxed mb-5"
-          dangerouslySetInnerHTML={{ __html: block.replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#0A1628]">$1</strong>') }}
+          dangerouslySetInnerHTML={{ __html: block.replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#0B1A17]">$1</strong>') }}
         />
       );
     }

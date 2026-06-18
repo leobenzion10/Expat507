@@ -47,11 +47,11 @@ export default function ContactoPage() {
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="h-px w-10 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+          <div className="h-px w-10 bg-[#B8935A]" />
+          <span className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase">
             {t.badge}
           </span>
-          <div className="h-px w-10 bg-[#C9A84C]" />
+          <div className="h-px w-10 bg-[#B8935A]" />
         </div>
         <h1
           className="text-4xl sm:text-5xl font-bold text-white mb-4"
@@ -71,7 +71,7 @@ export default function ContactoPage() {
           {/* Contact options */}
           <div className="space-y-5">
             <h2
-              className="text-lg font-bold text-[#0A1628]"
+              className="text-lg font-bold text-[#0B1A17]"
               style={{ fontFamily: "var(--font-display)" }}
             >
               {t.otherWaysTitle}
@@ -88,7 +88,7 @@ export default function ContactoPage() {
                   <MessageCircle size={18} className="text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[#0A1628] group-hover:text-[#C9A84C] transition-colors">
+                  <p className="text-sm font-semibold text-[#0B1A17] group-hover:text-[#B8935A] transition-colors">
                     {t.whatsappTitle}
                   </p>
                   <p className="text-xs text-[#6B7280]">{t.whatsappDesc}</p>
@@ -101,11 +101,11 @@ export default function ContactoPage() {
                 href={`mailto:${contactEmail}`}
                 className="flex items-center gap-3 bg-[#F4F6F9] hover:bg-[#E8ECF2] rounded-xl p-4 transition-colors group"
               >
-                <div className="w-10 h-10 bg-[#C9A84C]/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail size={18} className="text-[#C9A84C]" />
+                <div className="w-10 h-10 bg-[#B8935A]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail size={18} className="text-[#B8935A]" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[#0A1628] group-hover:text-[#C9A84C] transition-colors">
+                  <p className="text-sm font-semibold text-[#0B1A17] group-hover:text-[#B8935A] transition-colors">
                     {t.emailTitle}
                   </p>
                   <p className="text-xs text-[#6B7280]">{contactEmail}</p>
@@ -113,10 +113,10 @@ export default function ContactoPage() {
               </a>
             )}
 
-            <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-xl p-4">
+            <div className="bg-[#FBF6EC] border border-[#B8935A]/30 rounded-xl p-4">
               <p className="text-xs text-[#6B7280] leading-relaxed">
-                <strong className="text-[#0A1628]">{t.noteLabel}</strong> {t.notePrefix}
-                <a href="/consulta" className="text-[#C9A84C] hover:underline">
+                <strong className="text-[#0B1A17]">{t.noteLabel}</strong> {t.notePrefix}
+                <a href="/consulta" className="text-[#B8935A] hover:underline">
                   {t.noteLink}
                 </a>
                 {t.noteSuffix}
@@ -129,10 +129,10 @@ export default function ContactoPage() {
             {done ? (
               <div className="text-center py-16">
                 <div className="w-16 h-16 bg-[#FBF6EC] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle size={28} className="text-[#C9A84C]" />
+                  <CheckCircle size={28} className="text-[#B8935A]" />
                 </div>
                 <h3
-                  className="text-xl font-bold text-[#0A1628] mb-2"
+                  className="text-xl font-bold text-[#0B1A17] mb-2"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {t.success.title}
@@ -145,7 +145,7 @@ export default function ContactoPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                    <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
                       {t.fields.name}
                     </label>
                     <input
@@ -154,11 +154,11 @@ export default function ContactoPage() {
                       value={form.name}
                       onChange={(e) => update("name", e.target.value)}
                       placeholder={t.fields.namePlaceholder}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                    <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
                       {t.fields.email}
                     </label>
                     <input
@@ -167,12 +167,12 @@ export default function ContactoPage() {
                       value={form.email}
                       onChange={(e) => update("email", e.target.value)}
                       placeholder={t.fields.emailPlaceholder}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                  <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
                     {t.fields.subject}
                   </label>
                   <input
@@ -181,11 +181,11 @@ export default function ContactoPage() {
                     value={form.subject}
                     onChange={(e) => update("subject", e.target.value)}
                     placeholder={t.fields.subjectPlaceholder}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0A1628] mb-2">
+                  <label className="block text-sm font-semibold text-[#0B1A17] mb-2">
                     {t.fields.message}
                   </label>
                   <textarea
@@ -194,13 +194,13 @@ export default function ContactoPage() {
                     onChange={(e) => update("message", e.target.value)}
                     placeholder={t.fields.messagePlaceholder}
                     rows={5}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all resize-none"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all resize-none"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-50 disabled:cursor-not-allowed text-[#0A1628] font-bold py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full bg-[#B8935A] hover:bg-[#96763F] disabled:opacity-50 disabled:cursor-not-allowed text-[#0B1A17] font-bold py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   {loading ? t.submitLoading : t.submitIdle}
                   {!loading && <ArrowRight size={16} />}

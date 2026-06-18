@@ -34,9 +34,9 @@ export default function Navbar() {
 
   const navBg = isHome
     ? scrolled
-      ? "bg-[#0A1628]/98 backdrop-blur-md shadow-lg"
+      ? "bg-[#0B1A17]/98 backdrop-blur-md shadow-lg"
       : "bg-transparent"
-    : "bg-[#0A1628] shadow-md";
+    : "bg-[#0B1A17] shadow-md";
 
   return (
     <header
@@ -54,9 +54,9 @@ export default function Navbar() {
                 className="text-xl font-bold tracking-tight text-white"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Expat<span className="text-[#C9A84C]">507</span>
+                Expat<span className="text-[#B8935A]">507</span>
               </span>
-              <span className="text-[10px] text-[#C9A84C] tracking-widest uppercase font-medium opacity-80">
+              <span className="text-[10px] text-[#B8935A] tracking-widest uppercase font-medium opacity-80">
                 {dict.nav.panama}
               </span>
             </div>
@@ -69,9 +69,9 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-sm font-medium transition-colors duration-200 hover:text-[#C9A84C]",
+                  "text-sm font-medium transition-colors duration-200 hover:text-[#B8935A]",
                   pathname === link.href
-                    ? "text-[#C9A84C]"
+                    ? "text-[#B8935A]"
                     : "text-white/80"
                 )}
               >
@@ -85,7 +85,7 @@ export default function Navbar() {
             <LanguageSwitcher />
             <Link
               href="/consulta"
-              className="bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+              className="bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
             >
               {dict.nav.cta}
             </Link>
@@ -107,7 +107,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-[#0A1628] border-t border-white/10">
+        <div className="lg:hidden bg-[#0B1A17] border-t border-white/10">
           <div className="px-4 py-4 space-y-1">
             {NAV_LINKS.map((link) => (
               <Link
@@ -116,7 +116,7 @@ export default function Navbar() {
                 className={cn(
                   "block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   pathname === link.href
-                    ? "bg-[#C9A84C]/20 text-[#C9A84C]"
+                    ? "bg-[#B8935A]/20 text-[#B8935A]"
                     : "text-white/80 hover:bg-white/10 hover:text-white"
                 )}
               >
@@ -126,7 +126,7 @@ export default function Navbar() {
             <div className="pt-2">
               <Link
                 href="/consulta"
-                className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] text-sm font-semibold px-5 py-3 rounded-lg transition-colors"
+                className="block w-full text-center bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] text-sm font-semibold px-5 py-3 rounded-lg transition-colors"
               >
                 {dict.nav.cta}
               </Link>

@@ -18,7 +18,7 @@ export default function GoldDivider({ className = "", width = "full" }: GoldDivi
         className={`h-px ${widths[width]}`}
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, #C9A84C 20%, #C9A84C 80%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, #B8935A 20%, #B8935A 80%, transparent 100%)",
           opacity: 0.7,
         }}
       />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,11 +9,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "900"],
   style: ["normal", "italic"],
-  variable: "--font-playfair",
+  variable: "--font-fraunces",
   display: "swap",
 });
 import Navbar from "@/components/layout/Navbar";
@@ -93,7 +93,7 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${playfairDisplay.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col">
         <LocaleProvider initialLocale={locale}>
           <Analytics />
@@ -106,14 +106,14 @@ export default async function RootLayout({
             position="top-right"
             toastOptions={{
               style: {
-                background: "#0A1628",
+                background: "#0B1A17",
                 color: "#fff",
                 fontSize: "14px",
               },
               success: {
                 iconTheme: {
-                  primary: "#C9A84C",
-                  secondary: "#0A1628",
+                  primary: "#B8935A",
+                  secondary: "#0B1A17",
                 },
               },
             }}

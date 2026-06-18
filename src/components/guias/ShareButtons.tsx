@@ -24,9 +24,9 @@ export function ShareButtons({ title, label }: { title: string; label: string })
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#C9A84C] transition-colors px-3 py-2 rounded-lg border border-gray-200 hover:border-[#C9A84C]"
+      className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#B8935A] transition-colors px-3 py-2 rounded-lg border border-gray-200 hover:border-[#B8935A]"
     >
-      {copied ? <Check size={15} className="text-[#C9A84C]" /> : <Share2 size={15} />}
+      {copied ? <Check size={15} className="text-[#B8935A]" /> : <Share2 size={15} />}
       {label}
     </button>
   );
@@ -36,7 +36,7 @@ export function PrintButton({ label }: { label: string }) {
   return (
     <button
       onClick={() => window.print()}
-      className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#C9A84C] transition-colors px-3 py-2 rounded-lg border border-gray-200 hover:border-[#C9A84C]"
+      className="flex items-center gap-2 text-sm text-[#374151] hover:text-[#B8935A] transition-colors px-3 py-2 rounded-lg border border-gray-200 hover:border-[#B8935A]"
     >
       <Printer size={15} />
       {label}

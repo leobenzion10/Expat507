@@ -63,7 +63,7 @@ export const CATEGORIES: CategoryInfo[] = [
     label: "Migración y Residencia",
     description: "Visas, permisos de residencia y ciudadanía",
     icon: "🛂",
-    color: "#C9A84C",
+    color: "#B8935A",
     bgColor: "#FBF6EC",
   },
   {
@@ -71,7 +71,7 @@ export const CATEGORIES: CategoryInfo[] = [
     label: "Bienes Raíces",
     description: "Mercado inmobiliario, inversiones y propiedades",
     icon: "🏙️",
-    color: "#0A1628",
+    color: "#0B1A17",
     bgColor: "#EEF1F6",
   },
   {
@@ -79,7 +79,7 @@ export const CATEGORIES: CategoryInfo[] = [
     label: "Banca y Finanzas",
     description: "Apertura de cuentas y servicios financieros",
     icon: "🏦",
-    color: "#C9A84C",
+    color: "#B8935A",
     bgColor: "#FBF6EC",
   },
   {
@@ -87,7 +87,7 @@ export const CATEGORIES: CategoryInfo[] = [
     label: "Legal y Estructuras",
     description: "Estructuras jurídicas, fundaciones y contratos",
     icon: "⚖️",
-    color: "#0A1628",
+    color: "#0B1A17",
     bgColor: "#EEF1F6",
   },
   {
@@ -95,7 +95,7 @@ export const CATEGORIES: CategoryInfo[] = [
     label: "Patrimonio y Fiscalidad",
     description: "Planificación patrimonial, protección de activos y fiscalidad",
     icon: "💼",
-    color: "#C9A84C",
+    color: "#B8935A",
     bgColor: "#FBF6EC",
   },
   {
@@ -103,7 +103,7 @@ export const CATEGORIES: CategoryInfo[] = [
     label: "Vida Expat",
     description: "Vida cotidiana, cultura y comunidad en Panamá",
     icon: "🌴",
-    color: "#0A1628",
+    color: "#0B1A17",
     bgColor: "#EEF1F6",
   },
 ];

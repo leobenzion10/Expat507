@@ -16,15 +16,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-[#0A1628] text-white hover:bg-[#122040] focus:ring-[#0A1628]",
+        "bg-[#0B1A17] text-white hover:bg-[#11241F] focus:ring-[#0B1A17]",
       secondary:
-        "bg-[#C9A84C] text-[#0A1628] hover:bg-[#A8883A] focus:ring-[#C9A84C]",
+        "bg-[#B8935A] text-[#0B1A17] hover:bg-[#96763F] focus:ring-[#B8935A]",
       gold:
-        "bg-gradient-to-r from-[#C9A84C] to-[#E2C97E] text-[#0A1628] hover:from-[#A8883A] hover:to-[#C9A84C] font-semibold shadow-md hover:shadow-lg focus:ring-[#C9A84C]",
+        "bg-gradient-to-r from-[#B8935A] to-[#D4B583] text-[#0B1A17] hover:from-[#96763F] hover:to-[#B8935A] font-semibold shadow-md hover:shadow-lg focus:ring-[#B8935A]",
       outline:
-        "border-2 border-[#0A1628] text-[#0A1628] hover:bg-[#0A1628] hover:text-white focus:ring-[#0A1628]",
+        "border-2 border-[#0B1A17] text-[#0B1A17] hover:bg-[#0B1A17] hover:text-white focus:ring-[#0B1A17]",
       ghost:
-        "text-[#0A1628] hover:bg-[#F4F6F9] focus:ring-[#0A1628]",
+        "text-[#0B1A17] hover:bg-[#F4F6F9] focus:ring-[#0B1A17]",
     };
 
     const sizes = {

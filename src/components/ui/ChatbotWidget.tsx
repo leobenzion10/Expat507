@@ -106,9 +106,9 @@ export default function ChatbotWidget() {
           }`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-[#0A1628] rounded-t-2xl">
+          <div className="flex items-center justify-between px-4 py-3 bg-[#0B1A17] rounded-t-2xl">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#C9A84C] rounded-full flex items-center justify-center text-[#0A1628] font-bold text-sm">
+              <div className="w-8 h-8 bg-[#B8935A] rounded-full flex items-center justify-center text-[#0B1A17] font-bold text-sm">
                 IA
               </div>
               <div>
@@ -151,15 +151,15 @@ export default function ChatbotWidget() {
                     <div
                       className={`max-w-[85%] text-sm rounded-2xl px-3.5 py-2.5 leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-[#0A1628] text-white rounded-br-sm"
-                          : "bg-[#F4F6F9] text-[#0A1628] rounded-bl-sm"
+                          ? "bg-[#0B1A17] text-white rounded-br-sm"
+                          : "bg-[#F4F6F9] text-[#0B1A17] rounded-bl-sm"
                       }`}
                     >
                       {msg.content || (
                         <span className="inline-flex gap-1">
-                          <span className="w-1.5 h-1.5 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                          <span className="w-1.5 h-1.5 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                          <span className="w-1.5 h-1.5 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                          <span className="w-1.5 h-1.5 bg-[#B8935A] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <span className="w-1.5 h-1.5 bg-[#B8935A] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <span className="w-1.5 h-1.5 bg-[#B8935A] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                         </span>
                       )}
                     </div>
@@ -170,13 +170,13 @@ export default function ChatbotWidget() {
                 {messages.length > 2 &&
                   messages[messages.length - 1].role === "assistant" &&
                   !loading && (
-                    <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-xl p-3 text-center">
-                      <p className="text-xs text-[#0A1628] mb-2 font-medium">
+                    <div className="bg-[#FBF6EC] border border-[#B8935A]/30 rounded-xl p-3 text-center">
+                      <p className="text-xs text-[#0B1A17] mb-2 font-medium">
                         {t.ctaTitle}
                       </p>
                       <Link
                         href="/consulta"
-                        className="inline-block bg-[#C9A84C] text-[#0A1628] text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#A8883A] transition-colors"
+                        className="inline-block bg-[#B8935A] text-[#0B1A17] text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#96763F] transition-colors"
                       >
                         {t.ctaButton}
                       </Link>
@@ -192,7 +192,7 @@ export default function ChatbotWidget() {
                     <button
                       key={s}
                       onClick={() => sendMessage(s)}
-                      className="text-xs bg-[#F4F6F9] hover:bg-[#E8ECF2] text-[#0A1628] px-2.5 py-1.5 rounded-full transition-colors border border-gray-200"
+                      className="text-xs bg-[#F4F6F9] hover:bg-[#E8ECF2] text-[#0B1A17] px-2.5 py-1.5 rounded-full transition-colors border border-gray-200"
                     >
                       {s}
                     </button>
@@ -209,12 +209,12 @@ export default function ChatbotWidget() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
                     placeholder={t.placeholder}
-                    className="flex-1 bg-transparent text-sm text-[#0A1628] placeholder-gray-400 outline-none"
+                    className="flex-1 bg-transparent text-sm text-[#0B1A17] placeholder-gray-400 outline-none"
                   />
                   <button
                     onClick={() => sendMessage()}
                     disabled={!input.trim() || loading}
-                    className="text-[#C9A84C] disabled:opacity-40 hover:text-[#A8883A] transition-colors p-1"
+                    className="text-[#B8935A] disabled:opacity-40 hover:text-[#96763F] transition-colors p-1"
                   >
                     <Send size={16} />
                   </button>
@@ -229,10 +229,10 @@ export default function ChatbotWidget() {
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="w-12 h-12 bg-[#0A1628] hover:bg-[#122040] rounded-full shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 border-2 border-[#C9A84C]"
+          className="w-12 h-12 bg-[#0B1A17] hover:bg-[#11241F] rounded-full shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 border-2 border-[#B8935A]"
           aria-label={t.openLabel}
         >
-          <MessageCircle size={20} className="text-[#C9A84C]" />
+          <MessageCircle size={20} className="text-[#B8935A]" />
         </button>
       )}
     </div>

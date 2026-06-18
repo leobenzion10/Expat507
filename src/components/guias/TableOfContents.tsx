@@ -12,9 +12,9 @@ export default function TableOfContents({ items, title }: { items: TocItem[]; ti
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="text-sm text-[#374151] hover:text-[#C9A84C] transition-colors flex items-start gap-2"
+                className="text-sm text-[#374151] hover:text-[#B8935A] transition-colors flex items-start gap-2"
               >
-                <span className="text-[#C9A84C] text-xs mt-0.5">{i + 1}.</span>
+                <span className="text-[#B8935A] text-xs mt-0.5">{i + 1}.</span>
                 <span>{item.text}</span>
               </a>
             </li>

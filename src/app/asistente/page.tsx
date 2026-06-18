@@ -103,12 +103,12 @@ export default function AsistentePage() {
       <div className="pt-20 min-h-screen flex flex-col">
         <div className="gradient-navy flex-1 flex items-center justify-center px-4 py-20">
           <div className="max-w-lg w-full text-center">
-            <div className="inline-flex items-center gap-2 bg-[#C9A84C]/15 border border-[#C9A84C]/30 rounded-full px-4 py-1.5 mb-6">
-              <Clock size={14} className="text-[#C9A84C]" />
-              <span className="text-[#C9A84C] text-xs font-semibold tracking-wide uppercase">{cs.badge}</span>
+            <div className="inline-flex items-center gap-2 bg-[#B8935A]/15 border border-[#B8935A]/30 rounded-full px-4 py-1.5 mb-6">
+              <Clock size={14} className="text-[#B8935A]" />
+              <span className="text-[#B8935A] text-xs font-semibold tracking-wide uppercase">{cs.badge}</span>
             </div>
-            <div className="w-14 h-14 bg-[#C9A84C]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Sparkles size={24} className="text-[#C9A84C]" />
+            <div className="w-14 h-14 bg-[#B8935A]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Sparkles size={24} className="text-[#B8935A]" />
             </div>
             <h1
               className="text-3xl sm:text-4xl font-bold text-white mb-4"
@@ -119,7 +119,7 @@ export default function AsistentePage() {
             <p className="text-white/60 mb-8">{cs.description}</p>
             <Link
               href="/consulta"
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3.5 rounded-xl text-sm transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3.5 rounded-xl text-sm transition-colors"
             >
               {cs.button}
               <ArrowRight size={16} />
@@ -135,15 +135,15 @@ export default function AsistentePage() {
       {/* Header */}
       <div className="gradient-navy pt-10 pb-12 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="h-px w-10 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+          <div className="h-px w-10 bg-[#B8935A]" />
+          <span className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase">
             {t.eyebrow}
           </span>
-          <div className="h-px w-10 bg-[#C9A84C]" />
+          <div className="h-px w-10 bg-[#B8935A]" />
         </div>
         <div className="flex items-center justify-center gap-3 mb-3">
-          <div className="w-12 h-12 bg-[#C9A84C]/20 rounded-2xl flex items-center justify-center">
-            <Sparkles size={22} className="text-[#C9A84C]" />
+          <div className="w-12 h-12 bg-[#B8935A]/20 rounded-2xl flex items-center justify-center">
+            <Sparkles size={22} className="text-[#B8935A]" />
           </div>
           <h1
             className="text-3xl sm:text-4xl font-bold text-white"
@@ -177,9 +177,9 @@ export default function AsistentePage() {
                 <button
                   key={q}
                   onClick={() => sendMessage(q)}
-                  className="text-left bg-white border border-gray-100 hover:border-[#C9A84C] hover:shadow-md rounded-xl px-5 py-4 text-sm text-[#0A1628] transition-all duration-200 group"
+                  className="text-left bg-white border border-gray-100 hover:border-[#B8935A] hover:shadow-md rounded-xl px-5 py-4 text-sm text-[#0B1A17] transition-all duration-200 group"
                 >
-                  <span className="text-[#C9A84C] mr-2 group-hover:mr-3 transition-all">→</span>
+                  <span className="text-[#B8935A] mr-2 group-hover:mr-3 transition-all">→</span>
                   {q}
                 </button>
               ))}
@@ -194,14 +194,14 @@ export default function AsistentePage() {
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {msg.role === "assistant" && (
-                  <div className="w-8 h-8 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] text-xs font-bold mr-3 flex-shrink-0 mt-1">
+                  <div className="w-8 h-8 rounded-full bg-[#B8935A]/20 flex items-center justify-center text-[#B8935A] text-xs font-bold mr-3 flex-shrink-0 mt-1">
                     IA
                   </div>
                 )}
                 <div
                   className={`max-w-[80%] rounded-2xl px-5 py-4 text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-[#0A1628] text-white rounded-br-sm"
+                      ? "bg-[#0B1A17] text-white rounded-br-sm"
                       : "bg-white border border-gray-100 text-[#374151] rounded-bl-sm shadow-sm"
                   }`}
                 >
@@ -209,9 +209,9 @@ export default function AsistentePage() {
                     <div className="whitespace-pre-wrap">{msg.content}</div>
                   ) : (
                     <div className="flex items-center gap-1.5 py-1">
-                      <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                      <span className="w-2 h-2 bg-[#B8935A] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-2 h-2 bg-[#B8935A] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-2 h-2 bg-[#B8935A] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                     </div>
                   )}
                 </div>
@@ -220,8 +220,8 @@ export default function AsistentePage() {
 
             {/* CTA after response */}
             {showCTA && (
-              <div className="bg-[#FBF6EC] border border-[#C9A84C]/30 rounded-2xl p-6 text-center">
-                <p className="text-[#0A1628] font-semibold mb-2">
+              <div className="bg-[#FBF6EC] border border-[#B8935A]/30 rounded-2xl p-6 text-center">
+                <p className="text-[#0B1A17] font-semibold mb-2">
                   {t.ctaTitle}
                 </p>
                 <p className="text-[#6B7280] text-sm mb-4">
@@ -230,7 +230,7 @@ export default function AsistentePage() {
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link
                     href="/consulta"
-                    className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3 rounded-xl text-sm transition-colors"
+                    className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3 rounded-xl text-sm transition-colors"
                   >
                     {t.ctaButton}
                     <ArrowRight size={16} />
@@ -240,7 +240,7 @@ export default function AsistentePage() {
                       setMessages([]);
                       setInput("");
                     }}
-                    className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:bg-[#F4F6F9] text-[#0A1628] font-medium px-6 py-3 rounded-xl text-sm transition-colors"
+                    className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:bg-[#F4F6F9] text-[#0B1A17] font-medium px-6 py-3 rounded-xl text-sm transition-colors"
                   >
                     {t.newQuestion}
                   </button>
@@ -257,7 +257,7 @@ export default function AsistentePage() {
       <div className="sticky bottom-0 bg-white/95 backdrop-blur-md border-t border-gray-100 py-4 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex gap-3 items-end">
-            <div className="flex-1 bg-[#F4F6F9] rounded-2xl border border-gray-200 focus-within:border-[#C9A84C] focus-within:ring-2 focus-within:ring-[#C9A84C]/20 transition-all">
+            <div className="flex-1 bg-[#F4F6F9] rounded-2xl border border-gray-200 focus-within:border-[#B8935A] focus-within:ring-2 focus-within:ring-[#B8935A]/20 transition-all">
               <input
                 ref={inputRef}
                 type="text"
@@ -270,21 +270,21 @@ export default function AsistentePage() {
                   }
                 }}
                 placeholder={t.placeholder}
-                className="w-full bg-transparent px-5 py-4 text-sm text-[#0A1628] placeholder-gray-400 outline-none"
+                className="w-full bg-transparent px-5 py-4 text-sm text-[#0B1A17] placeholder-gray-400 outline-none"
                 disabled={loading}
               />
             </div>
             <button
               onClick={() => sendMessage()}
               disabled={!input.trim() || loading}
-              className="w-12 h-12 bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-40 disabled:cursor-not-allowed text-[#0A1628] rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
+              className="w-12 h-12 bg-[#B8935A] hover:bg-[#96763F] disabled:opacity-40 disabled:cursor-not-allowed text-[#0B1A17] rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
             >
               <Send size={18} />
             </button>
           </div>
           <p className="text-center text-[11px] text-gray-400 mt-2">
             {t.footnoteBar} ·{" "}
-            <Link href="/consulta" className="text-[#C9A84C] hover:underline">
+            <Link href="/consulta" className="text-[#B8935A] hover:underline">
               {t.footnoteLink}
             </Link>
           </p>

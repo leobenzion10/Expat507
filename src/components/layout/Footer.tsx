@@ -14,7 +14,7 @@ export default async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0A1628] text-white print:hidden">
+    <footer className="bg-[#0B1A17] text-white print:hidden">
       <GoldDivider className="pt-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -26,9 +26,9 @@ export default async function Footer() {
                 className="text-2xl font-bold text-white"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Expat<span className="text-[#C9A84C]">507</span>
+                Expat<span className="text-[#B8935A]">507</span>
               </span>
-              <p className="text-xs text-[#C9A84C] tracking-widest uppercase mt-1 opacity-80">
+              <p className="text-xs text-[#B8935A] tracking-widest uppercase mt-1 opacity-80">
                 Panamá
               </p>
             </div>
@@ -37,7 +37,7 @@ export default async function Footer() {
             </p>
             <Link
               href="/consulta"
-              className="inline-block bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
+              className="inline-block bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
             >
               {dict.ctaButton}
             </Link>
@@ -45,7 +45,7 @@ export default async function Footer() {
 
           {/* Recursos */}
           <div>
-            <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-4">
+            <h4 className="text-[#B8935A] text-xs font-semibold uppercase tracking-widest mb-4">
               {dict.recursosTitle}
             </h4>
             <ul className="space-y-2.5">
@@ -53,7 +53,7 @@ export default async function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors"
+                    className="text-white/60 hover:text-[#B8935A] text-sm transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -64,7 +64,7 @@ export default async function Footer() {
 
           {/* Servicios */}
           <div>
-            <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-4">
+            <h4 className="text-[#B8935A] text-xs font-semibold uppercase tracking-widest mb-4">
               {dict.serviciosTitle}
             </h4>
             <ul className="space-y-2.5">
@@ -72,7 +72,7 @@ export default async function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors"
+                    className="text-white/60 hover:text-[#B8935A] text-sm transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -83,7 +83,7 @@ export default async function Footer() {
 
           {/* Empresa */}
           <div>
-            <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-4">
+            <h4 className="text-[#B8935A] text-xs font-semibold uppercase tracking-widest mb-4">
               {dict.empresaTitle}
             </h4>
             <ul className="space-y-2.5">
@@ -91,7 +91,7 @@ export default async function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-white/60 hover:text-[#C9A84C] text-sm transition-colors"
+                    className="text-white/60 hover:text-[#B8935A] text-sm transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -100,7 +100,7 @@ export default async function Footer() {
             </ul>
 
             <div className="mt-6">
-              <h4 className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-3">
+              <h4 className="text-[#B8935A] text-xs font-semibold uppercase tracking-widest mb-3">
                 {dict.newsletterTitle}
               </h4>
               <p className="text-white/60 text-xs mb-3">
@@ -108,7 +108,7 @@ export default async function Footer() {
               </p>
               <Link
                 href="/newsletter"
-                className="text-[#C9A84C] text-sm hover:underline font-medium"
+                className="text-[#B8935A] text-sm hover:underline font-medium"
               >
                 {dict.newsletterCta}
               </Link>

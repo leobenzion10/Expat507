@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0A1628;
-  --color-navy-light: #122040;
-  --color-gold: #C9A84C;
-  --color-gold-light: #E2C97E;
-  --color-gold-dark: #A8883A;
+  --color-navy: #0B1A17;
+  --color-navy-light: #11241F;
+  --color-gold: #B8935A;
+  --color-gold-light: #D4B583;
+  --color-gold-dark: #96763F;
+  --color-tropical: #1F6F50;
+  --color-tropical-light: #2E8F68;
   --color-white: #FFFFFF;
   --color-gray-light: #F4F6F9;
   --color-gray-mid: #E8ECF2;
   --color-gray-text: #6B7280;
   --color-gray-dark: #374151;
 
-  --font-display: var(--font-playfair), Georgia, serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
 
   --radius-sm: 0.375rem;
@@ -23,7 +25,7 @@
 
 :root {
   --background: #FFFFFF;
-  --foreground: #0A1628;
+  --foreground: #0B1A17;
 }
 
 * {
@@ -49,32 +51,62 @@ h1, h2, h3, h4, h5, h6 {
 .gold-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #C9A84C 20%, #C9A84C 80%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #B8935A 20%, #B8935A 80%, transparent 100%);
   opacity: 0.6;
 }
 
 .gradient-navy {
-  background: linear-gradient(135deg, #0A1628 0%, #122040 50%, #1a2d52 100%);
+  background: linear-gradient(135deg, #0B1A17 0%, #11241F 50%, #163029 100%);
 }
 
 .gradient-gold {
-  background: linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%);
+  background: linear-gradient(135deg, #B8935A 0%, #D4B583 50%, #B8935A 100%);
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #C9A84C, #E2C97E);
+  background: linear-gradient(135deg, #B8935A, #D4B583);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(10, 22, 40, 0.12);
+  box-shadow: 0 12px 40px rgba(11, 26, 23, 0.1);
+}
+
+/* Editorial card: thin border that turns gold on hover, gentle lift, no heavy shadow */
+.card-editorial {
+  position: relative;
+  border: 1px solid #E8ECF2;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-editorial:hover {
+  transform: translateY(-3px);
+  border-color: #B8935A;
+  box-shadow: 0 16px 48px rgba(11, 26, 23, 0.08);
+}
+
+/* Subtle film-grain texture for dark editorial sections */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
 }
 
 .prose-expat {
@@ -85,7 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .prose-expat h2 {
   font-family: var(--font-display);
-  color: #0A1628;
+  color: #0B1A17;
   font-size: 1.75rem;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
@@ -93,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .prose-expat h3 {
   font-family: var(--font-display);
-  color: #0A1628;
+  color: #0B1A17;
   font-size: 1.35rem;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
@@ -110,9 +142,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .prose-expat ul li::before {
   content: "✦";
-  color: #C9A84C;
+  color: #B8935A;
   margin-right: 0.5rem;
   font-size: 0.75rem;
+}
+
+.hero-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.75rem, 9vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+.hero-507 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(7rem, 26vw, 18rem);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
 }
 
 @keyframes quizStepIn {
@@ -134,6 +183,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C9A84C;
+  background: #B8935A;
   border-radius: 3px;
 }

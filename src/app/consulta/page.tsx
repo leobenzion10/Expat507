@@ -150,8 +150,8 @@ export default function ConsultaPage() {
       <div className="pt-20 min-h-screen">
         <div className="gradient-navy pt-12 pb-16 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-16 h-16 bg-[#C9A84C]/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
-              <CheckCircle size={30} className="text-[#C9A84C]" />
+            <div className="w-16 h-16 bg-[#B8935A]/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
+              <CheckCircle size={30} className="text-[#B8935A]" />
             </div>
             <h1
               className="text-3xl sm:text-4xl font-bold text-white mb-4"
@@ -196,10 +196,10 @@ export default function ConsultaPage() {
               href={calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#0A1628] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity mb-6"
+              className="block bg-[#0B1A17] rounded-2xl p-6 text-white text-center hover:opacity-90 transition-opacity mb-6"
             >
-              <div className="w-12 h-12 bg-[#C9A84C]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Calendar size={22} className="text-[#C9A84C]" />
+              <div className="w-12 h-12 bg-[#B8935A]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Calendar size={22} className="text-[#B8935A]" />
               </div>
               <h3 className="font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
                 {t.success.calendlyTitle}
@@ -207,7 +207,7 @@ export default function ConsultaPage() {
               <p className="text-white/70 text-sm mb-4">
                 {t.success.calendlyDesc}
               </p>
-              <span className="inline-flex items-center gap-1.5 bg-[#C9A84C] text-[#0A1628] text-sm font-bold px-4 py-2.5 rounded-xl">
+              <span className="inline-flex items-center gap-1.5 bg-[#B8935A] text-[#0B1A17] text-sm font-bold px-4 py-2.5 rounded-xl">
                 {t.success.calendlyButton}
                 <ArrowRight size={15} />
               </span>
@@ -229,11 +229,11 @@ export default function ConsultaPage() {
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="h-px w-10 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+          <div className="h-px w-10 bg-[#B8935A]" />
+          <span className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase">
             {t.eyebrowBadge}
           </span>
-          <div className="h-px w-10 bg-[#C9A84C]" />
+          <div className="h-px w-10 bg-[#B8935A]" />
         </div>
         <h1
           className="text-3xl sm:text-5xl font-bold text-white mb-4"
@@ -258,7 +258,7 @@ export default function ConsultaPage() {
           </div>
           <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#C9A84C] rounded-full transition-all duration-300"
+              className="h-full bg-[#B8935A] rounded-full transition-all duration-300"
               style={{ width: `${((stepIndex + 1) / totalSteps) * 100}%` }}
             />
           </div>
@@ -268,7 +268,7 @@ export default function ConsultaPage() {
         <div key={stepIndex} className="quiz-step bg-white border border-gray-100 rounded-3xl shadow-xl p-6 sm:p-8">
           {currentKey === "name" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.name}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.name}</label>
               <input
                 autoFocus
                 type="text"
@@ -276,14 +276,14 @@ export default function ConsultaPage() {
                 onChange={(e) => update("name", e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={t.fields.namePlaceholder}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
               />
             </div>
           )}
 
           {currentKey === "email" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.email}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.email}</label>
               <input
                 autoFocus
                 type="email"
@@ -291,20 +291,20 @@ export default function ConsultaPage() {
                 onChange={(e) => update("email", e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={t.fields.emailPlaceholder}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
               />
             </div>
           )}
 
           {currentKey === "phone" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.phone}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.phone}</label>
               <div className="flex gap-3">
                 <select
                   autoFocus
                   value={form.phoneCode}
                   onChange={(e) => update("phoneCode", e.target.value)}
-                  className="w-32 sm:w-40 border border-gray-200 rounded-xl px-3 py-3.5 text-base text-[#0A1628] focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all bg-white"
+                  className="w-32 sm:w-40 border border-gray-200 rounded-xl px-3 py-3.5 text-base text-[#0B1A17] focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all bg-white"
                 >
                   <option value="">{t.fields.phoneCodePlaceholder}</option>
                   {DIAL_CODES.map((d) => (
@@ -317,7 +317,7 @@ export default function ConsultaPage() {
                   onChange={(e) => update("phone", e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={t.fields.phonePlaceholder}
-                  className="flex-1 border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all"
+                  className="flex-1 border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all"
                 />
               </div>
             </div>
@@ -325,12 +325,12 @@ export default function ConsultaPage() {
 
           {currentKey === "country" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.country}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.country}</label>
               <select
                 autoFocus
                 value={form.country}
                 onChange={(e) => update("country", e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all bg-white"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0B1A17] focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all bg-white"
               >
                 <option value="">{t.fields.countryPlaceholder}</option>
                 {COUNTRIES.map((c) => (
@@ -342,7 +342,7 @@ export default function ConsultaPage() {
 
           {currentKey === "objective" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-1">{t.fields.objective}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-1">{t.fields.objective}</label>
               <p className="text-xs text-[#6B7280] mb-4">{t.fields.objectiveHint}</p>
               <div className="grid grid-cols-1 gap-2">
                 {OBJECTIVES.map((obj) => {
@@ -353,12 +353,12 @@ export default function ConsultaPage() {
                       type="button"
                       onClick={() => toggleObjective(obj)}
                       className={`flex items-center gap-3 text-left p-3.5 rounded-xl border transition-all ${
-                        selected ? "border-[#C9A84C] bg-[#FBF6EC]" : "border-gray-200 hover:border-gray-300"
+                        selected ? "border-[#B8935A] bg-[#FBF6EC]" : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
                       <div
                         className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                          selected ? "border-[#C9A84C] bg-[#C9A84C]" : "border-gray-300"
+                          selected ? "border-[#B8935A] bg-[#B8935A]" : "border-gray-300"
                         }`}
                       >
                         {selected && <div className="w-2 h-2 bg-white rounded-sm" />}
@@ -373,7 +373,7 @@ export default function ConsultaPage() {
 
           {currentKey === "budget" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.budget}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.budget}</label>
               <div className="grid grid-cols-1 gap-2">
                 {BUDGETS.map((b) => (
                   <button
@@ -382,7 +382,7 @@ export default function ConsultaPage() {
                     onClick={() => selectChoice("budget", b)}
                     className={`text-left p-3.5 rounded-xl border transition-all ${
                       form.budget === b
-                        ? "border-[#C9A84C] bg-[#FBF6EC]"
+                        ? "border-[#B8935A] bg-[#FBF6EC]"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
@@ -395,7 +395,7 @@ export default function ConsultaPage() {
 
           {currentKey === "urgency" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.urgency}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.urgency}</label>
               <div className="grid grid-cols-1 gap-2">
                 {URGENCIES.map((u) => (
                   <button
@@ -404,7 +404,7 @@ export default function ConsultaPage() {
                     onClick={() => selectChoice("urgency", u)}
                     className={`text-left p-3.5 rounded-xl border transition-all ${
                       form.urgency === u
-                        ? "border-[#C9A84C] bg-[#FBF6EC]"
+                        ? "border-[#B8935A] bg-[#FBF6EC]"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
@@ -417,21 +417,21 @@ export default function ConsultaPage() {
 
           {currentKey === "message" && (
             <div>
-              <label className="block text-lg font-bold text-[#0A1628] mb-4">{t.fields.message}</label>
+              <label className="block text-lg font-bold text-[#0B1A17] mb-4">{t.fields.message}</label>
               <textarea
                 autoFocus
                 value={form.message}
                 onChange={(e) => update("message", e.target.value)}
                 placeholder={t.fields.messagePlaceholder}
                 rows={4}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0A1628] placeholder-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-all resize-none"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-base text-[#0B1A17] placeholder-gray-400 focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-all resize-none"
               />
               <label className="flex items-start gap-3 mt-5 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={form.subscribeNewsletter}
                   onChange={(e) => setForm((prev) => ({ ...prev, subscribeNewsletter: e.target.checked }))}
-                  className="mt-0.5 w-4 h-4 accent-[#C9A84C] flex-shrink-0"
+                  className="mt-0.5 w-4 h-4 accent-[#B8935A] flex-shrink-0"
                 />
                 <span className="text-sm text-[#374151]">{t.fields.newsletterOptIn}</span>
               </label>
@@ -444,7 +444,7 @@ export default function ConsultaPage() {
               <button
                 type="button"
                 onClick={goBack}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6B7280] hover:text-[#0A1628] transition-colors px-2 py-2"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6B7280] hover:text-[#0B1A17] transition-colors px-2 py-2"
               >
                 <ArrowLeft size={15} />
                 {t.backButton}
@@ -459,7 +459,7 @@ export default function ConsultaPage() {
                 type="button"
                 onClick={goNext}
                 disabled={!canContinue() || loading}
-                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] disabled:opacity-50 disabled:cursor-not-allowed text-[#0A1628] font-bold px-6 py-3 rounded-xl transition-all"
+                className="inline-flex items-center gap-2 bg-[#B8935A] hover:bg-[#96763F] disabled:opacity-50 disabled:cursor-not-allowed text-[#0B1A17] font-bold px-6 py-3 rounded-xl transition-all"
               >
                 {isLastStep ? (loading ? t.submitLoading : t.submitIdle) : t.continueButton}
                 {!loading && <ArrowRight size={16} />}

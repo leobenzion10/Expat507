@@ -37,14 +37,14 @@ export default function GuiasPage() {
       <div className="gradient-navy py-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-10 bg-[#C9A84C]" />
-            <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+            <div className="h-px w-10 bg-[#B8935A]" />
+            <span className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase">
               {t.eyebrow}
             </span>
-            <div className="h-px w-10 bg-[#C9A84C]" />
+            <div className="h-px w-10 bg-[#B8935A]" />
           </div>
           <h1
-            className="text-3xl sm:text-5xl font-bold text-white mb-4"
+            className="text-3xl sm:text-5xl font-semibold text-white mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {t.title}
@@ -64,7 +64,7 @@ export default function GuiasPage() {
               placeholder={t.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20 transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-[#B8935A] focus:ring-2 focus:ring-[#B8935A]/20 transition-colors"
             />
           </div>
         </div>
@@ -74,14 +74,14 @@ export default function GuiasPage() {
 
       {/* Clusters overview */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <p className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase mb-6">
+        <p className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase mb-6">
           {t.clustersEyebrow}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
           {clusters.map((cluster) => (
             <div
               key={cluster.id}
-              className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-xl transition-all duration-300"
+              className="card-editorial bg-white rounded-2xl p-6"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div
@@ -91,7 +91,7 @@ export default function GuiasPage() {
                   {cluster.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#0A1628] text-base" style={{ fontFamily: "var(--font-display)" }}>
+                  <h3 className="font-semibold text-[#0B1A17] text-base" style={{ fontFamily: "var(--font-display)" }}>
                     {dict.categories[cluster.id].label}
                   </h3>
                   <p className="text-xs text-[#6B7280]">
@@ -105,10 +105,10 @@ export default function GuiasPage() {
                   href={`/guias/${cluster.pillarArticle.slug}`}
                   className="block bg-[#F4F6F9] hover:bg-[#FBF6EC] rounded-xl p-3.5 mb-4 transition-colors group"
                 >
-                  <p className="text-[10px] font-semibold text-[#C9A84C] uppercase tracking-wide mb-1">
+                  <p className="text-[10px] font-semibold text-[#B8935A] uppercase tracking-wide mb-1">
                     {t.pillarLabel}
                   </p>
-                  <p className="text-sm font-semibold text-[#0A1628] leading-snug group-hover:text-[#C9A84C] transition-colors">
+                  <p className="text-sm font-semibold text-[#0B1A17] leading-snug group-hover:text-[#B8935A] transition-colors">
                     {cluster.pillarArticle.title}
                   </p>
                 </Link>
@@ -120,7 +120,7 @@ export default function GuiasPage() {
 
               <button
                 onClick={() => setActiveCategory(cluster.id)}
-                className="text-sm text-[#C9A84C] hover:underline font-medium inline-flex items-center gap-1"
+                className="text-sm text-[#B8935A] hover:underline font-medium inline-flex items-center gap-1"
               >
                 {t.viewCluster}
               </button>
@@ -130,7 +130,7 @@ export default function GuiasPage() {
 
         <GoldDivider className="mb-12" />
 
-        <h2 className="text-xl font-bold text-[#0A1628] mb-6" style={{ fontFamily: "var(--font-display)" }}>
+        <h2 className="text-xl font-semibold text-[#0B1A17] mb-6" style={{ fontFamily: "var(--font-display)" }}>
           {t.browseAllTitle}
         </h2>
 
@@ -140,7 +140,7 @@ export default function GuiasPage() {
             onClick={() => setActiveCategory("all")}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               activeCategory === "all"
-                ? "bg-[#0A1628] text-white"
+                ? "bg-[#0B1A17] text-white"
                 : "bg-[#F4F6F9] text-[#6B7280] hover:bg-[#E8ECF2]"
             }`}
           >
@@ -152,7 +152,7 @@ export default function GuiasPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat.id
-                  ? "bg-[#0A1628] text-white"
+                  ? "bg-[#0B1A17] text-white"
                   : "bg-[#F4F6F9] text-[#6B7280] hover:bg-[#E8ECF2]"
               }`}
             >
@@ -184,8 +184,8 @@ export default function GuiasPage() {
                 href={`/guias/${article.slug}`}
                 className="group"
               >
-                <article className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 card-hover">
-                  <div className="h-36 gradient-navy flex items-center justify-center relative">
+                <article className="card-editorial h-full bg-white rounded-2xl overflow-hidden">
+                  <div className="h-36 gradient-navy grain flex items-center justify-center relative">
                     <span className="text-4xl opacity-25">
                       {CATEGORIES.find((c) => c.id === article.category)?.icon}
                     </span>
@@ -194,7 +194,7 @@ export default function GuiasPage() {
                     </div>
                     {article.featured && (
                       <div className="absolute top-3 right-3">
-                        <span className="bg-[#C9A84C] text-[#0A1628] text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">
+                        <span className="bg-[#B8935A] text-[#0B1A17] text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">
                           {t.featuredBadge}
                         </span>
                       </div>
@@ -202,7 +202,7 @@ export default function GuiasPage() {
                   </div>
                   <div className="p-5">
                     <h3
-                      className="font-bold text-[#0A1628] mb-2 leading-snug group-hover:text-[#C9A84C] transition-colors"
+                      className="font-semibold text-[#0B1A17] mb-2 leading-snug group-hover:text-[#B8935A] transition-colors"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
                       {article.title}

@@ -23,11 +23,11 @@ export default async function SobreNosotrosPage() {
       {/* Header */}
       <div className="gradient-navy pt-12 pb-16 px-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="h-px w-10 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-xs font-semibold tracking-widest uppercase">
+          <div className="h-px w-10 bg-[#B8935A]" />
+          <span className="text-[#B8935A] text-xs font-semibold tracking-widest uppercase">
             {t.badge}
           </span>
-          <div className="h-px w-10 bg-[#C9A84C]" />
+          <div className="h-px w-10 bg-[#B8935A]" />
         </div>
         <h1
           className="text-4xl sm:text-5xl font-bold text-white mb-4"
@@ -46,7 +46,7 @@ export default async function SobreNosotrosPage() {
         {/* Story */}
         <div className="prose-expat max-w-none mb-16">
           <h2
-            className="text-2xl font-bold text-[#0A1628] mb-5"
+            className="text-2xl font-bold text-[#0B1A17] mb-5"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {t.storyTitle}
@@ -63,7 +63,7 @@ export default async function SobreNosotrosPage() {
         {/* Values */}
         <div className="mb-16">
           <h2
-            className="text-2xl font-bold text-[#0A1628] mb-8 text-center"
+            className="text-2xl font-bold text-[#0B1A17] mb-8 text-center"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {t.valuesTitle}
@@ -76,7 +76,7 @@ export default async function SobreNosotrosPage() {
               >
                 <div className="text-3xl mb-3">{v.icon}</div>
                 <h3
-                  className="font-bold text-[#0A1628] mb-2"
+                  className="font-bold text-[#0B1A17] mb-2"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {v.title}
@@ -101,7 +101,7 @@ export default async function SobreNosotrosPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/consulta"
-              className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-6 py-3.5 rounded-xl transition-colors"
+              className="inline-flex items-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3.5 rounded-xl transition-colors"
             >
               {t.ctaPrimary}
               <ArrowRight size={16} />

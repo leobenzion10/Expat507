@@ -99,7 +99,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
                 renderGuideBody(article.content)
               ) : (
                 <div className="bg-[#F4F6F9] rounded-2xl p-8 text-center">
-                  <h2 className="text-xl font-bold text-[#0A1628] mb-3" style={{ fontFamily: "var(--font-display)" }}>
+                  <h2 className="text-xl font-bold text-[#0B1A17] mb-3" style={{ fontFamily: "var(--font-display)" }}>
                     {t.comingSoonTitle}
                   </h2>
                   <p className="text-[#6B7280]">{t.comingSoonText}</p>
@@ -111,7 +111,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
 
             {/* Disclaimer */}
             <div className="bg-[#F4F6F9] rounded-xl p-5 text-sm text-[#6B7280]">
-              <strong className="text-[#0A1628]">{t.disclaimerLabel}</strong> {t.disclaimerText}
+              <strong className="text-[#0B1A17]">{t.disclaimerLabel}</strong> {t.disclaimerText}
             </div>
 
             {/* Tags */}
@@ -135,7 +135,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
 
             {/* CTA Card */}
             <div className="gradient-navy rounded-2xl p-6 text-white sticky top-24">
-              <div className="text-[#C9A84C] text-xs font-semibold uppercase tracking-widest mb-3">
+              <div className="text-[#B8935A] text-xs font-semibold uppercase tracking-widest mb-3">
                 {t.nextStepLabel}
               </div>
               <h3
@@ -149,7 +149,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
               </p>
               <Link
                 href="/consulta"
-                className="flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8883A] text-[#0A1628] font-bold px-5 py-3 rounded-xl transition-colors text-sm"
+                className="flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-5 py-3 rounded-xl transition-colors text-sm"
               >
                 {t.ctaButton}
                 <ArrowRight size={16} />
@@ -178,12 +178,12 @@ export default async function ArticlePage({ params }: { params: Params }) {
                     {categoryInfo.icon}
                   </div>
                   <div>
-                    <p className="font-semibold text-[#0A1628] text-sm">
+                    <p className="font-semibold text-[#0B1A17] text-sm">
                       {dict.categories[categoryInfo.id].label}
                     </p>
                     <Link
                       href={`/guias?category=${categoryInfo.id}`}
-                      className="text-xs text-[#C9A84C] hover:underline"
+                      className="text-xs text-[#B8935A] hover:underline"
                     >
                       {t.viewMoreInCategory}
                     </Link>
