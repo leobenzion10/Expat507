@@ -162,10 +162,16 @@ const herramientas = {
     form: {
       zoneLabel: "Where do you plan to live?",
       zoneOptions: {
+        "punta-paitilla": "Punta Paitilla",
         "punta-pacifica": "Punta Pacífica",
+        "santa-maria": "Santa María",
         "costa-del-este": "Costa del Este",
+        obarrio: "Obarrio",
+        "san-francisco": "San Francisco",
         "casco-antiguo": "Casco Antiguo",
-        coronado: "Coronado",
+        buenaventura: "Buenaventura (beach)",
+        coronado: "Coronado (beach)",
+        chame: "Chame (beach)",
         other: "Other area / general average",
       },
       familySizeLabel: "Who's moving?",

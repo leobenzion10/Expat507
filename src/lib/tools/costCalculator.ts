@@ -1,4 +1,15 @@
-export type Zone = "punta-pacifica" | "costa-del-este" | "casco-antiguo" | "coronado" | "other";
+export type Zone =
+  | "punta-pacifica"
+  | "punta-paitilla"
+  | "santa-maria"
+  | "obarrio"
+  | "san-francisco"
+  | "costa-del-este"
+  | "casco-antiguo"
+  | "coronado"
+  | "chame"
+  | "buenaventura"
+  | "other";
 export type FamilySize = "single" | "couple" | "family" | "large-family";
 export type Transport = "public" | "car" | "mixed";
 export type Education = "none" | "public" | "private-national" | "international";
@@ -23,10 +34,16 @@ export interface CostBreakdown {
 }
 
 const HOUSING_BASE: Record<Zone, number> = {
+  "punta-paitilla": 1700,
   "punta-pacifica": 1600,
+  "santa-maria": 1550,
   "costa-del-este": 1500,
+  obarrio: 1450,
+  "san-francisco": 1400,
   "casco-antiguo": 1300,
+  buenaventura: 1300,
   coronado: 1100,
+  chame: 950,
   other: 900,
 };
 
