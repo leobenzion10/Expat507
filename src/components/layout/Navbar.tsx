@@ -12,6 +12,7 @@ export default function Navbar() {
   const { dict } = useLocale();
   const NAV_LINKS = [
     { href: "/guias", label: dict.nav.guias },
+    { href: "/herramientas", label: dict.nav.herramientas },
     { href: "/asistente", label: dict.nav.asistente },
     { href: "/sobre-nosotros", label: dict.nav.nosotros },
     { href: "/contacto", label: dict.nav.contacto },

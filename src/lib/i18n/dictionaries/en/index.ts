@@ -18,6 +18,7 @@ import sobreNosotros from "./sobreNosotros";
 import privacidad from "./privacidad";
 import terminos from "./terminos";
 import guiaCompleta from "./guiaCompleta";
+import herramientas from "./herramientas";
 import countries from "../../countries-en";
 import dialCodes from "../../dial-codes-en";
 
@@ -42,6 +43,7 @@ const en: typeof import("../es/index").default = {
   privacidad,
   terminos,
   guiaCompleta,
+  herramientas,
   countries,
   dialCodes,
 };

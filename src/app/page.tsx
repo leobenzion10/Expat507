@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import GuideDownloadCTA from "@/components/home/GuideDownloadCTA";
 import FeaturedArticles from "@/components/home/FeaturedArticles";
+import ToolsCTA from "@/components/home/ToolsCTA";
 import TrustSection from "@/components/home/TrustSection";
 import ConsultaCTA from "@/components/home/ConsultaCTA";
 import NewsletterBanner from "@/components/home/NewsletterBanner";
@@ -16,6 +17,8 @@ export default function HomePage() {
       <GuideDownloadCTA />
       <GoldDivider />
       <FeaturedArticles />
+      <GoldDivider />
+      <ToolsCTA />
       <GoldDivider />
       <TrustSection />
       <GoldDivider />

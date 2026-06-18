@@ -1,5 +1,6 @@
 const nav = {
   guias: "Knowledge Center",
+  herramientas: "Tools",
   asistente: "AI Assistant",
   nosotros: "About",
   contacto: "Contact",
