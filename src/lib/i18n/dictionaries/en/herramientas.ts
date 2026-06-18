@@ -220,8 +220,6 @@ const herramientas = {
       toastConnError: "Connection error. Please try again.",
       successMessage: "Done! Check your email.",
     },
-    consultaCta: "Want help planning your moving budget?",
-    consultaButton: "Book Free Consultation",
     recalculateButton: "Recalculate",
   },
 

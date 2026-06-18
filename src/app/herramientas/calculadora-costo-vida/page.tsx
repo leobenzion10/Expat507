@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { ArrowRight, Calculator, Copy, Check } from "lucide-react";
 import toast from "react-hot-toast";
 import GoldDivider from "@/components/ui/GoldDivider";
@@ -276,17 +275,6 @@ export default function CostCalculatorPage() {
               </div>
             )}
           </div>
-        </div>
-
-        <div className="gradient-navy grain rounded-2xl p-6 text-center mt-10">
-          <p className="text-white font-semibold mb-4">{t.consultaCta}</p>
-          <Link
-            href="/consulta"
-            className="inline-flex items-center justify-center gap-2 bg-[#B8935A] hover:bg-[#96763F] text-[#0B1A17] font-bold px-6 py-3 rounded-xl transition-all duration-200"
-          >
-            {t.consultaButton}
-            <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </div>

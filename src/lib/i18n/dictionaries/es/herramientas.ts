@@ -220,8 +220,6 @@ const herramientas = {
       toastConnError: "Error de conexión. Intenta de nuevo.",
       successMessage: "¡Listo! Revisa tu email.",
     },
-    consultaCta: "¿Quieres ayuda para planificar tu presupuesto de mudanza?",
-    consultaButton: "Agendar Consulta Gratuita",
     recalculateButton: "Recalcular",
   },
 
