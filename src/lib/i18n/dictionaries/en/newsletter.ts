@@ -9,7 +9,7 @@ const newsletter = {
     { title: "Exclusive guides", desc: "In-depth content we don't publish on the website." },
     { title: "Free welcome guide", desc: "Get our free 2026 Definitive Guide: how to settle and invest in Panama (residency, real estate, banking, legal, and wealth)." },
   ],
-  highlightText: "We're just launching this newsletter: be one of the first to get direct, no-fluff analysis on Panama.",
+  highlightText: "Direct, no-fluff analysis on Panama — no spam, no promotions disguised as content.",
   highlightLinkPrefix: "While you subscribe, you can already read our article",
   highlightLinkText: "The 7 mistakes expatriates make when arriving in Panama →",
   formTitle: "Subscribe for free",

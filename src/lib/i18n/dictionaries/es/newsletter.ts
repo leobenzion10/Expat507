@@ -9,7 +9,7 @@ const newsletter = {
     { title: "Guías exclusivas", desc: "Contenido de profundidad que no publicamos en el sitio web." },
     { title: "Guía gratuita de bienvenida", desc: "Recibe gratis nuestra Guía Definitiva 2026: cómo establecerte e invertir en Panamá (residencia, bienes raíces, banca, legal y patrimonio)." },
   ],
-  highlightText: "Estamos lanzando este newsletter ahora: sé de los primeros en recibir análisis directo y sin relleno sobre Panamá.",
+  highlightText: "Análisis directo y sin relleno sobre Panamá, sin spam ni promociones disfrazadas de contenido.",
   highlightLinkPrefix: "Mientras te suscribes, puedes leer ya mismo nuestro artículo",
   highlightLinkText: "Los 7 errores que cometen los expatriados al llegar a Panamá →",
   formTitle: "Suscríbete gratis",

@@ -8,11 +8,6 @@ const trustSection = {
     { title: "Regularly updated", description: "We keep our guides current with legislative and market changes in Panama." },
     { title: "No conflicts of interest", description: "We only recommend professionals with a proven track record, never out of convenience." },
   ],
-  testimonialsPlaceholder: {
-    badge: "Coming soon",
-    title: "This is where we'll share real stories",
-    text: "Expat507 just launched. As soon as we have real testimonials from people who've used the platform, we'll publish them here — with real names and real cases, not generic quotes.",
-  },
 };
 
 export default trustSection;

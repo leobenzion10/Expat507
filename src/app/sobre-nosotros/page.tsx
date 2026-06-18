@@ -86,17 +86,6 @@ export default async function SobreNosotrosPage() {
 
         <GoldDivider className="mb-16" />
 
-        {/* Launch positioning */}
-        <div className="gradient-navy grain rounded-3xl p-10 text-center mb-16">
-          <span className="inline-block text-[#B8935A] text-xs font-semibold tracking-widest uppercase mb-4 border border-[#B8935A]/30 rounded-full px-4 py-1.5">
-            {t.launchBadge}
-          </span>
-          <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-display)" }}>
-            {t.launchTitle}
-          </h3>
-          <p className="text-white/60 max-w-2xl mx-auto">{t.launchText}</p>
-        </div>
-
         {/* Values */}
         <div className="mb-16">
           <h2
