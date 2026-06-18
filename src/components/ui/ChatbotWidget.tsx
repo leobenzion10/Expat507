@@ -202,7 +202,7 @@ export default function ChatbotWidget() {
 
               {/* Input */}
               <div className="p-3 border-t border-gray-100">
-                <div className="flex items-center gap-2 bg-[#F4F6F9] rounded-xl px-3 py-2">
+                <div className="flex items-center gap-2 bg-[#F4F6F9] rounded-xl px-3 py-2 border border-transparent focus-within:border-[#B8935A] focus-within:ring-2 focus-within:ring-[#B8935A]/20 transition-all">
                   <input
                     type="text"
                     value={input}

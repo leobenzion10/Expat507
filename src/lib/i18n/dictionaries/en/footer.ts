@@ -8,6 +8,10 @@ const footer = {
     { href: "/guias?category=bienes-raices", label: "Real Estate" },
     { href: "/guias?category=banca", label: "Banking" },
     { href: "/guias?category=legal", label: "Legal" },
+    { href: "/guias?category=patrimonio", label: "Wealth Planning" },
+    { href: "/guias?category=expat-life", label: "Expat Life" },
+    { href: "/herramientas", label: "Interactive Tools" },
+    { href: "/guia-completa", label: "Complete Guide (PDF)" },
   ],
   serviciosTitle: "Services",
   servicios: [

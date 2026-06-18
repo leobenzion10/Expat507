@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
 /** Parses a stat string like "500+", "$1.2M", "98%" into a numeric target and surrounding text. */
 function parseValue(raw: string) {
@@ -17,27 +16,75 @@ function parseValue(raw: string) {
 
 export default function CountUp({ value, duration = 1.4 }: { value: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [display, setDisplay] = useState(0);
   const { prefix, number, suffix, decimals } = parseValue(value);
+  // Default to the real final value. If the animation below never runs for
+  // any reason (no JS, reduced motion, an observer that never fires on some
+  // mobile browser), the correct number is already on screen — it never
+  // depends on the animation to appear.
+  const [display, setDisplay] = useState<number>(number ?? 0);
+  const hasAnimated = useRef(false);
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
-    if (!inView || number === null) return;
-    const target = number;
-    const start = performance.now();
-    let raf: number;
+    if (number === null) return;
 
-    function tick(now: number) {
-      const elapsed = (now - start) / 1000;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(target * eased);
-      if (progress < 1) raf = requestAnimationFrame(tick);
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    function animate() {
+      if (hasAnimated.current) return;
+      hasAnimated.current = true;
+      const target = number as number;
+      const start = performance.now();
+      setDisplay(0);
+
+      function tick(now: number) {
+        const elapsed = (now - start) / 1000;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(target * eased);
+        if (progress < 1) rafRef.current = requestAnimationFrame(tick);
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
     }
 
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, number, duration]);
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      animate();
+      return;
+    }
+
+    // Already in (or close to) the viewport on first paint — e.g. above-the-fold
+    // hero stats — animate right away instead of waiting on an observer
+    // callback that may never cross a margin-shrunk threshold on some mobile
+    // browsers (the bug this replaces: counters stuck at 0 on mobile).
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight * 1.1 && rect.bottom > -100;
+    if (alreadyVisible) {
+      animate();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          animate();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [number, duration]);
 
   if (number === null) {
     return <span ref={ref}>{value}</span>;
